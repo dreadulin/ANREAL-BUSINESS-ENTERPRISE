@@ -1,3 +1,10 @@
+ /**
+    * This is a simulation of a regular vending machine which consists
+    * of items and has maintenance features.
+    * <p>
+    * Authors: Andrea Eliza Dulin and Darryl Javier
+*/
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,13 +16,6 @@ public class MainMenu {
 
     public static void render() {
 
-        /**
-         * This is a simulation of a regular vending machine which consists
-         * of items and has maintenance features.
-         * <p>
-         * Authors: Andrea Eliza Dulin and Darryl Javier
-         */
-
         /*
          * - Simulate the program in like a main menu fashion.
          * - Navigate through different pages based on the functions of the program.
@@ -23,9 +23,8 @@ public class MainMenu {
          * render() in which it will display the text.
          * - We are going to do this recursively.
          */
-        int userInput = 0;
+        int userInput;
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("----------------------------------------------\n");
         System.out.println("|  Welcome to AnReal's Business Enterprises! |\n");
         System.out.println("----------------------------------------------\n");
@@ -34,8 +33,10 @@ public class MainMenu {
         System.out.println("(2). Test vending machine features");
         System.out.println("(3). Test maintenance features");
         System.out.println("(4). Exit");
-        System.out.println("Enter the number of your choice: ");
+        System.out.print("Enter the number of your choice: ");
 
+        Scanner sc = new Scanner(System.in);
+    
         userInput = sc.nextInt();
         switch (userInput) {
             case 1:
@@ -47,21 +48,20 @@ public class MainMenu {
                 System.out.println("| CREATE VENDING MACHINE |\n");
                 System.out.println("--------------------------\n");
 
-                System.out.println("Enter name of vending machine: ");
+                System.out.print("Enter name of vending machine: ");
                 sc.next();
                 machineName = sc.nextLine();
 
-                System.out.println("Enter number of slots(minimum of 8): \n");
+                System.out.print("Enter number of slots(minimum of 8): ");
                 slotsQt = sc.nextInt();
 
-                System.out.println("Enter number of items per slot(minimum of 10): \n");
+                System.out.print("Enter number of items per slot(minimum of 10): ");
                 itemSlotsQt = sc.nextInt();
 
-                RegularVendingMachine newVendingMachine = new RegularVendingMachine(owner, machineName, slotsQt,
-                        itemSlotsQt);
+                RegularVendingMachine newVendingMachine = new RegularVendingMachine(owner, machineName, slotsQt, itemSlotsQt);
 
                 owner.addVendingMachine(newVendingMachine);
-                System.out.println("Vending Machine successfully created! Going back to the main menu.\n");
+                System.out.println("\nVending Machine successfully created! Going back to the main menu.\n");
 
                 MainMenu.render();
                 break;
@@ -71,7 +71,7 @@ public class MainMenu {
                 System.out.println("--------------------------\n");
                 System.out.println("| TEST A VENDING MACHINE |\n");
                 System.out.println("--------------------------\n");
-                System.out.println("Enter machine name: ");
+                System.out.print("Enter machine name: ");
                 sc.next();
                 testMachineName = sc.nextLine();
 
@@ -102,7 +102,7 @@ public class MainMenu {
                         System.out.println("-----------------\n");
                         System.out.println("| DISPENSE ITEM |\n");
                         System.out.println("-----------------\n");
-                        System.out.println("Enter item name: \n");
+                        System.out.print("Enter item name: ");
                         itemName = sc.nextLine();
 
                         for (int i = 0; i < machineSlots.size(); ++i) {
@@ -118,10 +118,10 @@ public class MainMenu {
                             MainMenu.render();
                         }
 
-                        System.out.println("Enter amount: \n");
+                        System.out.print("Enter amount: ");
                         amount = sc.nextInt();
 
-                        System.out.println("Enter payment: \n");
+                        System.out.print("Enter payment: ");
                         payment = sc.nextInt();
 
                         authenticatedMachine.receivePayment(payment);
@@ -168,7 +168,7 @@ public class MainMenu {
                 System.out.println("--------------------\n");
                 System.out.println("| TEST MAINTENANCE |\n");
                 System.out.println("--------------------\n");
-                System.out.println("Enter vending machine name: \n");
+                System.out.print("Enter vending machine name: ");
 
                 sc.next();
                 maintenanceMachineName = sc.nextLine();
@@ -226,12 +226,12 @@ public class MainMenu {
                         System.out.println("Create an item to add to the vending machine.");
                         System.out.println("Enter name");
                         name = sc.nextLine();
-                        System.out.println("Enter calories");
+                        System.out.print("Enter calories: ");
                         calories = sc.nextDouble();
 
                         Item newItem = new Item(name, calories);
 
-                        System.out.println("Enter amount to put in: ");
+                        System.out.print("Enter amount to put in: ");
                         int itemAmount = sc.nextInt();
 
                         if (authenticatedMachine.slotsAreFull()) {
@@ -267,9 +267,8 @@ public class MainMenu {
             case 4:
                 System.exit(0);
                 break;
-            default:
-                System.out.println("I love andrea <3");
-                break;
         }
+    
+        sc.close();
     }
 }
