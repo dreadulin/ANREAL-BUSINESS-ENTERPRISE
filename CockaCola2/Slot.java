@@ -9,18 +9,18 @@ public class Slot {
     private int price = 100;
     private int itemCapacity = 0;
 
-   /**
+    /**
      * This constructor takes the itemCapacity as its parameter
      * 
      * @param itemCapacity which identifies how many slots an item
      *                     can hold
      */
-  
-  public Slot(int itemCapacity) {
+
+    public Slot(int itemCapacity) {
         this.items = new ArrayList<Item>(itemCapacity);
         this.itemCapacity = itemCapacity;
     }
-  
+
     /**
      * This constructor takes various parameters: price and
      * itemCapacity
@@ -132,7 +132,7 @@ public class Slot {
     }
 
     /**
-     * This method determines if a slot is full 
+     * This method determines if a slot is full
      * 
      * @return item size which is the item's capacity
      *
@@ -150,6 +150,8 @@ public class Slot {
 
     @Override
     public String toString() {
+        if (this.isEmpty())
+            return "Empty Slot";
         String itemName = this.getSlotItemType().getName();
         return itemName + " - " + this.items.size();
     }

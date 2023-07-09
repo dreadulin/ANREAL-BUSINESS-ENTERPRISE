@@ -116,8 +116,10 @@ public class Owner {
    *
    */
   public RegularVendingMachine getVendingMachine(String name) {
+    System.out.println("Finding " + name);
     for (int i = 0; i < vendingMachines.size(); ++i) {
       if (vendingMachines.get(i).getName().equals(name)) {
+        System.out.println("FOUND");
         return vendingMachines.get(i);
       }
     }

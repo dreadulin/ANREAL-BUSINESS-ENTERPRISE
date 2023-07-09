@@ -43,6 +43,7 @@ public class RegularVendingMachine {
      */
 
     public RegularVendingMachine(Owner owner, String name, int slotCapacity, int slotItemCapacity) {
+        System.out.println("EXECUTED");
         // Assign owner to attribute
         this.owner = owner;
         this.name = name;
@@ -290,14 +291,14 @@ public class RegularVendingMachine {
         System.out.println("Inventory from last restock");
 
         for (int i = 0; i < lastRestockSlots.size(); ++i) {
-            System.out.println(lastRestockSlots.get(i).toString());
+            System.out.println("Slot " + (i + 1) + ": " + lastRestockSlots.get(i).toString());
         }
 
         System.out.println("-------------------------------------------------");
 
         System.out.println("Inventory from current stock");
         for (int i = 0; i < itemSlots.size(); ++i) {
-            System.out.println(itemSlots.get(i).toString());
+            System.out.println("Slot " + (i + 1) + ": " + itemSlots.get(i).toString());
         }
 
         System.out.println("-------------------------------------------------");

@@ -66,17 +66,18 @@ public class Transaction {
   }
 
   /**
-   * This method displays the Transaction that has occured when dispensing an item.
+   * This method displays the Transaction that has occured when dispensing an
+   * item.
    * 
    */
   public void displayTransaction() {
-      System.out.println("-------------------------------------------------");
-      System.out.println("TRANSACTION INFORMATION");
-      System.out.println("-------------------------------------------------");
-      System.out.println(this.transactionDate);
-      System.out.println("Item: " + this.itemPurchased.getName());
-      System.out.println("Amount: " + this.amount);
-      System.out.println("Total profit: " + this.totalSales);
-      System.out.println("-------------------------------------------------\n\n");
+    System.out.println("-------------------------------------------------");
+    System.out.println("TRANSACTION INFORMATION");
+    System.out.println("-------------------------------------------------");
+    System.out.println(this.transactionDate);
+    System.out.println("Item: " + this.itemPurchased.getName());
+    System.out.println("Amount: " + this.amount);
+    System.out.println("Total profit: " + this.totalSales);
+    System.out.println("-------------------------------------------------\n\n");
   }
 }
