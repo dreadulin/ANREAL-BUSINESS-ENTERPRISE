@@ -75,7 +75,6 @@ public class Owner {
    */
 
   public void replenishMoney(RegularVendingMachine vendingMachine, int amount, int denomination) {
-    System.out.println("YOUR BALANCE: " + this.balance);
     if (this.balance - (denomination * amount) >= 0) {
       this.balance -= (denomination * amount);
       vendingMachine.setMoney(amount, denomination);
@@ -111,11 +110,11 @@ public class Owner {
    *
    */
   public RegularVendingMachine getVendingMachine(String name) {
-    System.out.println("Finding " + name);
-    for (int i = 0; i < vendingMachines.size(); ++i) {
-      if (vendingMachines.get(i).getName().equals(name)) {
-        System.out.println("FOUND");
-        return vendingMachines.get(i);
+    for (RegularVendingMachine vendingMachine : vendingMachines) {
+      if (vendingMachine != null) {
+        if (vendingMachine.getName().equals(name)) {
+          return vendingMachine;
+        }
       }
     }
     return null;

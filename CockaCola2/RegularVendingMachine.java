@@ -13,8 +13,6 @@ public class RegularVendingMachine {
     private ArrayList<Slot> lastRestockSlots;
     private long lastRestockDate;
     private int collectedMoney = 0;
-    private int itemCapacity = 0;
-    private int slotCapacity = 0;
 
     // Valid denominations
     private final static int[] validDenominations = { 1000, 500, 200, 100, 50, 20, 10, 5, 1 };
@@ -52,9 +50,6 @@ public class RegularVendingMachine {
         // Initializes an array for transactions variable
         this.transactions = new ArrayList<Transaction>();
         this.lastRestockSlots = itemSlots;
-
-        this.itemCapacity = slotItemCapacity;
-        this.slotCapacity = slotCapacity;
 
         // Loops over the array and create new Slot
         for (int i = 0; i < slotCapacity; i++) {

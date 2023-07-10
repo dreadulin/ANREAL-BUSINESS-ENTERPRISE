@@ -24,6 +24,18 @@ public class Main {
         System.out.println("Enter number of items per slot(minimum of 10): \n");
         itemSlotsQt = sc.nextInt();
 
+        if (slotsQt < 8) {
+            System.out.println("Invalid Slots Capacity. Must be atleast 8.");
+            System.out.println("Going back to the main menu...");
+            render();
+        }
+
+        if (itemSlotsQt < 10) {
+            System.out.println("Invalid Slot Item Capacity. Must be atleast 10.");
+            System.out.println("Going back to the main menu...");
+            render();
+        }
+
         RegularVendingMachine newVendingMachine = new RegularVendingMachine(owner, machineName, slotsQt,
                 itemSlotsQt);
 
