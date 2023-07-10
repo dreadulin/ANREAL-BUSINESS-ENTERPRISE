@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
 public class Main {
-    private static Owner owner = new Owner("AnReal Enterprises", 0);
+    private static Owner owner = new Owner("AnReal Enterprises", 100000);
     private static Scanner sc = new Scanner(System.in);
+
+    // TODO: NEW JAVADOC FOR ALL FILES (ANDREA)
 
     private static void createMachine() {
         String machineName;
@@ -32,7 +34,7 @@ public class Main {
     }
 
     private static void authenticateMachine(String purpose) {
-        if (purpose != "Maintenance" || purpose != "Testing") {
+        if (purpose != "Maintenance" && purpose != "Testing") {
             System.out.println("Invalid purpose. Going back to the main menu...");
             render();
         }
@@ -71,36 +73,156 @@ public class Main {
         System.out.println("| TEST A VENDING MACHINE |\n");
         System.out.println("--------------------------\n");
         System.out.println("1 - Dispense Item");
-        System.out.println("2 - Display Current Stock");
-        System.out.println("3 - Display Transaction Summary ");
-        System.out.println("4 - Display Inventory");
-        System.out.println("5 - Exit");
+        System.out.println("2 - Display Inventory");
+        System.out.println("3 - Display Transaction Summary");
+        System.out.println("4 - Exit");
+        System.out.print("Enter choice: ");
         int userInput = sc.nextInt();
         switch (userInput) {
             case 1:
-                String itemName;
-                Slot slotSearched = null;
-
-                int payment = 0;
-                int amount = 0;
-
+                // TODO: DISPENSE ITEM (ANDREA)
+                // REFER TO MCO1 MAIN MENU
                 System.out.println("-----------------\n");
                 System.out.println("| DISPENSE ITEM |\n");
                 System.out.println("-----------------\n");
                 System.out.println("Enter item name: \n");
-                render();
+                testVendingMachine(authenticatedMachine);
                 break;
-            case 4:
+            case 2:
                 authenticatedMachine.displayInventory();
                 testVendingMachine(authenticatedMachine);
-            case 5:
-                render();
+                break;
+            case 3:
+                // TODO: DISPLAY TRANSACTION SUMMARY (ANDREA)
+                // REFER TO MCO1 MAIN MENU
+                testVendingMachine(authenticatedMachine);
+                break;
+            case 4:
+                testVendingMachine(authenticatedMachine);
                 break;
         }
     }
 
     private static void testMaintenance(RegularVendingMachine authenticatedMachine) {
+        System.out.println("----------------------------\n");
+        System.out.println("| TEST MACHINE MAINTENANCE |\n");
+        System.out.println("----------------------------\n");
+        System.out.println("1 - Collect money");
+        System.out.println("2 - Replenish money");
+        System.out.println("3 - Add Stock");
+        System.out.println("4 - Restock");
+        System.out.println("5 - Set price");
+        System.out.println("6 - Exit");
+        System.out.print("Enter choice: ");
+        int userInput = sc.nextInt();
+        switch (userInput) {
+            case 1:
+                System.out.println("Your current balance: " + owner.getBalance());
+                System.out.println("Collecting money...");
+                owner.collectMoney(authenticatedMachine);
+                System.out.println("Your new balance: " + owner.getBalance());
+                testMaintenance(authenticatedMachine);
+                break;
+            case 2:
+                int denomination;
+                int amount;
 
+                System.out.println("Valid Denominations: 1000, 500, 200, 100, 50, 20, 10, 5, 1");
+                System.out.print("Enter denomination of money: ");
+                denomination = sc.nextInt();
+
+                System.out.print("Enter amount to input. (Whole number only): ");
+                amount = sc.nextInt();
+
+                if (authenticatedMachine.denominationIsValid(denomination)) {
+                    System.out.print("Current " + denomination + " amount: ");
+                    authenticatedMachine.displayMoney(denomination);
+
+                    System.out.println("\nReplenishing money...");
+                    owner.replenishMoney(authenticatedMachine, amount, denomination);
+
+                    System.out.print("New " + denomination + " amount: ");
+                    authenticatedMachine.displayMoney(denomination);
+
+                    System.out.println("Going back to the main menu...");
+                    testMaintenance(authenticatedMachine);
+                }
+
+                System.out.println("Input denomination is invalid. Going back to maintenance menu...");
+                testMaintenance(authenticatedMachine);
+                break;
+            case 3:
+                String stockName;
+                double stockCalories;
+                boolean success = false;
+
+                System.out.println("Create an item to add to the vending machine.");
+
+                System.out.print("Enter name: ");
+                stockName = sc.next();
+
+                System.out.print("Enter calories: ");
+                stockCalories = sc.nextDouble();
+
+                Item stockItem = new Item(stockName, stockCalories);
+
+                System.out.println("Enter amount to put in: ");
+                int stockItemAmount = sc.nextInt();
+
+                System.out.println("Stocking...");
+                success = owner.stock(authenticatedMachine, stockItem, stockItemAmount);
+
+                if (success) {
+                    System.out.println("Stocking successful. Going back to the maintenance menu...");
+                } else {
+                    System.out.println("Slots are full. Cannot insert item anymore.");
+                    System.out.println("Going back to the maintenance menu...");
+                }
+
+                testMaintenance(authenticatedMachine);
+                break;
+            case 4:
+                String name;
+                boolean operationSuccessful;
+
+                System.out.print("Enter name of the item to restock: ");
+                name = sc.next();
+
+                System.out.println("Enter amount to put in: ");
+                int itemAmount = sc.nextInt();
+
+                System.out.println("Restocking slot...");
+                operationSuccessful = owner.restock(authenticatedMachine, name, itemAmount);
+
+                if (operationSuccessful) {
+                    System.out.println("Restock successful. Going back to the maintenance menu...");
+                } else {
+                    System.out.println("There is no slot that matches the item name.");
+                    System.out.println("Going back to the maintenance menu...");
+                }
+
+                testMaintenance(authenticatedMachine);
+                break;
+            case 5:
+                String itemName;
+                int newPrice;
+
+                System.out.println("Enter the Item Name to set price");
+                itemName = sc.next();
+
+                System.out.println("Enter the new price (cents not allowed).");
+                newPrice = sc.nextInt();
+
+                if (owner.setPrice(authenticatedMachine, itemName, newPrice)) {
+                    System.out.println("Price changed successfully. Going back to maintenance menu...");
+                } else
+                    System.out.println("Price changing failed. Going back to the maintenance menu...");
+                testMaintenance(authenticatedMachine);
+                break;
+            case 6:
+                render();
+                break;
+        }
     }
 
     private static void render() {
@@ -109,12 +231,12 @@ public class Main {
         System.out.println("----------------------------------------------\n");
         System.out.println("|  Welcome to AnReal's Business Enterprises! |\n");
         System.out.println("----------------------------------------------\n");
-        System.out.println("Menu:");
-        System.out.println("(1). Create vending machine");
-        System.out.println("(2). Test vending machine features");
-        System.out.println("(3). Test maintenance features");
-        System.out.println("(4). Exit");
-        System.out.println("Enter the number of your choice: ");
+
+        System.out.println("1 - Create vending machine");
+        System.out.println("2 - Test vending machine features");
+        System.out.println("3 - Test maintenance features");
+        System.out.println("4 - Exit");
+        System.out.println("Enter choice: ");
 
         userInput = sc.nextInt();
         switch (userInput) {

@@ -28,7 +28,7 @@ public class Item {
   public String getName() {
     return this.name;
   }
-
+ 
   /**
    * This method gets the amount of calories an item has
    * 

@@ -43,7 +43,6 @@ public class RegularVendingMachine {
      */
 
     public RegularVendingMachine(Owner owner, String name, int slotCapacity, int slotItemCapacity) {
-        System.out.println("EXECUTED");
         // Assign owner to attribute
         this.owner = owner;
         this.name = name;
@@ -362,34 +361,36 @@ public class RegularVendingMachine {
 
     public void setMoney(int amount, int denomination) {
         boolean validDenom = this.denominationIsValid(denomination);
+        System.out.println("Denomination Input " + denomination);
+        System.out.println("Amount Input " + amount);
         if (validDenom) {
             switch (denomination) {
                 case 1:
-                    onePesos += amount;
+                    this.onePesos += amount;
                     break;
                 case 5:
-                    fivePesos += amount;
+                    this.fivePesos += amount;
                     break;
                 case 10:
-                    tenPesos += amount;
+                    this.tenPesos += amount;
                     break;
                 case 20:
-                    twentyPesos += amount;
+                    this.twentyPesos += amount;
                     break;
                 case 50:
-                    fiftyPesos += amount;
+                    this.fiftyPesos += amount;
                     break;
                 case 100:
-                    oneHundredPesos += amount;
+                    this.oneHundredPesos += amount;
                     break;
                 case 200:
-                    twoHundredPesos += amount;
+                    this.twoHundredPesos += amount;
                     break;
                 case 500:
-                    fiveHundredPesos += amount;
+                    this.fiveHundredPesos += amount;
                     break;
                 case 1000:
-                    thousandPesos += amount;
+                    this.thousandPesos += amount;
                     break;
                 default:
                     return;
@@ -466,31 +467,31 @@ public class RegularVendingMachine {
         if (denominationIsValid(denomination)) {
             switch (denomination) {
                 case 1:
-                    System.out.println(onePesos + "One Pesos");
+                    System.out.println(onePesos + " One Pesos");
                     break;
                 case 5:
-                    System.out.println(fivePesos + "Five Pesos");
+                    System.out.println(fivePesos + " Five Pesos");
                     break;
                 case 10:
-                    System.out.println(tenPesos + "Ten Pesos");
+                    System.out.println(tenPesos + " Ten Pesos");
                     break;
                 case 20:
-                    System.out.println(twentyPesos + "Twenty Pesos");
+                    System.out.println(twentyPesos + " Twenty Pesos");
                     break;
                 case 50:
-                    System.out.println(fiftyPesos + "Fifty Pesos");
+                    System.out.println(fiftyPesos + " Fifty Pesos");
                     break;
                 case 100:
-                    System.out.println(oneHundredPesos + "100 Pesos");
+                    System.out.println(oneHundredPesos + " 100 Pesos");
                     break;
                 case 200:
-                    System.out.println(twoHundredPesos + "200 Pesos");
+                    System.out.println(twoHundredPesos + " 200 Pesos");
                     break;
                 case 500:
-                    System.out.println(fiveHundredPesos + "500 Pesos");
+                    System.out.println(fiveHundredPesos + " 500 Pesos");
                     break;
                 case 1000:
-                    System.out.println(thousandPesos + "1000 Pesos");
+                    System.out.println(thousandPesos + " 1000 Pesos");
                     break;
                 default:
                     System.out.println("");
@@ -498,33 +499,38 @@ public class RegularVendingMachine {
         }
     }
 
-    /**
-     * This method checks if all slots are full
-     * 
-     * @return the item slot size which is the slot capacity
-     */
-    public boolean slotsAreFull() {
-        return itemSlots.size() == slotCapacity;
-    }
-
-    /**
-     * This method adds a slot to the vending machine.
-     *
-     */
-    public void addSlot() {
-        itemSlots.add(new Slot(itemCapacity));
-    }
-
-    /**
-     * This method removes a slot to the vending machine.
-     *
-     */
-    public void removeSlot(Item itemType) {
-        for (int i = 0; i < itemSlots.size(); ++i) {
-            if (itemSlots.get(i).getSlotItemType() == itemType) {
-                itemSlots.remove(itemSlots.get(i));
+    public boolean restockSlot(String itemName, int amount) {
+        for (Slot slot : this.getItemSlots()) {
+            if (!slot.isEmpty()) {
+                if (slot.getSlotItemType().getName().equals(itemName)) {
+                    slot.restockSlot(amount);
+                    return true;
+                }
             }
         }
+        return false;
     }
 
+    public boolean stock(Item item, int amount) {
+        for (Slot slot : this.getItemSlots()) {
+            if (slot.isEmpty()) {
+                slot.stockSlot(item, amount);
+                this.updateLastRestock();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean setPrice(String itemName, int itemPrice) {
+        for (Slot slot : this.getItemSlots()) {
+            if (!slot.isEmpty()) {
+                if (slot.getSlotItemType().getName().equals(itemName)) {
+                    slot.setPrice(itemPrice);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

@@ -19,7 +19,7 @@ public class Owner {
    */
 
   public Owner(String name, int balance) {
-    this.balance = 0;
+    this.balance = balance;
     this.name = name;
   }
 
@@ -34,13 +34,12 @@ public class Owner {
    *
    */
 
-  public void restock(RegularVendingMachine vendingMachine, Item item, int amount) {
-    for (Slot slot : vendingMachine.getItemSlots()) {
-      if (slot.getSlotItemType().getName() == item.getName()) {
-        slot.restockSlot(item, amount);
-        vendingMachine.updateLastRestock();
-      }
-    }
+  public boolean restock(RegularVendingMachine vendingMachine, String itemName, int amount) {
+    return vendingMachine.restockSlot(itemName, amount);
+  }
+
+  public boolean stock(RegularVendingMachine vendingMachine, Item item, int amount) {
+    return vendingMachine.stock(item, amount);
   }
 
   /**
@@ -52,13 +51,8 @@ public class Owner {
    *                            machine
    */
 
-  public void setPrice(RegularVendingMachine vendingMachine, String itemName, int newPrice) {
-    for (Slot slot : vendingMachine.getItemSlots()) {
-      if (slot.getSlotItemType().getName().equals(itemName)) {
-        slot.setPrice(newPrice);
-        break;
-      }
-    }
+  public boolean setPrice(RegularVendingMachine vendingMachine, String itemName, int newPrice) {
+    return vendingMachine.setPrice(itemName, newPrice);
   }
 
   /**
@@ -68,8 +62,7 @@ public class Owner {
    *
    */
 
-  public void collectMoney(int vendingMachineIndex) {
-    RegularVendingMachine vendingMachine = vendingMachines.get(vendingMachineIndex);
+  public void collectMoney(RegularVendingMachine vendingMachine) {
     this.balance += vendingMachine.getCollectedMoney();
   }
 
@@ -81,11 +74,13 @@ public class Owner {
    * @param denomination        which is the denomination of the money being set
    */
 
-  public void replenishMoney(int vendingMachineIndex, int amount, int denomination) {
-    RegularVendingMachine vendingMachine = vendingMachines.get(vendingMachineIndex);
-    if (this.balance - amount >= 0) {
-      this.balance -= amount;
+  public void replenishMoney(RegularVendingMachine vendingMachine, int amount, int denomination) {
+    System.out.println("YOUR BALANCE: " + this.balance);
+    if (this.balance - (denomination * amount) >= 0) {
+      this.balance -= (denomination * amount);
       vendingMachine.setMoney(amount, denomination);
+    } else {
+      System.out.println("You don't have enough money to replenish that amount");
     }
   }
 

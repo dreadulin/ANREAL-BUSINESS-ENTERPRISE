@@ -39,6 +39,14 @@ public class Slot {
         this.itemCapacity = itemCapacity;
     }
 
+    public void restockSlot(int amount) {
+        Item slotItem = this.getSlotItemType();
+        while (amount > 0 && !this.isFull()) {
+            this.items.add(slotItem);
+            amount--;
+        }
+    }
+
     /**
      * This method gets the capacity of the slots. If it is not full, it pushes
      * the item to the array. Otherwise, it notifies the owner that it is full.
@@ -47,9 +55,9 @@ public class Slot {
      * @amount which is the amount of items to put in the vending machine
      */
 
-    public void restockSlot(Item item, int amount) {
-        while (amount > 0 && !items.isEmpty()) {
-            items.add(item);
+    public void stockSlot(Item item, int amount) {
+        while (amount > 0 && !this.isFull()) {
+            this.items.add(item);
             amount--;
         }
     }
@@ -61,7 +69,7 @@ public class Slot {
      * @amount which is the amount of items to remove in the vending machine
      */
     public void removeStock(Item item, int amount) {
-        while (amount > 0 && !items.isEmpty()) {
+        while (amount > 0 && !this.isEmpty()) {
             items.remove(item);
             amount--;
         }

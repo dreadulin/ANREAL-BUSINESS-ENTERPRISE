@@ -64,7 +64,7 @@ public class Transaction {
   public long getTransactionDate() {
     return this.transactionDate;
   }
-
+ 
   /**
    * This method displays the Transaction that has occured when dispensing an
    * item.
