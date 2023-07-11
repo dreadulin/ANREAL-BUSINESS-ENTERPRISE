@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Main {
-    private static Owner owner = new Owner("AnReal Enterprises", 100000);
-    private static Scanner sc = new Scanner(System.in);
+    private Owner owner = new Owner("AnReal Enterprises", 100000);
+    private Scanner sc = new Scanner(System.in);
 
-    private static int intScanner() {
+    private int intScanner() {
         while (!sc.hasNextInt()) {
             System.out.print("Invalid input. Try again: ");
             sc.next();
@@ -14,7 +14,7 @@ public class Main {
 
     // TODO: NEW JAVADOC FOR ALL FILES (ANDREA)
 
-    private static void createMachine() {
+    private void createMachine() {
         String machineName;
         int slotsQt = 0;
         int itemSlotsQt = 0;
@@ -53,7 +53,7 @@ public class Main {
         render();
     }
 
-    private static void authenticateMachine(String purpose) {
+    private void authenticateMachine(String purpose) {
         if (purpose != "Maintenance" && purpose != "Testing") {
             System.out.println("Invalid purpose. Going back to the main menu...");
             render();
@@ -88,7 +88,7 @@ public class Main {
             testMaintenance(authenticatedMachine);
     }
 
-    private static void testVendingMachine(RegularVendingMachine authenticatedMachine) {
+    private void testVendingMachine(RegularVendingMachine authenticatedMachine) {
         System.out.println("--------------------------\n");
         System.out.println("| TEST A VENDING MACHINE |\n");
         System.out.println("--------------------------\n");
@@ -136,7 +136,7 @@ public class Main {
         }
     }
 
-    private static void testMaintenance(RegularVendingMachine authenticatedMachine) {
+    private void testMaintenance(RegularVendingMachine authenticatedMachine) {
         System.out.println("----------------------------\n");
         System.out.println("| TEST MACHINE MAINTENANCE |\n");
         System.out.println("----------------------------\n");
@@ -290,7 +290,7 @@ public class Main {
         }
     }
 
-    private static void render() {
+    private void render() {
         int userInput = 0;
 
         System.out.println("----------------------------------------------\n");
@@ -321,6 +321,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        render();
+        Main mainMenu = new Main();
+        mainMenu.render();
     }
 }
