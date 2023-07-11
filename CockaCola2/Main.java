@@ -4,6 +4,14 @@ public class Main {
     private static Owner owner = new Owner("AnReal Enterprises", 100000);
     private static Scanner sc = new Scanner(System.in);
 
+    private static int intScanner() {
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid input. Try again: ");
+            sc.next();
+        }
+        return sc.nextInt();
+    }
+
     // TODO: NEW JAVADOC FOR ALL FILES (ANDREA)
 
     private static void createMachine() {
@@ -15,14 +23,14 @@ public class Main {
         System.out.println("| CREATE VENDING MACHINE |\n");
         System.out.println("--------------------------\n");
 
-        System.out.println("Enter name of vending machine: ");
+        System.out.print("Enter name of vending machine: ");
         machineName = sc.next();
 
-        System.out.println("Enter number of slots(minimum of 8): \n");
-        slotsQt = sc.nextInt();
+        System.out.print("Enter number of slots(minimum of 8): \n");
+        slotsQt = intScanner();
 
-        System.out.println("Enter number of items per slot(minimum of 10): \n");
-        itemSlotsQt = sc.nextInt();
+        System.out.print("Enter number of items per slot(minimum of 10): \n");
+        itemSlotsQt = intScanner();
 
         if (slotsQt < 8) {
             System.out.println("Invalid Slots Capacity. Must be atleast 8.");
@@ -61,7 +69,7 @@ public class Main {
             System.out.println("----------------------------\n");
         }
 
-        System.out.println("Enter machine name: ");
+        System.out.print("Enter machine name: ");
 
         RegularVendingMachine authenticatedMachine;
         String testMachineName = "";
@@ -88,7 +96,7 @@ public class Main {
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Exit");
         System.out.print("Enter choice: ");
-        int userInput = sc.nextInt();
+        int userInput = intScanner();
         switch (userInput) {
             case 1:
                 System.out.println("-----------------\n");
@@ -140,7 +148,7 @@ public class Main {
         System.out.println("6 - Display Transaction Summary");
         System.out.println("7 - Exit");
         System.out.print("Enter choice: ");
-        int userInput = sc.nextInt();
+        int userInput = intScanner();
         switch (userInput) {
             case 1:
                 System.out.println("-----------------\n");
@@ -162,10 +170,10 @@ public class Main {
 
                 System.out.println("Valid Denominations: 1000, 500, 200, 100, 50, 20, 10, 5, 1");
                 System.out.print("Enter denomination of money: ");
-                denomination = sc.nextInt();
+                denomination = intScanner();
 
                 System.out.print("Enter amount to input. (Whole number only): ");
-                amount = sc.nextInt();
+                amount = intScanner();
 
                 if (authenticatedMachine.denominationIsValid(denomination)) {
                     System.out.print("Current " + denomination + " amount: ");
@@ -203,8 +211,8 @@ public class Main {
 
                 Item stockItem = new Item(stockName, stockCalories);
 
-                System.out.println("Enter amount to put in: ");
-                int stockItemAmount = sc.nextInt();
+                System.out.print("Enter amount to put in: ");
+                int stockItemAmount = intScanner();
 
                 System.out.println("Stocking...");
                 success = owner.stock(authenticatedMachine, stockItem, stockItemAmount);
@@ -229,8 +237,8 @@ public class Main {
                 System.out.print("Enter name of the item to restock: ");
                 name = sc.next();
 
-                System.out.println("Enter amount to put in: ");
-                int itemAmount = sc.nextInt();
+                System.out.print("Enter amount to put in: ");
+                int itemAmount = intScanner();
 
                 System.out.println("Restocking slot...");
                 operationSuccessful = owner.restock(authenticatedMachine, name, itemAmount);
@@ -252,11 +260,11 @@ public class Main {
                 System.out.println("| CHANGE PRICE  |\n");
                 System.out.println("-----------------\n");
 
-                System.out.println("Enter the Item Name to set price");
+                System.out.print("Enter the Item Name to set price: ");
                 itemName = sc.next();
 
-                System.out.println("Enter the new price (cents not allowed).");
-                newPrice = sc.nextInt();
+                System.out.print("Enter the new price (cents not allowed): ");
+                newPrice = intScanner();
 
                 if (owner.setPrice(authenticatedMachine, itemName, newPrice)) {
                     System.out.println("Price changed successfully. Going back to maintenance menu...");
@@ -273,7 +281,7 @@ public class Main {
                  * - Use the displayInventory method of the RegularVendingMachine
                  * - Use the getTransactionSummary method of the RegularVendingMachine
                  */
-                
+
                 testVendingMachine(authenticatedMachine);
                 break;
             case 7:
@@ -293,9 +301,9 @@ public class Main {
         System.out.println("2 - Test vending machine features");
         System.out.println("3 - Test maintenance features");
         System.out.println("4 - Exit");
-        System.out.println("Enter choice: ");
+        System.out.print("Enter choice: ");
 
-        userInput = sc.nextInt();
+        userInput = intScanner();
         switch (userInput) {
             case 1:
                 createMachine();
