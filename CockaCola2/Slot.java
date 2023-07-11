@@ -40,6 +40,10 @@ public class Slot {
     }
 
     public void restockSlot(int amount) {
+        if (this.isFull()) {
+            System.out.println("Cannot insert any more items in this slot.");
+            return;
+        }
         Item slotItem = this.getSlotItemType();
         while (amount > 0 && !this.isFull()) {
             this.items.add(slotItem);
@@ -56,6 +60,10 @@ public class Slot {
      */
 
     public void stockSlot(Item item, int amount) {
+        if (this.isFull()) {
+            System.out.println("Cannot insert any more items in this slot.");
+            return;
+        }
         while (amount > 0 && !this.isFull()) {
             this.items.add(item);
             amount--;
@@ -149,18 +157,37 @@ public class Slot {
         return items.size() == itemCapacity;
     }
 
-    /**
-     * Overrides toString method of object
-     * 
-     * @return itemName and length of items
-     *
-     */
+    public void display() {
+        if (this.isEmpty()) {
+            System.out.println("================");
+            System.out.println("|| Empty Slot ||");
+            System.out.println("================");
+            return;
+        }
 
-    @Override
-    public String toString() {
-        if (this.isEmpty())
-            return "Empty Slot";
         String itemName = this.getSlotItemType().getName();
-        return itemName + " - " + this.items.size();
+        int itemQt = this.getItems().size();
+        double itemCalories = this.getSlotItemType().getCalories();
+
+        displayLines(itemName);
+
+        System.out.println("|| " + itemName + " ||");
+
+        displayLines(itemName);
+
+        System.out.println(itemQt + "x");
+        System.out.println(itemCalories + " cal");
+        System.out.println("\u20B1" + this.price);
+
+        displayLines(itemName);
+    }
+
+    private void displayLines(String itemName) {
+        int lineLength = itemName.length() + 6;
+        while (lineLength > 0) {
+            System.out.print("=");
+            lineLength--;
+        }
+        System.out.println();
     }
 }

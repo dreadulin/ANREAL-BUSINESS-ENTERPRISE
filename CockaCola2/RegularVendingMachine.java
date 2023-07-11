@@ -73,6 +73,7 @@ public class RegularVendingMachine {
         Slot itemSlot = null;
         int itemPrice = 0;
         int itemQuantity = 0;
+        int change = 0;
         // Search through the slots to know which slot the item belong
         // If item doesn't belong to any slot, print error, return null.
         // If it does, get the price of the item
@@ -91,8 +92,15 @@ public class RegularVendingMachine {
             return null;
         }
 
-        if (payment < itemPrice) {
+        if (payment < (itemPrice * itemQuantity)) {
             System.out.println("Your payment is not enough for this item.");
+            return null;
+        }
+
+        change = payment - (itemPrice * itemQuantity);
+
+        if (this.getStockMoney() - change < 0) {
+            System.out.println("Vending Machine money is not enough to dispense change.");
             return null;
         }
 
@@ -259,6 +267,10 @@ public class RegularVendingMachine {
         System.out.println("TRANSACTION SUMMARY");
         System.out.println("-------------------------------------------------");
 
+        if (this.transactions.size() == 0) {
+            System.out.println("No transactions found.");
+        }
+
         for (Transaction currTransaction : this.transactions) {
             if (currTransaction.getTransactionDate() > lastRestockDate) {
                 String itemPurchased = currTransaction.getItemPurchased().getName();
@@ -296,6 +308,15 @@ public class RegularVendingMachine {
         }
 
         System.out.println("-------------------------------------------------");
+    }
+
+    /**
+     * This method displays the current stock of the vending machine.
+     */
+    public void displayStock() {
+        for (Slot itemSlot : itemSlots) {
+            itemSlot.display();
+        }
     }
 
     /**
@@ -342,6 +363,12 @@ public class RegularVendingMachine {
         int collected = this.collectedMoney;
         this.collectedMoney = 0;
         return collected;
+    }
+
+    public int getStockMoney() {
+        return (this.thousandPesos * 1000) + (this.fiveHundredPesos * 500) + (this.twoHundredPesos * 200)
+                + (this.oneHundredPesos * 100) + (this.fiftyPesos * 50) + (this.twentyPesos * 20)
+                + (this.tenPesos * 10) + (this.fivePesos * 5) + this.onePesos;
     }
 
     /**
@@ -499,6 +526,7 @@ public class RegularVendingMachine {
             if (!slot.isEmpty()) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
                     slot.restockSlot(amount);
+                    this.updateLastRestock();
                     return true;
                 }
             }

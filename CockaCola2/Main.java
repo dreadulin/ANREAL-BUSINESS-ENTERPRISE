@@ -84,33 +84,46 @@ public class Main {
         System.out.println("--------------------------\n");
         System.out.println("| TEST A VENDING MACHINE |\n");
         System.out.println("--------------------------\n");
-        System.out.println("1 - Dispense Item");
-        System.out.println("2 - Display Inventory");
-        System.out.println("3 - Display Transaction Summary");
-        System.out.println("4 - Exit");
+        System.out.println("1 - Display Stock");
+        System.out.println("2 - Dispense Item");
+        System.out.println("3 - Exit");
         System.out.print("Enter choice: ");
         int userInput = sc.nextInt();
         switch (userInput) {
             case 1:
-                // TODO: DISPENSE ITEM (ANDREA)
-                // REFER TO MCO1 MAIN MENU
                 System.out.println("-----------------\n");
-                System.out.println("| DISPENSE ITEM |\n");
+                System.out.println("| MACHINE STOCK |\n");
                 System.out.println("-----------------\n");
-                System.out.println("Enter item name: \n");
+                authenticatedMachine.displayStock();
                 testVendingMachine(authenticatedMachine);
                 break;
             case 2:
-                authenticatedMachine.displayInventory();
+                // TODO: DISPENSE ITEM (ANDREA)
+                System.out.println("-----------------\n");
+                System.out.println("| DISPENSE ITEM |\n");
+                System.out.println("-----------------\n");
+
+                /*
+                 * TO ACCESS THE MACHINE WE'RE TRYING TO OPERATE ON, JUST USE THE
+                 * authenticatedMachine VARIABLE
+                 * 
+                 * - Display the stock (Use Display Stock method of RegularVendingMachine)
+                 * - Ask user for item name and for the amount he wants to dispense.
+                 * - As user chooses an item, ask user if he wants to proceed to payment or
+                 * cancel the transaction.
+                 * - If cancel, return to the test vending machine menu.
+                 * - Display total cost first
+                 * - Prompt input for payment
+                 * - Call dispenseItem
+                 * - If dispenseItem returns null, then display an error saying that dispensing
+                 * failed.
+                 * - If not, display that dispensing was successful.
+                 */
+
                 testVendingMachine(authenticatedMachine);
                 break;
             case 3:
-                // TODO: DISPLAY TRANSACTION SUMMARY (ANDREA)
-                // REFER TO MCO1 MAIN MENU
-                testVendingMachine(authenticatedMachine);
-                break;
-            case 4:
-                testVendingMachine(authenticatedMachine);
+                render();
                 break;
         }
     }
@@ -124,11 +137,15 @@ public class Main {
         System.out.println("3 - Add Stock");
         System.out.println("4 - Restock");
         System.out.println("5 - Set price");
-        System.out.println("6 - Exit");
+        System.out.println("6 - Display Transaction Summary");
+        System.out.println("7 - Exit");
         System.out.print("Enter choice: ");
         int userInput = sc.nextInt();
         switch (userInput) {
             case 1:
+                System.out.println("-----------------\n");
+                System.out.println("| COLLECT MONEY |\n");
+                System.out.println("-----------------\n");
                 System.out.println("Your current balance: " + owner.getBalance());
                 System.out.println("Collecting money...");
                 owner.collectMoney(authenticatedMachine);
@@ -138,6 +155,10 @@ public class Main {
             case 2:
                 int denomination;
                 int amount;
+
+                System.out.println("-------------------\n");
+                System.out.println("| REPLENISH MONEY |\n");
+                System.out.println("-------------------\n");
 
                 System.out.println("Valid Denominations: 1000, 500, 200, 100, 50, 20, 10, 5, 1");
                 System.out.print("Enter denomination of money: ");
@@ -168,6 +189,10 @@ public class Main {
                 double stockCalories;
                 boolean success = false;
 
+                System.out.println("-----------------\n");
+                System.out.println("|   ADD STOCK   |\n");
+                System.out.println("-----------------\n");
+
                 System.out.println("Create an item to add to the vending machine.");
 
                 System.out.print("Enter name: ");
@@ -197,6 +222,10 @@ public class Main {
                 String name;
                 boolean operationSuccessful;
 
+                System.out.println("-----------------\n");
+                System.out.println("|    RESTOCK    |\n");
+                System.out.println("-----------------\n");
+
                 System.out.print("Enter name of the item to restock: ");
                 name = sc.next();
 
@@ -219,6 +248,10 @@ public class Main {
                 String itemName;
                 int newPrice;
 
+                System.out.println("-----------------\n");
+                System.out.println("| CHANGE PRICE  |\n");
+                System.out.println("-----------------\n");
+
                 System.out.println("Enter the Item Name to set price");
                 itemName = sc.next();
 
@@ -232,6 +265,18 @@ public class Main {
                 testMaintenance(authenticatedMachine);
                 break;
             case 6:
+                System.out.println("------------------------\n");
+                System.out.println("| TRANSACTION SUMMARY  |\n");
+                System.out.println("------------------------\n");
+
+                /*
+                 * - Use the displayInventory method of the RegularVendingMachine
+                 * - Use the getTransactionSummary method of the RegularVendingMachine
+                 */
+                
+                testVendingMachine(authenticatedMachine);
+                break;
+            case 7:
                 render();
                 break;
         }
