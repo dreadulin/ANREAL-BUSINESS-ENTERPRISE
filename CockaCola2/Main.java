@@ -26,6 +26,12 @@ public class Main {
         System.out.print("Enter name of vending machine: ");
         machineName = sc.next();
 
+        if (owner.getVendingMachine(machineName) != null) {
+            System.out.println("Vending Machine already exists.");
+            System.out.println("Failed to create vending machine. Going back to the main menu...");
+            render();
+        }
+
         System.out.print("Enter number of slots(minimum of 8): \n");
         slotsQt = intScanner();
 
@@ -276,6 +282,8 @@ public class Main {
                 System.out.println("------------------------\n");
                 System.out.println("| TRANSACTION SUMMARY  |\n");
                 System.out.println("------------------------\n");
+
+                // TODO: DISPLAY TRANSACTION SUMMARY (ANDREA)
 
                 /*
                  * - Use the displayInventory method of the RegularVendingMachine
