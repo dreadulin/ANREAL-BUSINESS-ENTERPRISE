@@ -1,9 +1,17 @@
 import java.util.Scanner;
 
+/**
+ * This is a simulation of a regular vending machine which consists 
+ * of items and has maintenance features. 
+ * <p>
+ * Authors: Andrea Eliza Dulin and Darryl Javier 
+ */
+
 public class Main {
     private Owner owner = new Owner("AnReal Enterprises", 100000);
     private Scanner sc = new Scanner(System.in);
 
+    // Checks if the user's input is valid. if not, it asks again until the input is valid. 
     private int intScanner() {
         while (!sc.hasNextInt()) {
             System.out.print("Invalid input. Try again: ");
@@ -12,7 +20,14 @@ public class Main {
         return sc.nextInt();
     }
 
-    // TODO: NEW JAVADOC FOR ALL FILES (ANDREA)
+    /**
+     * This class represents the creation of a vending machine. 
+     * It asks the user to input the name of their machine, then proceeds to ask the user to 
+     * input the number of slots and the number of items per slot. 
+     * 
+     * If the vending machine already exists, it notifies the user and 
+     * goes back to the main menu. 
+     */
 
     private void createMachine() {
         String machineName;
@@ -38,20 +53,23 @@ public class Main {
         System.out.print("Enter number of items per slot(minimum of 10): \n");
         itemSlotsQt = intScanner();
 
+        // Checks if the number of slots input by the user is valid. If not, it returns to the main menu. 
         if (slotsQt < 8) {
             System.out.println("Invalid Slots Capacity. Must be atleast 8.");
             System.out.println("Going back to the main menu...");
             render();
         }
 
+        // Checks if the number of items per slot input by the user is valid. If not, it returns to the main menu. 
         if (itemSlotsQt < 10) {
             System.out.println("Invalid Slot Item Capacity. Must be atleast 10.");
             System.out.println("Going back to the main menu...");
             render();
         }
 
-        RegularVendingMachine newVendingMachine = new RegularVendingMachine(owner, machineName, slotsQt,
-                itemSlotsQt);
+        /*  creates a new vending machine provided by the owner's name, vending machine name, 
+            number of slots and number of items per slot */ 
+        RegularVendingMachine newVendingMachine = new RegularVendingMachine(owner, machineName, slotsQt,itemSlotsQt);
 
         owner.addVendingMachine(newVendingMachine);
         System.out.println("Vending Machine successfully created! Going back to the main menu.\n");
@@ -59,13 +77,20 @@ public class Main {
         render();
     }
 
+    /**
+     * This class is for testing the vending machine or for testing its maintenance features.
+     * 
+     * @param purpose which is from the render class that when it matches the assigned string based from the user's input, 
+     * it will proceed to display its corresponding detail (whether testing the machine or testing the maintenance features) 
+     */
+
     private void authenticateMachine(String purpose) {
         if (purpose != "Maintenance" && purpose != "Testing") {
             System.out.println("Invalid purpose. Going back to the main menu...");
             render();
-        }
+        }  
 
-        if (purpose.equals("Testing")) {
+         if (purpose.equals("Testing")) {
             System.out.println("--------------------------\n");
             System.out.println("| TEST A VENDING MACHINE |\n");
             System.out.println("--------------------------\n");
@@ -74,6 +99,10 @@ public class Main {
             System.out.println("| TEST MACHINE MAINTENANCE |\n");
             System.out.println("----------------------------\n");
         }
+
+        /* Asks the machine name for authentication. It checks whether the vending machine exists or not by 
+        accessing the arraylist from the Owner class. If the machine exists, then it proceeds to display the 
+        details of their chosen testing feature */
 
         System.out.print("Enter machine name: ");
 
@@ -94,6 +123,12 @@ public class Main {
             testMaintenance(authenticatedMachine);
     }
 
+    /**
+     * This class is for testing the vending machine. 
+     * It contains the following features: Display stock and display item. 
+     * @param authenticatedMachine which is for verifying whether the vending machine exists or not 
+     */
+
     private void testVendingMachine(RegularVendingMachine authenticatedMachine) {
         System.out.println("--------------------------\n");
         System.out.println("| TEST A VENDING MACHINE |\n");
@@ -104,6 +139,9 @@ public class Main {
         System.out.print("Enter choice: ");
         int userInput = intScanner();
         switch (userInput) {
+            /*
+             * This displays the stock of the vending machine 
+             */
             case 1:
                 System.out.println("-----------------\n");
                 System.out.println("| MACHINE STOCK |\n");
@@ -111,29 +149,57 @@ public class Main {
                 authenticatedMachine.displayStock();
                 testVendingMachine(authenticatedMachine);
                 break;
+            /*
+             * This works by displaying the stock, asking the user for item name and for the quantity they want to dispense.
+             * Then, the program asks if the user wants to proceed with the payment or cancel the transaction. 
+             * 
+             * If the user chooses to proceed with the payment, the total cost is displayed, followed by their payment input. 
+             * After that, the machine dispenses the item upon completing a transaction with the user. 
+             * 
+             * If the user cancels the trasnaction, it goes back to the test vending machine menu. 
+             */
             case 2:
-                // TODO: DISPENSE ITEM (ANDREA)
                 System.out.println("-----------------\n");
                 System.out.println("| DISPENSE ITEM |\n");
                 System.out.println("-----------------\n");
 
-                /*
-                 * TO ACCESS THE MACHINE WE'RE TRYING TO OPERATE ON, JUST USE THE
-                 * authenticatedMachine VARIABLE
-                 * 
-                 * - Display the stock (Use Display Stock method of RegularVendingMachine)
-                 * - Ask user for item name and for the amount he wants to dispense.
-                 * - As user chooses an item, ask user if he wants to proceed to payment or
-                 * cancel the transaction.
-                 * - If cancel, return to the test vending machine menu.
-                 * - Display total cost first
-                 * - Prompt input for payment
-                 * - Call dispenseItem
-                 * - If dispenseItem returns null, then display an error saying that dispensing
-                 * failed.
-                 * - If not, display that dispensing was successful.
-                 */
+                authenticatedMachine.displayStock();
+                
+                String item; 
+                int quantity; 
+                int decision; 
 
+
+                System.out.print("Enter item name: ");
+                item = sc.next();
+                System.out.print("Enter quantity you want to dispense: "); 
+                quantity = intScanner();
+
+                System.out.println("Do you want to: ");
+                System.out.println("1. Proceed to payment");
+                System.out.println("2. Cancel transaction");
+
+                System.out.print("Enter number of choice: ");
+                decision = intScanner();
+
+                if(decision == 1)
+                {
+                    System.out.println("PLACEHOLDER");
+                    // if(authenticatedMachine.Item(dispenseItem) == null)
+                    // {
+                    //     System.out.println("Error! Dispensing failed."); 
+                    //     testMaintenance(authenticatedMachine);
+
+                    // } else {
+                    //     System.out.println("Dispensing of item was successful!"); 
+                    //     testMaintenance(authenticatedMachine);
+                    // }
+                }
+                if(decision == 2)
+                {
+                    System.out.println("Returning to test vending machine menu....");
+                    testMaintenance(authenticatedMachine);
+                }
                 testVendingMachine(authenticatedMachine);
                 break;
             case 3:
@@ -142,6 +208,10 @@ public class Main {
         }
     }
 
+    /**
+     * This class is for testing the maintenance features of the vending machine 
+     * @param authenticatedMachine which is for verifying whether the vending machine exists or not 
+     */
     private void testMaintenance(RegularVendingMachine authenticatedMachine) {
         System.out.println("----------------------------\n");
         System.out.println("| TEST MACHINE MAINTENANCE |\n");
@@ -156,6 +226,10 @@ public class Main {
         System.out.print("Enter choice: ");
         int userInput = intScanner();
         switch (userInput) {
+            /*
+                This is for collecting the money from the user. This displays the owner's current balance
+                and the new balance once the money has been collected.
+            */
             case 1:
                 System.out.println("-----------------\n");
                 System.out.println("| COLLECT MONEY |\n");
@@ -166,6 +240,11 @@ public class Main {
                 System.out.println("Your new balance: " + owner.getBalance());
                 testMaintenance(authenticatedMachine);
                 break;
+            
+            /*
+                This is for replenishing the money with valid denominations. 
+                It displays the current amount and the new amount once replenished.
+            */
             case 2:
                 int denomination;
                 int amount;
@@ -198,6 +277,10 @@ public class Main {
                 System.out.println("Input denomination is invalid. Going back to maintenance menu...");
                 testMaintenance(authenticatedMachine);
                 break;
+
+            /*
+                This is for adding stocks to the vending machine 
+            */
             case 3:
                 String stockName;
                 double stockCalories;
@@ -232,6 +315,9 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
+            /*
+             * This is for restocking the items in the vending machine 
+             */
             case 4:
                 String name;
                 boolean operationSuccessful;
@@ -243,7 +329,7 @@ public class Main {
                 System.out.print("Enter name of the item to restock: ");
                 name = sc.next();
 
-                System.out.print("Enter amount to put in: ");
+                System.out.print("Enter quantity to put in: ");
                 int itemAmount = intScanner();
 
                 System.out.println("Restocking slot...");
@@ -258,6 +344,9 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
+            /*
+             * This is for updating/changing the price of an item
+             */
             case 5:
                 String itemName;
                 int newPrice;
@@ -278,17 +367,16 @@ public class Main {
                     System.out.println("Price changing failed. Going back to the maintenance menu...");
                 testMaintenance(authenticatedMachine);
                 break;
+            /* 
+             * This displays a summary of the transactions made by the user
+             */
             case 6:
                 System.out.println("------------------------\n");
                 System.out.println("| TRANSACTION SUMMARY  |\n");
                 System.out.println("------------------------\n");
 
-                // TODO: DISPLAY TRANSACTION SUMMARY (ANDREA)
-
-                /*
-                 * - Use the displayInventory method of the RegularVendingMachine
-                 * - Use the getTransactionSummary method of the RegularVendingMachine
-                 */
+                authenticatedMachine.displayInventory();
+                authenticatedMachine.getTransactionSummary();
 
                 testVendingMachine(authenticatedMachine);
                 break;
@@ -297,6 +385,11 @@ public class Main {
                 break;
         }
     }
+
+    /*
+     * This class is for displaying the main menu which allows the user to 
+     * choose the service they'd like to avail. 
+    */ 
 
     private void render() {
         int userInput = 0;
@@ -314,14 +407,18 @@ public class Main {
         userInput = intScanner();
         switch (userInput) {
             case 1:
+                //The user will be redirected to the creation of the machine 
                 createMachine();
                 break;
             case 2:
+                //The user will be redirected to the testing the machine 
                 authenticateMachine("Testing");
                 break;
             case 3:
+                //The user will be redirected to the testing of the machine's maintenance
                 authenticateMachine("Maintenance");
             case 4:
+                //This will terminate the program
                 System.exit(200);
             default:
                 break;

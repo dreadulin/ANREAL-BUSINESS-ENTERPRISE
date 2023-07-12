@@ -59,8 +59,7 @@ public class RegularVendingMachine {
 
     /**
      * This method gets the quantity of an item from the vending machine by taking
-     * the
-     * itemName, quantity, and payment as its parameters.
+     * the itemName, quantity, and payment as its parameters.
      * 
      * @param itemName which is the name of the item in the vending machine
      * @param quantity which is how many items will be bought by the user
