@@ -21,6 +21,17 @@ public class Main {
         return sc.nextInt();
     }
 
+    private int choiceScanner(int range) {
+        int choice = intScanner();
+
+        if (choice < 1 || choice > range) {
+            System.out.print("Invalid input. Try again: ");
+            return choiceScanner(range);
+        }
+
+        return choice;
+    }
+
     /**
      * This class represents the creation of a vending machine.
      * It asks the user to input the name of their machine, then proceeds to ask the
@@ -153,7 +164,7 @@ public class Main {
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Exit");
         System.out.print("Enter choice: ");
-        int userInput = intScanner();
+        int userInput = choiceScanner(3);
         switch (userInput) {
             /*
              * This displays the stock of the vending machine
@@ -220,7 +231,7 @@ public class Main {
                 System.out.println("2. Cancel Dispense");
 
                 System.out.print("Enter number of choice: ");
-                decision = intScanner();
+                decision = choiceScanner(2);
 
                 if (decision == 1) {
                     if (authenticatedMachine.dispenseItem(item, quantity, payment) == null) {
@@ -262,7 +273,7 @@ public class Main {
         System.out.println("6 - Display Transaction Summary");
         System.out.println("7 - Exit");
         System.out.print("Enter choice: ");
-        int userInput = intScanner();
+        int userInput = choiceScanner(7);
         switch (userInput) {
             /*
              * This is for collecting the money from the user. This displays the owner's
@@ -468,7 +479,8 @@ public class Main {
         System.out.println("4 - Exit");
         System.out.print("Enter choice: ");
 
-        userInput = intScanner();
+        userInput = choiceScanner(4);
+        System.out.println(userInput);
         switch (userInput) {
             case 1:
                 // The user will be redirected to the creation of the machine
