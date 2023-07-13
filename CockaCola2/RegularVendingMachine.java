@@ -19,15 +19,15 @@ public class RegularVendingMachine {
 
     // Valid denominations were set to have a default value of 0 at the start of the
     // program.
-    private int thousandPesos = 0;
-    private int fiveHundredPesos = 0;
-    private int twoHundredPesos = 0;
-    private int oneHundredPesos = 0;
-    private int fiftyPesos = 0;
-    private int twentyPesos = 0;
-    private int tenPesos = 0;
-    private int fivePesos = 0;
-    private int onePesos = 0;
+    private int thousandPesos = 1000;
+    private int fiveHundredPesos = 1000;
+    private int twoHundredPesos = 1000;
+    private int oneHundredPesos = 1000;
+    private int fiftyPesos = 1000;
+    private int twentyPesos = 1000;
+    private int tenPesos = 1000;
+    private int fivePesos = 1000;
+    private int onePesos = 1000;
 
     /**
      * This constructor initializes the owner of the vending machine, the slot
@@ -91,12 +91,12 @@ public class RegularVendingMachine {
             return null;
         }
 
-        if (payment < (itemPrice * itemQuantity)) {
+        if (payment < (itemPrice * quantity)) {
             System.out.println("Your payment is not enough for this item.");
             return null;
         }
 
-        change = payment - (itemPrice * itemQuantity);
+        change = payment - (itemPrice * quantity);
 
         if (this.getStockMoney() - change < 0) {
             System.out.println("Vending Machine money is not enough to dispense change.");
@@ -116,12 +116,10 @@ public class RegularVendingMachine {
         // denominations.
         // Create a new Transaction and put the necessary information in the Constructor
         int amountCost = quantity * itemPrice;
-        System.out.println("Receiving payment...");
-        receivePayment(payment);
         dispenseChange(payment, amountCost);
 
         // Push the new Transaction in the transactions array
-        Transaction newTransaction = new Transaction(item, amountCost, amountCost);
+        Transaction newTransaction = new Transaction(item, quantity, amountCost);
         transactions.add(newTransaction);
         // If everything checks out and everything is done, return the Item
         // Remove the item(s) from their slot
@@ -142,40 +140,32 @@ public class RegularVendingMachine {
         // Starts from the highest denomination to the lowest.
         // After modulo operation, subtract the result times the denomination value.
         thousandPesos += (payment / 1000);
-        System.out.println("Number of 1K bills: " + thousandPesos);
 
-        payment -= thousandPesos * 1000;
+        payment -= (payment / 1000) * 1000;
         fiveHundredPesos += (payment / 500);
-        System.out.println("Number of 500 bills: " + fiveHundredPesos);
 
-        payment -= fiveHundredPesos * 500;
+        payment -= (payment / 500) * 500;
         twoHundredPesos += (payment / 200);
-        System.out.println("Number of 200 bills: " + twoHundredPesos);
 
-        payment -= twoHundredPesos * 200;
+        payment -= (payment / 200) * 200;
         oneHundredPesos += (payment / 100);
-        System.out.println("Number of 100 bills: " + oneHundredPesos);
 
-        payment -= oneHundredPesos * 100;
+        payment -= (payment / 100) * 100;
         fiftyPesos += (payment / 50);
-        System.out.println("Number of 50 bills: " + fiftyPesos);
 
-        payment -= fiftyPesos * 50;
+        payment -= (payment / 50) * 50;
         twentyPesos += (payment / 20);
-        System.out.println("Number of 20 bills: " + twentyPesos);
 
-        payment -= twentyPesos * 20;
+        payment -= (payment / 20) * 20;
         tenPesos += (payment / 10);
-        System.out.println("Number of 10 coins: " + tenPesos);
 
-        payment -= tenPesos * 10;
+        payment -= (payment / 10) * 10;
         fivePesos += (payment / 5);
-        System.out.println("Number of 5 coins: " + fivePesos);
 
-        payment -= fivePesos * 5;
+        payment -= (payment / 5) * 5;
+
         onePesos += (payment / 1);
-        System.out.println("Number of 1 coins: " + onePesos);
-        payment -= fivePesos * 1;
+        payment -= payment;
     }
 
     /**
@@ -188,51 +178,65 @@ public class RegularVendingMachine {
      */
 
     public int dispenseChange(int amountPaid, int amountCost) {
-        int change = amountCost - amountPaid;
+        int change = amountPaid - amountCost;
+        int changeDispensed = 0;
 
         thousandPesos -= change / 1000;
-        System.out.println(change / 1000 != 0 ? "Dispensing " + change / 1000 + "1k bills as change..." : "");
+        System.out.println(change / 1000 != 0 ? "Dispensing " + (change / 1000) + " 1k bills as change..." : "");
 
-        change -= thousandPesos * 1000;
+        changeDispensed += (change / 1000) * 1000;
+        change -= (change / 1000) * 1000;
+
         fiveHundredPesos -= (change / 500);
-        System.out.println(change / 500 != 0 ? "Dispensing " + change / 500 + " 500 bills as change..." : "");
+        System.out.println(change / 500 != 0 ? "Dispensing " + (change / 500) + " 500 bills as change..." : "");
 
-        change -= fiveHundredPesos * 500;
+        changeDispensed += (change / 500) * 500;
+        change -= (change / 500) * 500;
+
         twoHundredPesos -= (change / 200);
-        System.out.println(change / 200 != 0 ? "Dispensing " + change / 200 + " 200 bills as change..." : "");
+        System.out.println(change / 200 != 0 ? "Dispensing " + (change / 200) + " 200 bills as change..." : "");
 
-        change -= twoHundredPesos * 200;
+        changeDispensed += (change / 200) * 200;
+        change -= (change / 200) * 200;
+
         oneHundredPesos -= (change / 100);
-        System.out.println(change / 100 != 0 ? "Dispensing " + change / 100 + " 100 bills as change..." : "");
+        System.out.println(change / 100 != 0 ? "Dispensing " + (change / 100) + " 100 bills as change..." : "");
 
-        change -= oneHundredPesos * 100;
+        changeDispensed += (change / 100) * 100;
+        change -= (change / 100) * 100;
+
         fiftyPesos -= (change / 50);
-        System.out.println("Number of 50 bills: " + fiftyPesos);
-        System.out.println(change / 50 != 0 ? "Dispensing " + change / 50 + " 50 bills as change..." : "");
+        System.out.println(change / 50 != 0 ? "Dispensing " + (change / 50) + " 50 bills as change..." : "");
 
-        change -= fiftyPesos * 50;
+        changeDispensed += (change / 50) * 50;
+        change -= (change / 50) * 50;
+
         twentyPesos -= (change / 20);
-        System.out.println("Number of 20 bills: " + twentyPesos);
-        System.out.println(change / 20 != 0 ? "Dispensing " + change / 20 + " 20 bills as change..." : "");
+        System.out.println(change / 20 != 0 ? "Dispensing " + (change / 20) + " 20 bills as change..." : "");
 
-        change -= twentyPesos * 20;
+        changeDispensed += (change / 20) * 20;
+        change -= (change / 20) * 20;
+
         tenPesos -= (change / 10);
-        System.out.println("Number of 10 coins: " + tenPesos);
-        System.out.println(change / 10 != 0 ? "Dispensing " + change / 10 + " 10 peso coins as change..." : "");
+        System.out.println(change / 10 != 0 ? "Dispensing " + (change / 10) + " 10 peso coins as change..." : "");
 
-        change -= tenPesos * 10;
+        changeDispensed += (change / 10) * 10;
+        change -= (change / 10) * 10;
+
         fivePesos -= (change / 5);
-        System.out.println("Number of 5 coins: " + fivePesos);
-        System.out.println(change / 5 != 0 ? "Dispensing " + change / 5 + " 5 peso coins as change..." : "");
+        System.out.println(change / 5 != 0 ? "Dispensing " + (change / 5) + " 5 peso coins as change..." : "");
 
-        change -= fivePesos * 5;
+        changeDispensed += (change / 5) * 5;
+        change -= (change / 5) * 5;
+
         onePesos -= change;
-        System.out.println("Number of 1 coins: " + onePesos);
-        System.out.println(change != 0 ? "Dispensing " + change + " 1 peso coins as change..." : "");
-        change -= fivePesos * 1;
 
-        System.out.println("Total change dispensed: " + change);
-        return change;
+        System.out.println(change != 0 ? "Dispensing " + change + " 1 peso coins as change..." : "");
+        changeDispensed += change;
+        change -= change;
+
+        System.out.println("Total change dispensed: " + changeDispensed);
+        return changeDispensed;
     }
 
     /**
@@ -295,6 +299,10 @@ public class RegularVendingMachine {
         System.out.println("-------------------------------------------------");
         System.out.println("Inventory from last restock");
 
+        for (Slot slot : lastRestockSlots) {
+            slot.display();
+        }
+
         for (int i = 0; i < lastRestockSlots.size(); ++i) {
             System.out.println("Slot " + (i + 1) + ": " + lastRestockSlots.get(i).toString());
         }
@@ -302,9 +310,7 @@ public class RegularVendingMachine {
         System.out.println("-------------------------------------------------");
 
         System.out.println("Inventory from current stock");
-        for (int i = 0; i < itemSlots.size(); ++i) {
-            System.out.println("Slot " + (i + 1) + ": " + itemSlots.get(i).toString());
-        }
+        this.displayStock();
 
         System.out.println("-------------------------------------------------");
     }
@@ -468,10 +474,12 @@ public class RegularVendingMachine {
      * @return slot of the item
      */
     public Item getItem(String name) {
-        for (int i = 0; i < itemSlots.size(); ++i) {
-            Item slotItem = itemSlots.get(i).getSlotItemType();
-            if (slotItem.getName().equals(name)) {
-                return slotItem;
+        for (Slot itemSlot : this.itemSlots) {
+            Item slotItem = itemSlot.getSlotItemType();
+            if (slotItem != null) {
+                if (slotItem.getName().equals(name)) {
+                    return slotItem;
+                }
             }
         }
         return null;

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Slot {
     private ArrayList<Item> items;
-    private int price = 100;
     private int itemCapacity = 0;
 
     /**
@@ -17,24 +16,6 @@ public class Slot {
      */
 
     public Slot(int itemCapacity) {
-        this.items = new ArrayList<Item>(itemCapacity);
-        this.itemCapacity = itemCapacity;
-    }
-
-    /**
-     * This constructor takes various parameters: price and
-     * itemCapacity
-     * 
-     * @param price        which is the price of the item of the vending
-     *                     machine
-     * @param itemCapacity which identifies how many slots an item
-     *                     can hold
-     */
-
-    public Slot(int price, int itemCapacity) {
-        // Assign the price to the attribute.
-        this.price = price;
-        // Assign an array with an itemCapacity to items.
         this.items = new ArrayList<Item>(itemCapacity);
         this.itemCapacity = itemCapacity;
     }
@@ -90,7 +71,7 @@ public class Slot {
      *
      */
     public void setPrice(int newPrice) {
-        this.price = newPrice;
+        this.getSlotItemType().setPrice(newPrice);
     }
 
     /**
@@ -101,7 +82,7 @@ public class Slot {
      */
 
     public int getPrice() {
-        return this.price;
+        return this.getSlotItemType().getPrice();
     }
 
     /**
@@ -134,6 +115,8 @@ public class Slot {
      */
 
     public Item getSlotItemType() {
+        if (this.isEmpty())
+            return null;
         return this.items.get(0);
     }
 
@@ -177,7 +160,7 @@ public class Slot {
 
         System.out.println(itemQt + "x");
         System.out.println(itemCalories + " cal");
-        System.out.println("\u20B1" + this.price);
+        System.out.println("P" + this.getPrice());
 
         displayLines(itemName);
     }
