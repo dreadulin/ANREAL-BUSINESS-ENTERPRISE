@@ -157,14 +157,17 @@ public class Main {
      */
 
     private void testVendingMachine(RegularVendingMachine authenticatedMachine) {
+
         System.out.println("--------------------------\n");
         System.out.println("| TEST A VENDING MACHINE |\n");
         System.out.println("--------------------------\n");
         System.out.println("1 - Display Stock");
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Exit");
+        authenticatedMachine.displayInventory();
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(3);
+
         switch (userInput) {
             /*
              * This displays the stock of the vending machine
@@ -272,6 +275,9 @@ public class Main {
         System.out.println("5 - Set price");
         System.out.println("6 - Display Transaction Summary");
         System.out.println("7 - Exit");
+
+        authenticatedMachine.displayInventory();
+
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(7);
         switch (userInput) {

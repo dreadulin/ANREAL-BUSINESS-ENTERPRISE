@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,11 +50,17 @@ public class RegularVendingMachine {
         this.itemSlots = new ArrayList<Slot>(slotCapacity);
         // Initializes an array for transactions variable
         this.transactions = new ArrayList<Transaction>();
-        this.lastRestockSlots = itemSlots;
+        this.lastRestockSlots = new ArrayList<Slot>(slotCapacity);
+        this.lastRestockDate = new Date().getTime();
 
         // Loops over the array and create new Slot
         for (int i = 0; i < slotCapacity; i++) {
             itemSlots.add(new Slot(slotItemCapacity));
+        }
+
+        // Loops over the array and create new Slot
+        for (int i = 0; i < slotCapacity; i++) {
+            lastRestockSlots.add(new Slot(slotItemCapacity));
         }
     }
 
@@ -123,7 +130,7 @@ public class RegularVendingMachine {
         transactions.add(newTransaction);
         // If everything checks out and everything is done, return the Item
         // Remove the item(s) from their slot
-        itemSlot.removeStock(item, quantity);
+        itemSlot.removeStock(quantity);
         return item;
     }
 
@@ -278,13 +285,21 @@ public class RegularVendingMachine {
             if (currTransaction.getTransactionDate() > lastRestockDate) {
                 String itemPurchased = currTransaction.getItemPurchased().getName();
                 int amountPurchased = currTransaction.getPurchaseAmount();
-                System.out.println(itemPurchased + " x" + amountPurchased);
+                int totalSale = currTransaction.getTotalSales();
+
+                Date date = new Date(this.lastRestockDate);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = formatter.format(date);
+
+                System.out
+                        .println(itemPurchased + " x" + amountPurchased + " - P" + totalSale + " Date: "
+                                + formattedDate);
                 totalSales += currTransaction.getTotalSales();
             }
         }
 
         System.out.println("-------------------------------------------------");
-        System.out.println("Total sales: " + totalSales);
+        System.out.println("Total sales: P" + totalSales);
         System.out.println("-------------------------------------------------\n\n");
     }
 
@@ -296,15 +311,16 @@ public class RegularVendingMachine {
      */
 
     public void displayInventory() {
+        Date date = new Date(this.lastRestockDate);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = formatter.format(date);
+
         System.out.println("-------------------------------------------------");
         System.out.println("Inventory from last restock");
+        System.out.println("Last restock date: " + formattedDate);
 
         for (Slot slot : lastRestockSlots) {
             slot.display();
-        }
-
-        for (int i = 0; i < lastRestockSlots.size(); ++i) {
-            System.out.println("Slot " + (i + 1) + ": " + lastRestockSlots.get(i).toString());
         }
 
         System.out.println("-------------------------------------------------");
@@ -448,7 +464,23 @@ public class RegularVendingMachine {
      */
     public void updateLastRestock() {
         this.lastRestockDate = new Date().getTime();
-        this.lastRestockSlots = itemSlots;
+        for (int i = 0; i < itemSlots.size(); ++i) {
+            if (itemSlots.get(i).getSlotItemType() != null) {
+                int currSlotSize = this.itemSlots.get(i).getItemQuantity();
+                int currLastRestockSlotSize = this.lastRestockSlots.get(i).getItemQuantity();
+
+                if (lastRestockSlots.get(i).getSlotItemType() == null) {
+                    lastRestockSlots.get(i).stockSlot(this.itemSlots.get(i).getSlotItemType(), currSlotSize);
+                }
+
+                if (currSlotSize > currLastRestockSlotSize) {
+                    lastRestockSlots.get(i).restockSlot(currSlotSize - currLastRestockSlotSize);
+                } else if (currSlotSize < currLastRestockSlotSize) {
+                    lastRestockSlots.get(i).removeStock(currLastRestockSlotSize - currSlotSize);
+                }
+
+            }
+        }
     }
 
     /**

@@ -57,9 +57,10 @@ public class Slot {
      * @param item which is the item of the vending machine
      * @amount which is the amount of items to remove in the vending machine
      */
-    public void removeStock(Item item, int amount) {
+    public void removeStock(int amount) {
+        Item slotItem = this.getSlotItemType();
         while (amount > 0 && !this.isEmpty()) {
-            items.remove(item);
+            items.remove(slotItem);
             amount--;
         }
     }
@@ -83,6 +84,15 @@ public class Slot {
 
     public int getPrice() {
         return this.getSlotItemType().getPrice();
+    }
+
+    public int getItemQuantity() {
+        int quantity = 0;
+        for (Item item : this.items) {
+            if (item != null)
+                quantity += 1;
+        }
+        return quantity;
     }
 
     /**
