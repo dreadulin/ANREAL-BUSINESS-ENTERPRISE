@@ -60,6 +60,7 @@ public class Main {
             render();
         }
 
+        sc.nextLine();
         System.out.print("Enter number of slots(minimum of 8): \n");
         slotsQt = intScanner();
 
