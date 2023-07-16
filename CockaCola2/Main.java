@@ -581,6 +581,7 @@ public class Main {
                         if (currOwnerName.equals(loginName) && currOwnerPass.equals(loginPass)) {
                             System.out.println("Login success! Going to the main menu...");
                             mainMenu = new Main(owner);
+                            sc.close();
                             mainMenu.render();
                         }
                     }
