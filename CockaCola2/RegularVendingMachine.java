@@ -127,6 +127,7 @@ public class RegularVendingMachine {
 
         // Push the new Transaction in the transactions array
         Transaction newTransaction = new Transaction(item, quantity, amountCost);
+        newTransaction.displayTransaction();
         transactions.add(newTransaction);
         // If everything checks out and everything is done, return the Item
         // Remove the item(s) from their slot

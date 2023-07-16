@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -8,8 +9,12 @@ import java.util.Scanner;
  */
 
 public class Main {
-    private Owner owner = new Owner("AnReal Enterprises", 100000);
+    private Owner owner;
     private Scanner sc = new Scanner(System.in);
+
+    public Main(Owner owner) {
+        this.owner = owner;
+    }
 
     // Checks if the user's input is valid. if not, it asks again until the input is
     // valid.
@@ -509,7 +514,117 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Main mainMenu = new Main();
-        mainMenu.render();
+        ArrayList<Owner> owners = new ArrayList<Owner>();
+        int userChoice = 0;
+        Scanner sc = new Scanner(System.in);
+        Main mainMenu;
+
+        while (true) {
+            System.out.println("----------------------------------------------\n");
+            System.out.println("|  Welcome to AnReal's Business Enterprises! |\n");
+            System.out.println("----------------------------------------------\n");
+            System.out.println("1 - Create an account");
+            System.out.println("2 - Login");
+            System.out.println("3 - Change Password");
+            System.out.print("Enter number of choice: ");
+            userChoice = sc.nextInt();
+
+            switch (userChoice) {
+                case 1:
+                    String userName;
+                    String password;
+                    int balance;
+                    boolean accountExists = false;
+                    System.out.println("------------------------");
+                    System.out.println("|   CREATE AN ACCOUNT  |");
+                    System.out.println("------------------------");
+                    System.out.print("Enter name: ");
+                    userName = sc.next();
+
+                    for (Owner owner : owners) {
+                        String currOwnerName = owner.getName();
+                        if (currOwnerName.equals(userName)) {
+                            System.out.println("Account already exists. Going back to the start menu.");
+                            accountExists = true;
+                        }
+                    }
+
+                    if (!accountExists) {
+                        System.out.print("Enter password: ");
+                        password = sc.next();
+
+                        System.out.print("Enter starting balance: ");
+                        balance = sc.nextInt();
+
+                        Owner newOwner = new Owner(userName, balance, password);
+                        owners.add(newOwner);
+                        System.out.println("Account created! Going back to start menu...");
+                    }
+                    break;
+                case 2:
+                    String loginName;
+                    String loginPass;
+
+                    System.out.println("------------------------");
+                    System.out.println("|        LOG IN        |");
+                    System.out.println("------------------------");
+
+                    System.out.print("Enter name: ");
+                    loginName = sc.next();
+                    System.out.print("Enter password: ");
+                    loginPass = sc.next();
+
+                    for (Owner owner : owners) {
+                        String currOwnerName = owner.getName();
+                        String currOwnerPass = owner.getPassword();
+
+                        if (currOwnerName.equals(loginName) && currOwnerPass.equals(loginPass)) {
+                            System.out.println("Login success! Going to the main menu...");
+                            mainMenu = new Main(owner);
+                            mainMenu.render();
+                        }
+                    }
+
+                    System.out.println("Wrong credentials. Going back to the start menu.");
+                    break;
+
+                case 3:
+                    Owner changePassOwner = null;
+                    String changePassName;
+                    String newPass;
+
+                    System.out.println("------------------------");
+                    System.out.println("|    CHANGE PASSWORD   |");
+                    System.out.println("------------------------");
+                    System.out.print("Enter name: ");
+                    changePassName = sc.next();
+
+                    for (Owner owner : owners) {
+                        String currOwnerName = owner.getName();
+
+                        if (currOwnerName.equals(changePassName)) {
+                            System.out.println("Account found!");
+                            changePassOwner = owner;
+                        }
+                    }
+
+                    if (changePassOwner != null) {
+                        System.out.print("Enter new password: ");
+                        newPass = sc.next();
+                        changePassOwner.setPassword(newPass);
+
+                        System.out.println("Password changed successfully. Going back to the start menu...");
+                    } else {
+                        System.out.println("Account not found. Going back to the start menu...");
+                    }
+
+                    break;
+                default:
+                    System.out.println("Input invalid. Assuming exit...");
+                    System.exit(200);
+                    break;
+            }
+        }
+
     }
 }

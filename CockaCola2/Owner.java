@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Owner {
   private int balance;
   private final String name;
+  private String password;
   private ArrayList<RegularVendingMachine> vendingMachines = new ArrayList<RegularVendingMachine>();
 
   /**
@@ -18,9 +19,10 @@ public class Owner {
    *
    */
 
-  public Owner(String name, int balance) {
+  public Owner(String name, int balance, String password) {
     this.balance = balance;
     this.name = name;
+    this.password = password;
   }
 
   /**
@@ -88,6 +90,17 @@ public class Owner {
    */
   public String getName() {
     return this.name;
+  }
+
+  /**
+   * This method returns the password of the owner of the vending machine.
+   */
+  public String getPassword() {
+    return this.password;
+  }
+
+  public void setPassword(String newPassword) {
+    this.password = newPassword;
   }
 
   /**
