@@ -42,6 +42,9 @@ public class Item {
     return this.calories;
   }
 
+  /**
+   * This displays the item and its calories 
+   */
   public void display() {
     displayLines(this.name);
 
@@ -55,6 +58,10 @@ public class Item {
     displayLines(this.name);
   }
 
+  /**
+   * This displays the border lines for design based on the length of the itemName
+   * @param itemName
+   */
   private void displayLines(String itemName) {
     int lineLength = itemName.length() + 6;
     while (lineLength > 0) {
