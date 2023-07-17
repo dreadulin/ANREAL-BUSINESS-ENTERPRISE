@@ -386,6 +386,10 @@ public class RegularVendingMachine {
         return collected;
     }
 
+    /**
+     * This method gets money stock of the vending machine
+     *
+     */
     public int getStockMoney() {
         return (this.thousandPesos * 1000) + (this.fiveHundredPesos * 500) + (this.twoHundredPesos * 200)
                 + (this.oneHundredPesos * 100) + (this.fiftyPesos * 50) + (this.twentyPesos * 20)
@@ -560,6 +564,17 @@ public class RegularVendingMachine {
         }
     }
 
+    /**
+     * This method checks each slot in the vending machine & checks whether the 
+     * items inside the slot has a name equal to the itemName parameter. If it does, then
+     * the slot will be restocked and the slot will be updated.
+     * 
+     * Restocking is only possible if the slot was not empty in the first place. 
+     * 
+     * @param itemName which is the name of the item in the vending machine 
+     * @param amount which is the quantity of the item 
+     * @return boolean 
+     */
     public boolean restockSlot(String itemName, int amount) {
         for (Slot slot : this.getItemSlots()) {
             if (!slot.isEmpty()) {
@@ -573,6 +588,15 @@ public class RegularVendingMachine {
         return false;
     }
 
+    /**
+     * This method adds a stock to the vending machine by finding the first 
+     * empty slot and puts the new item there. 
+     * 
+     * It also updates the last restock slots. 
+     * @param item which is the item to be added  
+     * @param amount which is the quantity of the item
+     * @return boolean 
+     */
     public boolean stock(Item item, int amount) {
         for (Slot slot : this.getItemSlots()) {
             if (slot.isEmpty()) {
@@ -584,6 +608,12 @@ public class RegularVendingMachine {
         return false;
     }
 
+    /**
+     * This method sets the price of the item in the vending machine 
+     * @param itemName which is the name of the item in the vending machine 
+     * @param itemPrice which is the price of the item
+     * @return boolean
+     */
     public boolean setPrice(String itemName, int itemPrice) {
         for (Slot slot : this.getItemSlots()) {
             if (!slot.isEmpty()) {
