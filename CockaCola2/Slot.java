@@ -20,6 +20,14 @@ public class Slot {
         this.itemCapacity = itemCapacity;
     }
 
+    /**
+     * This method is for inserting items to a certain slot.
+     * If the stock is full, the user won't be allowed to add more items. 
+     * If the amount is greater than 0 and the slot is not yet full, then 
+     * the user can proceed with restocking the slot. 
+     * 
+     * @param amount which is the quantity to be restocked 
+     */
     public void restockSlot(int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
@@ -37,7 +45,7 @@ public class Slot {
      * the item to the array. Otherwise, it notifies the owner that it is full.
      * 
      * @param item which is the item of the vending machine
-     * @amount which is the amount of items to put in the vending machine
+     * @param amount which is the amount of items to put in the vending machine
      */
 
     public void stockSlot(Item item, int amount) {
@@ -54,8 +62,7 @@ public class Slot {
     /**
      * This method removes a certain amount of items in the slot.
      * 
-     * @param item which is the item of the vending machine
-     * @amount which is the amount of items to remove in the vending machine
+     * @param amount  which is the amount of items to remove in the vending machine
      */
     public void removeStock(int amount) {
         Item slotItem = this.getSlotItemType();
@@ -86,6 +93,10 @@ public class Slot {
         return this.getSlotItemType().getPrice();
     }
 
+    /**
+     * This method gets the quantity of the item
+     * @return quantity which is the quantity of the item
+     */
     public int getItemQuantity() {
         int quantity = 0;
         for (Item item : this.items) {
@@ -150,6 +161,13 @@ public class Slot {
         return items.size() == itemCapacity;
     }
 
+    /**
+     * This method is for displaying the slots of the vending machine. 
+     * 
+     * If there are no items, it will print empty slots. If it contains an item, 
+     * then the item name will be printed inside the boxes 
+     * along with its quantity and calories. 
+     */
     public void display() {
         if (this.isEmpty()) {
             System.out.println("================");
@@ -175,6 +193,11 @@ public class Slot {
         displayLines(itemName);
     }
 
+    /**
+     * This is for displaying the border lines for design based on the 
+     * length of the item name 
+     * @param itemName which is the name of the item 
+     */
     private void displayLines(String itemName) {
         int lineLength = itemName.length() + 6;
         while (lineLength > 0) {
