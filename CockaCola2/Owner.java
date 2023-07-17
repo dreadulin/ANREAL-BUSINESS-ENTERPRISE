@@ -26,18 +26,25 @@ public class Owner {
   /**
    * This method restocks an item in a vending machine
    * 
-   * @param vendingMachineIndex which is an index of the vending
-   *                            machine array
-   * @param item                which is the item of the vending machine
-   * @param amount              which is the amount of the item in the vending
+   * @param vendingMachine      which is the vending machine class
+   * @param itemName            which is the item of the vending machine
+   * @param amount              which is the quantity of the item in the vending
    *                            machine
-   *
+   * @return the item name and amount to the vending machine class
    */
 
   public boolean restock(RegularVendingMachine vendingMachine, String itemName, int amount) {
     return vendingMachine.restockSlot(itemName, amount);
   }
 
+  /**
+   * This method is for adding stocks to the vending machine 
+   * @param vendingMachine      which is the vending machine class
+   * @param item                which is the item of the vending machine
+   * @param amount              which is the quantity of the item in the vending
+   *                            machine
+   * @return the item and amount to the vending machine class
+   */
   public boolean stock(RegularVendingMachine vendingMachine, Item item, int amount) {
     return vendingMachine.stock(item, amount);
   }
@@ -45,8 +52,8 @@ public class Owner {
   /**
    * This method gets the price of the item in the vending machine
    * 
-   * @param vendingMachineIndex which is the vending machine’s index in its array
-   * @param item                which is the item of the vending machine
+   * @param vendingMachine      which is the vending machine class
+   * @param itemName            which is the item of the vending machine
    * @param newPrice            which is the new price of the item of the vending
    *                            machine
    */
@@ -58,7 +65,7 @@ public class Owner {
   /**
    * This method gets the amount of collectedMoney
    * 
-   * @param vendingMachineIndex which is the vending machine’s index in its array
+   * @param vendingMachine      which is the vending machine class
    *
    */
 
@@ -69,7 +76,7 @@ public class Owner {
   /**
    * This method gets the replenishes the money in the vending machine
    * 
-   * @param vendingMachineIndex which is the vending machine’s index in its array
+   * @param vendingMachine      which is the vending machine class
    * @param amount              which is the money to be set
    * @param denomination        which is the denomination of the money being set
    */
@@ -120,6 +127,10 @@ public class Owner {
     return null;
   }
 
+  /**
+   * This method adds the vending machine to the array of vending machines 
+   * @param vendingMachine
+   */
   public void addVendingMachine(RegularVendingMachine vendingMachine) {
     this.vendingMachines.add(vendingMachine);
   }

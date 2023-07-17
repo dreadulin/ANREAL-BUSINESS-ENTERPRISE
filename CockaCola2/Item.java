@@ -11,6 +11,7 @@ public class Item {
    * This constructor takes various parameters: name and calories.
    * 
    * @param name     which represents the name of the item
+   * @param price    which is the price of the item
    * @param calories which represents the number of calories the
    *                 item contains
    */
@@ -60,7 +61,7 @@ public class Item {
 
   /**
    * This displays the border lines for design based on the length of the itemName
-   * @param itemName
+   * @param itemName which is the name of the item 
    */
   private void displayLines(String itemName) {
     int lineLength = itemName.length() + 6;
