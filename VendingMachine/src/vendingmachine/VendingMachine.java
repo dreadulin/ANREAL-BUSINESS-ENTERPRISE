@@ -15,9 +15,9 @@ public class VendingMachine extends Dashboard{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Dashboard dashboard = new Dashboard(); 
-        dashboard.setVisible(true);
-        
+        UserLogin login = new UserLogin(); 
+        login.setVisible(true);
+
     }
     
 }

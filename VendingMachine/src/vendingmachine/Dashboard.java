@@ -16,7 +16,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         super("Anreal Business Enterprises");
         initComponents();
-        setResizable(false);
+        setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
     /**
@@ -54,6 +54,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Special Vending Machine");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -104,6 +105,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Regular Vending Machine");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -239,9 +241,11 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // for Regular Vending Machine 
+        Dashboard dashboard = new Dashboard();
         
         RegularVM regularMachine = new RegularVM(); 
         regularMachine.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
