@@ -8,7 +8,8 @@ public class Owner {
   private int balance;
   private final String name;
   private String password;
-  private ArrayList<RegularVendingMachine> vendingMachines = new ArrayList<RegularVendingMachine>();
+  private ArrayList<RegularVendingMachine> regularVendingMachines = new ArrayList<RegularVendingMachine>();
+  private ArrayList<SpecialVendingMachine> specialVendingMachines = new ArrayList<SpecialVendingMachine>();
 
   /**
    * This constructor takes various parameters: name and balance.
@@ -40,7 +41,15 @@ public class Owner {
     return vendingMachine.restockSlot(itemName, amount);
   }
 
+  public boolean restock(SpecialVendingMachine vendingMachine, String itemName, int amount) {
+    return vendingMachine.restockSlot(itemName, amount);
+  }
+
   public boolean stock(RegularVendingMachine vendingMachine, Item item, int amount) {
+    return vendingMachine.stock(item, amount);
+  }
+
+  public boolean stock(SpecialVendingMachine vendingMachine, Item item, int amount) {
     return vendingMachine.stock(item, amount);
   }
 
@@ -57,6 +66,10 @@ public class Owner {
     return vendingMachine.setPrice(itemName, newPrice);
   }
 
+  public boolean setPrice(SpecialVendingMachine vendingMachine, String itemName, int newPrice) {
+    return vendingMachine.setPrice(itemName, newPrice);
+  }
+
   /**
    * This method gets the amount of collectedMoney
    * 
@@ -65,6 +78,10 @@ public class Owner {
    */
 
   public void collectMoney(RegularVendingMachine vendingMachine) {
+    this.balance += vendingMachine.getCollectedMoney();
+  }
+
+  public void collectMoney(SpecialVendingMachine vendingMachine) {
     this.balance += vendingMachine.getCollectedMoney();
   }
 
@@ -77,6 +94,15 @@ public class Owner {
    */
 
   public void replenishMoney(RegularVendingMachine vendingMachine, int amount, int denomination) {
+    if (this.balance - (denomination * amount) >= 0) {
+      this.balance -= (denomination * amount);
+      vendingMachine.setMoney(amount, denomination);
+    } else {
+      System.out.println("You don't have enough money to replenish that amount");
+    }
+  }
+
+  public void replenishMoney(SpecialVendingMachine vendingMachine, int amount, int denomination) {
     if (this.balance - (denomination * amount) >= 0) {
       this.balance -= (denomination * amount);
       vendingMachine.setMoney(amount, denomination);
@@ -114,16 +140,24 @@ public class Owner {
    * This method gets the list of vending machine the user has
    *
    */
-  public ArrayList<RegularVendingMachine> getVendingMachines() {
-    return this.vendingMachines;
+  public ArrayList<RegularVendingMachine> getRegularMachines() {
+    return this.regularVendingMachines;
+  }
+
+  /**
+   * This method gets the list of vending machine the user has
+   *
+   */
+  public ArrayList<SpecialVendingMachine> getSpecialMachines() {
+    return this.specialVendingMachines;
   }
 
   /**
    * This method gets a specific vending machine
    *
    */
-  public RegularVendingMachine getVendingMachine(String name) {
-    for (RegularVendingMachine vendingMachine : vendingMachines) {
+  public SpecialVendingMachine getSpecialMachine(String name) {
+    for (SpecialVendingMachine vendingMachine : specialVendingMachines) {
       if (vendingMachine != null) {
         if (vendingMachine.getName().equals(name)) {
           return vendingMachine;
@@ -133,7 +167,26 @@ public class Owner {
     return null;
   }
 
-  public void addVendingMachine(RegularVendingMachine vendingMachine) {
-    this.vendingMachines.add(vendingMachine);
+  /**
+   * This method gets a specific vending machine
+   *
+   */
+  public RegularVendingMachine getRegularMachine(String name) {
+    for (RegularVendingMachine vendingMachine : regularVendingMachines) {
+      if (vendingMachine != null) {
+        if (vendingMachine.getName().equals(name)) {
+          return vendingMachine;
+        }
+      }
+    }
+    return null;
+  }
+
+  public void addMachine(RegularVendingMachine vendingMachine) {
+    this.regularVendingMachines.add(vendingMachine);
+  }
+
+  public void addMachine(SpecialVendingMachine vendingMachine) {
+    this.specialVendingMachines.add(vendingMachine);
   }
 }

@@ -7,28 +7,28 @@ import java.util.Date;
  */
 
 public class RegularVendingMachine {
-    private Owner owner;
-    private String name;
-    private ArrayList<Slot> itemSlots;
-    private ArrayList<Transaction> transactions;
-    private ArrayList<Slot> lastRestockSlots;
-    private long lastRestockDate;
-    private int collectedMoney = 0;
+    protected Owner owner;
+    protected String name;
+    protected ArrayList<Slot> itemSlots;
+    protected ArrayList<Transaction> transactions;
+    protected ArrayList<Slot> lastRestockSlots;
+    protected long lastRestockDate;
+    protected int collectedMoney = 0;
 
     // Valid denominations
-    private final static int[] validDenominations = { 1000, 500, 200, 100, 50, 20, 10, 5, 1 };
+    protected final static int[] validDenominations = { 1000, 500, 200, 100, 50, 20, 10, 5, 1 };
 
     // Valid denominations were set to have a default value of 0 at the start of the
     // program.
-    private int thousandPesos = 1000;
-    private int fiveHundredPesos = 1000;
-    private int twoHundredPesos = 1000;
-    private int oneHundredPesos = 1000;
-    private int fiftyPesos = 1000;
-    private int twentyPesos = 1000;
-    private int tenPesos = 1000;
-    private int fivePesos = 1000;
-    private int onePesos = 1000;
+    protected int thousandPesos = 1000;
+    protected int fiveHundredPesos = 1000;
+    protected int twoHundredPesos = 1000;
+    protected int oneHundredPesos = 1000;
+    protected int fiftyPesos = 1000;
+    protected int twentyPesos = 1000;
+    protected int tenPesos = 1000;
+    protected int fivePesos = 1000;
+    protected int onePesos = 1000;
 
     /**
      * This constructor initializes the owner of the vending machine, the slot
@@ -595,5 +595,11 @@ public class RegularVendingMachine {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "\n================================\n" + this.name + "\nRegular Vending Machine\n"
+                + "================================";
     }
 }

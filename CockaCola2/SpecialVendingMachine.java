@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class SpecialVendingMachine extends RegularVendingMachine {
-    ArrayList<Item> userChoices;
+    ArrayList<String> choiceItems;
+    ArrayList<Integer> choiceQuantities;
     ArrayList<Item> specialItems;
 
     public SpecialVendingMachine(Owner owner, String name, int slotCapacity, int slotItemCapacity) {
@@ -11,14 +12,25 @@ public class SpecialVendingMachine extends RegularVendingMachine {
     public double getTotalCalories() {
         double totalCal = 0;
 
-        for (Item item : userChoices) {
-            totalCal += item.getCalories();
+        for (String itemName : choiceItems) {
+            Item chosenItem = super.getItem(itemName);
+            totalCal += chosenItem.getCalories();
         }
 
         return totalCal;
     }
 
+    public void addItemChoice(String itemName, int quantity) {
+
+    }
+
     public Item dispenseSpecialItem() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "\n================================\n" + super.name + "\nSpecial Vending Machine\n"
+                + "================================";
     }
 }
