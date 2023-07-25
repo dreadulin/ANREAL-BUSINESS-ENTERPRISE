@@ -354,7 +354,7 @@ public class Main {
         System.out.println("1 - Display Stock");
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Dispense Special Item");
-        System.out.println("3 - Exit");
+        System.out.println("4 - Exit");
         authenticatedMachine.displayInventory();
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(3);
@@ -444,6 +444,98 @@ public class Main {
                 testMachine(authenticatedMachine);
                 break;
             case 3:
+                int specialItemPayment = 0;
+                int dispenseDecision = 0;
+                System.out.println("-------------------------\n");
+                System.out.println("| DISPENSE SPECIAL ITEM |\n");
+                System.out.println("-------------------------\n");
+                authenticatedMachine.displayStock();
+                // TODO: SHOW POSSIBLE ITEM COMBINATIONS THAT THE USER CAN DO.
+
+                boolean continueSelect = true;
+
+                // TODO: MAKE A LOOP FOR ASKING ITEMS TO DISPENSE
+                while (continueSelect) {
+                    int continueInput = 0;
+                    String nameSelected;
+                    Item selectedItem;
+                    int selectedQuantity = 0;
+
+                    System.out.print("Enter item name: ");
+                    nameSelected = sc.next();
+                    selectedItem = authenticatedMachine.getItem(nameSelected);
+
+                    if (selectedItem == null) {
+                        System.out.println("Item does not exist in the vending machine.");
+                        System.out.println("Choose an item that exists in the vending machine.");
+                        continue;
+                    }
+
+                    System.out.print("Enter quantity you want to dispense: ");
+                    quantity = intScanner();
+
+                    System.out.println("Adding to cart...");
+                    authenticatedMachine.addItemChoice(selectedItem, selectedQuantity);
+
+                    System.out.println("Would you like to continue?");
+                    System.out.println("1 - Yes");
+                    System.out.println("2 - No");
+                    System.out.print("Enter choice: ");
+                    continueInput = choiceScanner(2);
+
+                    if (continueInput == 2) {
+                        System.out.println("Proceeding to checkout summary...");
+                        continueSelect = false;
+                    }
+
+                    System.out.println("Continuing purchase...\n");
+                }
+
+                // TODO: IF THE USER WANTS TO STOP INPUTTING ITEMS, DISPLAY ALL THE ITEMS THAT
+                // THEY HAVE CHOSEN AND THE QUANTITY OF EACH ITEM, THEN DISPLAY THE TOTAL
+                // CALORIES OF THE ITEM. FINALLY, DIPLAY THE TOTAL COST.
+                System.out.println("=====================================");
+                authenticatedMachine.displayItemChoices();
+                System.out.println("=====================================");
+                System.out.println("TOTAL CALORIES: " + authenticatedMachine.getTotalCalories() + " calories");
+                System.out.println("=====================================");
+                System.out.println("TOTAL PRICE: P" + authenticatedMachine.getChoiceTotalPrice());
+                System.out.println("=====================================");
+
+                // TODO: ASK THE USER FOR PAYMENT.
+
+                System.out.print("Enter payment (Whole number only): ");
+                specialItemPayment = intScanner();
+                authenticatedMachine.receivePayment(specialItemPayment);
+
+                // TODO: ASK THE USER IF THEY WANT TO CONTINUE WITH THE DISPENSE OR THEY WANT TO
+                // CANCEL.
+
+                System.out.println("Do you want to: ");
+                System.out.println("1. Dispense Item");
+                System.out.println("2. Cancel Dispense");
+
+                System.out.print("Enter number of choice: ");
+                dispenseDecision = choiceScanner(2);
+
+                if (dispenseDecision == 1) {
+                    // TODO: DISPENSE THE SPECIAL ITEM
+                    // TODO: SHOW THE PROCEDURES
+                }
+
+                if (dispenseDecision == 2) {
+                    System.out.println("Dispensing back change...");
+                    authenticatedMachine.dispenseChange(specialItemPayment, 0);
+                    System.out.println("Returning to test vending machine menu....");
+                }
+
+                // TODO: REMOVE STOCK FOR EACH ITEM PURCHASED
+
+                // TODO: DISPENSE CHANGE
+
+                // TODO: CREATE TRANSACTION FOR EACH ITEM PURCHASED
+                break;
+            case 4:
                 render();
                 break;
         }
