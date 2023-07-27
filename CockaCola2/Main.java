@@ -253,7 +253,7 @@ public class Main {
         System.out.println("1 - Display Stock");
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Exit");
-        authenticatedMachine.displayInventory();
+
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(3);
 
@@ -355,7 +355,7 @@ public class Main {
         System.out.println("2 - Dispense Item");
         System.out.println("3 - Dispense Special Item");
         System.out.println("4 - Exit");
-        authenticatedMachine.displayInventory();
+
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(3);
 
@@ -446,13 +446,16 @@ public class Main {
             case 3:
                 int specialItemPayment = 0;
                 int dispenseDecision = 0;
+                boolean continueSelect = true;
                 System.out.println("-------------------------\n");
                 System.out.println("| DISPENSE SPECIAL ITEM |\n");
                 System.out.println("-------------------------\n");
                 authenticatedMachine.displayStock();
                 // TODO: SHOW POSSIBLE ITEM COMBINATIONS THAT THE USER CAN DO.
-
-                boolean continueSelect = true;
+                System.out.println("Item combinations that you can (and must) try: ");
+                for (SpecialItem specialItem : authenticatedMachine.getSpecialItems()) {
+                    System.out.println(specialItem.toString() + "\n");
+                }
 
                 // TODO: MAKE A LOOP FOR ASKING ITEMS TO DISPENSE
                 while (continueSelect) {
@@ -530,6 +533,16 @@ public class Main {
                 }
 
                 // TODO: REMOVE STOCK FOR EACH ITEM PURCHASED
+                ArrayList<Item> itemChoices = authenticatedMachine.getItemChoices();
+                ArrayList<Integer> choiceQuantities = authenticatedMachine.getChoicesQuantities();
+
+                for (int i = 0; i < itemChoices.size(); ++i) {
+                    for (Slot slot : authenticatedMachine.getItemSlots()) {
+                        if (slot.getSlotItemType().getName().equals(itemChoices.get(i).getName())) {
+
+                        }
+                    }
+                }
 
                 // TODO: DISPENSE CHANGE
 
@@ -552,8 +565,6 @@ public class Main {
         System.out.println("5 - Set price");
         System.out.println("6 - Display Transaction Summary");
         System.out.println("7 - Exit");
-
-        authenticatedMachine.displayInventory();
 
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(7);
@@ -752,11 +763,10 @@ public class Main {
         System.out.println("2 - Replenish money");
         System.out.println("3 - Add Stock");
         System.out.println("4 - Restock");
-        System.out.println("5 - Set price");
-        System.out.println("6 - Display Transaction Summary");
-        System.out.println("7 - Exit");
-
-        authenticatedMachine.displayInventory();
+        System.out.println("5 - Add Special Item");
+        System.out.println("6 - Set price");
+        System.out.println("7 - Display Transaction Summary");
+        System.out.println("8 - Exit");
 
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(7);
@@ -905,10 +915,42 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
+
+            case 5:
+                ArrayList<String> specialIngredients = new ArrayList<String>();
+                String specialItemName = "";
+                boolean continueIngredients = true;
+                System.out.println("------------------------\n");
+                System.out.println("|   ADD SPECIAL ITEM   |\n");
+                System.out.println("------------------------\n");
+
+                System.out.println("Create an item to add to the vending machine.");
+
+                System.out.print("Enter name: ");
+                specialItemName = sc.next();
+
+                System.out.println("Enter ingredients: ");
+
+                while (continueIngredients) {
+                    String enteredIngredient;
+                    System.out.println("Enter ingredient name: ");
+                    enteredIngredient = sc.next();
+
+                    if (specialIngredients.indexOf(enteredIngredient) >= 0) {
+                        System.out.println("Ingredient already exists. Enter another ingredient.");
+                    } else {
+                        specialIngredients.add(enteredIngredient);
+                        continueIngredients = false;
+                    }
+                }
+
+                SpecialItem newSpecialItem = new SpecialItem(specialItemName, specialIngredients);
+                authenticatedMachine.addSpecialItem(newSpecialItem);
+                break;
             /*
              * This is for updating/changing the price of an item
              */
-            case 5:
+            case 6:
                 String itemName;
                 int newPrice;
 
@@ -931,7 +973,7 @@ public class Main {
             /*
              * This displays a summary of the transactions made by the user
              */
-            case 6:
+            case 7:
                 System.out.println("------------------------\n");
                 System.out.println("| TRANSACTION SUMMARY  |\n");
                 System.out.println("------------------------\n");
@@ -941,7 +983,7 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
-            case 7:
+            case 8:
                 render();
                 break;
         }

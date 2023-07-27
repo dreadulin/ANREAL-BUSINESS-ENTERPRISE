@@ -3,13 +3,17 @@ import java.util.ArrayList;
 public class SpecialVendingMachine extends RegularVendingMachine {
     ArrayList<Item> choiceItems;
     ArrayList<Integer> choiceQuantities;
-    ArrayList<Item> specialItems;
+    ArrayList<SpecialItem> specialItems;
 
     public SpecialVendingMachine(Owner owner, String name, int slotCapacity, int slotItemCapacity) {
         super(owner, name, slotCapacity, slotItemCapacity);
         choiceItems = new ArrayList<Item>();
         choiceQuantities = new ArrayList<Integer>();
-        specialItems = new ArrayList<Item>();
+        specialItems = new ArrayList<SpecialItem>();
+    }
+
+    public ArrayList<SpecialItem> getSpecialItems() {
+        return this.specialItems;
     }
 
     public double getTotalCalories() {
@@ -27,7 +31,6 @@ public class SpecialVendingMachine extends RegularVendingMachine {
         for (Item item : choiceItems) {
             totalPrice += item.getPrice();
         }
-
         return totalPrice;
     }
 
@@ -36,6 +39,14 @@ public class SpecialVendingMachine extends RegularVendingMachine {
             System.out.print(choiceItems.get(i).getName());
             System.out.println(" " + choiceQuantities.get(i) + "x");
         }
+    }
+
+    public ArrayList<Item> getItemChoices() {
+        return this.choiceItems;
+    }
+
+    public ArrayList<Integer> getChoicesQuantities() {
+        return this.choiceQuantities;
     }
 
     public void addItemChoice(Item item, int quantity) {
@@ -48,8 +59,19 @@ public class SpecialVendingMachine extends RegularVendingMachine {
         choiceItems.remove(quantity);
     }
 
+    public void addSpecialItem(SpecialItem item) {
+        specialItems.add(item);
+    }
+
     public Item dispenseSpecialItem() {
         return null;
+    }
+
+    public void resetChoices() {
+        choiceItems = null;
+        choiceQuantities = null;
+        choiceItems = new ArrayList<Item>();
+        choiceQuantities = new ArrayList<Integer>();
     }
 
     @Override
