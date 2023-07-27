@@ -15,6 +15,7 @@ public class Start extends javax.swing.JFrame {
      */
     public Start() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -77,6 +78,11 @@ public class Start extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Change Password");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(34, 124, 157));
         jButton3.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
@@ -152,6 +158,13 @@ public class Start extends javax.swing.JFrame {
         createAccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // For changing password
+        ChangePassword changePass = new ChangePassword(); 
+        changePass.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
