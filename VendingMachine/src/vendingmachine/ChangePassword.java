@@ -4,17 +4,25 @@
  */
 package vendingmachine;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Andrea
  */
 public class ChangePassword extends javax.swing.JFrame {
+    ArrayList<Owner> owners = new ArrayList<>();
 
     /**
      * Creates new form ChangePassword
      */
     public ChangePassword() {
         initComponents();
+        setLocationRelativeTo(null);
+    }
+
+    public void setOwnersArray(ArrayList<Owner> owners) {
+        this.owners = owners;
     }
 
     /**
@@ -141,9 +149,6 @@ public class ChangePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
-
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

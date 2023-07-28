@@ -4,11 +4,15 @@
  */
 package vendingmachine;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Andrea
  */
 public class Start extends javax.swing.JFrame {
+
+    ArrayList<Owner> owners = new ArrayList<>();
 
     /**
      * Creates new form Start
@@ -147,21 +151,24 @@ public class Start extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // For user login
-        UserLogin login = new UserLogin(); 
+        UserLogin login = new UserLogin();
+        login.setOwnersArray(owners);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // For creating account
-        CreateAcc createAccount = new CreateAcc(); 
+        CreateAcc createAccount = new CreateAcc();
+        createAccount.setOwnersArray(owners);
         createAccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // For changing password
-        ChangePassword changePass = new ChangePassword(); 
+        ChangePassword changePass = new ChangePassword();
+        changePass.setOwnersArray(owners);
         changePass.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

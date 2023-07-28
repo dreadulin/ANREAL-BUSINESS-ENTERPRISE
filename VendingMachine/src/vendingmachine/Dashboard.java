@@ -10,13 +10,21 @@ package vendingmachine;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+
     /**
      * Creates new form Dashboard
+     *
+     * @param owner Owner that has been logged in to the session.
      */
     public Dashboard() {
         super("Anreal Business Enterprises");
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
+    }
+
+    public void setOwner(Owner owner) {
+        this.authorizedOwner = owner;
     }
 
     /**
@@ -90,7 +98,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(34, 124, 157));
         jButton4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Create Vending Machine");
+        jButton4.setText("Test Maintenance");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,9 +161,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // for Regular Vending Machine 
-        Dashboard dashboard = new Dashboard();
-        
-        RegularVM regularMachine = new RegularVM(); 
+        this.authorizedOwner = null;
+        RegularVM regularMachine = new RegularVM();
         regularMachine.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -202,7 +209,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
