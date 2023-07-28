@@ -451,6 +451,7 @@ public class Main {
                 System.out.println("| DISPENSE SPECIAL ITEM |\n");
                 System.out.println("-------------------------\n");
                 authenticatedMachine.displayStock();
+
                 // TODO: SHOW POSSIBLE ITEM COMBINATIONS THAT THE USER CAN DO.
                 System.out.println("Item combinations that you can (and must) try: ");
                 for (SpecialItem specialItem : authenticatedMachine.getSpecialItems()) {
@@ -530,6 +531,7 @@ public class Main {
                     System.out.println("Dispensing back change...");
                     authenticatedMachine.dispenseChange(specialItemPayment, 0);
                     System.out.println("Returning to test vending machine menu....");
+                    testMachine(authenticatedMachine);
                 }
 
                 // TODO: REMOVE STOCK FOR EACH ITEM PURCHASED
@@ -539,14 +541,14 @@ public class Main {
                 for (int i = 0; i < itemChoices.size(); ++i) {
                     for (Slot slot : authenticatedMachine.getItemSlots()) {
                         if (slot.getSlotItemType().getName().equals(itemChoices.get(i).getName())) {
-
+                            slot.removeStock(choiceQuantities.get(i));
                         }
                     }
                 }
 
                 // TODO: DISPENSE CHANGE
 
-                // TODO: CREATE TRANSACTION FOR EACH ITEM PURCHASED
+                authenticatedMachine.dispenseChange(specialItemPayment, authenticatedMachine.getChoiceTotalPrice());
                 break;
             case 4:
                 render();

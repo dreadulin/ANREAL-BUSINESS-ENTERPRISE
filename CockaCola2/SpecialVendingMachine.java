@@ -50,6 +50,13 @@ public class SpecialVendingMachine extends RegularVendingMachine {
     }
 
     public void addItemChoice(Item item, int quantity) {
+        int existingChoiceIndex = choiceItems.indexOf(item);
+        if (existingChoiceIndex >= 0) {
+            int existingChoiceQt = choiceQuantities.get(existingChoiceIndex);
+            System.out.println("Existing choice found...");
+            System.out.println("Adding quantity to the ingredient...");
+            existingChoiceQt += quantity;
+        }
         choiceItems.add(item);
         choiceQuantities.add(quantity);
     }
@@ -64,6 +71,17 @@ public class SpecialVendingMachine extends RegularVendingMachine {
     }
 
     public Item dispenseSpecialItem() {
+        // TODO: LOOP THROUGH THE ITEMS ARRAY AND CHECK IF QUANTITY IS
+        // VALID.
+
+        // TODO: CHECK IF PAYMENT IS VALID
+
+        // TODO: CALCULATE CHANGE IF IT IS ENOUGH
+
+        // TODO: DISPENSE CHANGE
+
+        // TODO: LOOP THROUGH ALL THE CHOICES ARRAY AND CREATE A TRANSACTION FOR EACH
+        // ONE
         return null;
     }
 
