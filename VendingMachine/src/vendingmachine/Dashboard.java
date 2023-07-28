@@ -160,19 +160,23 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // for Regular Vending Machine 
-        this.authorizedOwner = null;
-        RegularVM regularMachine = new RegularVM();
-        regularMachine.setVisible(true);
+        // Test Vending Machine 
+        
+        TestMachinesMenu testVending = new TestMachinesMenu(); 
+        testVending.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Creation of Vending Machine 
+        
+        CreateRegularVM createRVM = new CreateRegularVM(); 
+        createRVM.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        // Test Maintenance Features
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
