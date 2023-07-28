@@ -5,6 +5,7 @@
 package vendingmachine;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -202,8 +203,8 @@ public class UserLogin extends javax.swing.JFrame {
             String currOwnerPass = owner.getPassword();
 
             if (currOwnerName.equals(userName) && currOwnerPass.equals(pass)) {
-                // TODO: SHOW THE SUCCESS MESSAGE USING JOPTIONPANE
-                // JOptionPane.showMessageDialog("Login Success! Going to the main menu...");
+                JOptionPane.showMessageDialog(null,"Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                
                 Dashboard dashboard = new Dashboard();
                 dashboard.setOwner(owner);
                 dashboard.setVisible(true);
@@ -211,8 +212,10 @@ public class UserLogin extends javax.swing.JFrame {
             }
         }
 
-        // TODO: SHOW THE ERROR MESSAGE USING JOPTIONPANE
-        // JOptionPane.showMessageDialog("Wrong credentials. Going back to the start menu.");
+        JOptionPane.showMessageDialog(null,"Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+        
+        Start StartMenu = new Start();
+        StartMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

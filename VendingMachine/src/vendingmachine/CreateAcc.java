@@ -5,6 +5,7 @@
 package vendingmachine;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,11 +65,6 @@ public class CreateAcc extends javax.swing.JFrame {
         jLabel4.setText("Enter starting balance:");
 
         name.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
-            }
-        });
 
         balance.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
@@ -77,11 +73,6 @@ public class CreateAcc extends javax.swing.JFrame {
         jLabel5.setText("Enter Password:");
 
         password.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,15 +126,15 @@ public class CreateAcc extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +143,9 @@ public class CreateAcc extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,40 +163,46 @@ public class CreateAcc extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Start StartMenu = new Start();
-        StartMenu.setVisible(true);
         boolean accountExists = false;
 
         String pass = password.getText();
         String userName = name.getText();
         int bal = Integer.parseInt(balance.getText());
 
+        // This checks if the account already exists or not 
         for (Owner owner : owners) {
             String currOwnerName = owner.getName();
-            if (currOwnerName.equals(userName)) {
-                // TODO: SHOW THE ERROR MESSAGE USING JOPTIONPANE
-                // JOptionPane.showMessageDialog("Account already exists. Going back to the start menu.");
+            if (currOwnerName.equals(userName)) {  
+                JOptionPane.showMessageDialog(null,"Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
                 accountExists = true;
+                Start StartMenu = new Start();
+                StartMenu.setVisible(true);
             }
         }
 
-        if (!accountExists) {
+         if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            CreateAcc createAccount = new CreateAcc();
+            createAccount.setVisible(true);
+        } else if (!accountExists) {
             Owner newOwner = new Owner(userName, bal, pass);
             owners.add(newOwner);
-            // TODO: SHOW THE SUCCESS MESSAGE USING JOPTIONPANE
-            // JOptionPane.showMessageDialog("Account created! Going back to start menu...");
+            JOptionPane.showMessageDialog(null,"Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            
+            Start StartMenu = new Start();
+            StartMenu.setVisible(true);
         }
-
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }                                        
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
+    }                                    
 
     /**
      * @param args the command line arguments

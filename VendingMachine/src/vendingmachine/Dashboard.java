@@ -98,7 +98,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(34, 124, 157));
         jButton4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Test Maintenance");
+        jButton4.setText("Test Maintenance Features");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
