@@ -22,6 +22,10 @@ public class Start extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public void setOwnersArray(ArrayList<Owner> owners) {
+        this.owners = owners;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

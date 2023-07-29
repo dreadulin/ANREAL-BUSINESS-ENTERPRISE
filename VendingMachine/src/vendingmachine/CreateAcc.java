@@ -172,37 +172,37 @@ public class CreateAcc extends javax.swing.JFrame {
         // This checks if the account already exists or not 
         for (Owner owner : owners) {
             String currOwnerName = owner.getName();
-            if (currOwnerName.equals(userName)) {  
-                JOptionPane.showMessageDialog(null,"Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            if (currOwnerName.equals(userName)) {
+                JOptionPane.showMessageDialog(null, "Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
                 accountExists = true;
                 Start StartMenu = new Start();
                 StartMenu.setVisible(true);
             }
         }
 
-         if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(null,"Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
+        if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
             CreateAcc createAccount = new CreateAcc();
             createAccount.setVisible(true);
         } else if (!accountExists) {
             Owner newOwner = new Owner(userName, bal, pass);
             owners.add(newOwner);
-            JOptionPane.showMessageDialog(null,"Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+
             Start StartMenu = new Start();
+            StartMenu.setOwnersArray(owners);
             StartMenu.setVisible(true);
         }
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                        
+    }
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                    
+    }
 
     /**
      * @param args the command line arguments

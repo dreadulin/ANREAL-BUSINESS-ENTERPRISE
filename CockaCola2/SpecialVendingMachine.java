@@ -57,8 +57,7 @@ public class SpecialVendingMachine extends RegularVendingMachine {
             System.out.println("Adding quantity to the ingredient...");
             existingChoiceQt += quantity;
         }
-        choiceItems.add(item);
-        choiceQuantities.add(quantity);
+        
     }
 
     public void removeItemChoice(Item item, int quantity) {
