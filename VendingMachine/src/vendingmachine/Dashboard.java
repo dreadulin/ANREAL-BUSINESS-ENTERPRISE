@@ -11,12 +11,7 @@ package vendingmachine;
 public class Dashboard extends javax.swing.JFrame {
 
     Owner authorizedOwner;
-
-    /**
-     * Creates new form Dashboard
-     *
-     * @param owner Owner that has been logged in to the session.
-     */
+    
     public Dashboard() {
         super("Anreal Business Enterprises");
         initComponents();
@@ -168,10 +163,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Creation of Vending Machine 
+        // purchase vending machine
         
-        CreateRegularVM createRVM = new CreateRegularVM(); 
-        createRVM.setVisible(true);
+        VMShop shopVending = new VMShop(); 
+        shopVending.setOwner(authorizedOwner);
+        shopVending.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

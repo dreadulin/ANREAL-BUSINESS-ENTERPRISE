@@ -160,7 +160,7 @@ public class RegularVM extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("BACK TO DASHBOARD");
         jLabel3.setToolTipText("");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -390,6 +390,7 @@ public class RegularVM extends javax.swing.JFrame {
        // going back to the dashboard
        Dashboard dashboard = new Dashboard(); 
        dashboard.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     /**

@@ -10,6 +10,12 @@ package vendingmachine;
  */
 public class VMShop extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+
+    public void setOwner(Owner owner) {
+        this.authorizedOwner = owner;
+    }
+
     /**
      * Creates new form VMShop
      */
@@ -244,11 +250,11 @@ public class VMShop extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // for Regular Vending Machine
-        Dashboard dashboard = new Dashboard();
-
-        RegularVM regularMachine = new RegularVM();
-        regularMachine.setVisible(true);
+        // Creation of Vending Machine 
+        
+        CreateRegularVM createRVM = new CreateRegularVM(); 
+        createRVM.setOwner(authorizedOwner);
+        createRVM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
