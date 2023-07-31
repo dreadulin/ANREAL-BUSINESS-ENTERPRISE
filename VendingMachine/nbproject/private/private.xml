@@ -2,6 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/Restock.java</file>
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePrice.java</file>
@@ -9,5 +12,6 @@
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/AddStock.java</file>
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummary.java</file>
         </group>
+>>>>>>> b6fc8dd1f625e2f850fa0575636c8f38781b297c
     </open-files>
 </project-private>
