@@ -159,6 +159,7 @@ public class TestMaintenance extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel3.setText("Enter machine name:");
 
+        jButton7.setBackground(new java.awt.Color(255, 203, 119));
         jButton7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jButton7.setText("Enter");
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -242,6 +243,7 @@ public class TestMaintenance extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // add Stock 
         AddStock addStock = new AddStock(); 
+        addStock.setOwner(authorizedOwner);
         addStock.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -250,6 +252,7 @@ public class TestMaintenance extends javax.swing.JFrame {
         // Restock
         Restock restock = new Restock(); 
         restock.setVisible(true);
+        restock.setOwner(authorizedOwner);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 

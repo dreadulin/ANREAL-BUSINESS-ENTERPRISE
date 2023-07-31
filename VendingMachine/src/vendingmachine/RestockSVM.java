@@ -10,26 +10,26 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class Restock extends javax.swing.JFrame {
+public class RestockSVM extends javax.swing.JFrame {
 
     /**
-     * Creates new form Restock
+     * Creates new form RestockSVM
      */
-    public Restock() {
+    public RestockSVM() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    public void setOwner(Owner owner) 
-    {
+    Owner authorizedOwner; 
+    SpecialVendingMachine authenticatedSpecialMachine; 
+    
+    public void setOwner(Owner owner) {
         this.authorizedOwner = owner;
     }
     
-    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
+     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
     {
-        this.authenticatedRegularMachine = authenticatedRegularMachine;
+        this.authenticatedSpecialMachine = authenticateSpecialMachine;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +58,7 @@ public class Restock extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("RESTOCKING ITEMS TO REGULAR VENDING MACHINE");
+        jLabel1.setText("RESTOCKING ITEMS TO SPECIAL VENDING MACHINE");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -66,7 +66,7 @@ public class Restock extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
@@ -139,20 +139,20 @@ public class Restock extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(250, 250, 250)
+                        .addGap(231, 231, 231)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -172,13 +172,13 @@ public class Restock extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // restock 
+        // restock
 
         String name = itemName.getText();
         int itemAmount = Integer.parseInt(jTextField4.getText());
         boolean operationSuccessful;
 
-        operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, name, itemAmount);
+        operationSuccessful = authorizedOwner.restock(authenticatedSpecialMachine, name, itemAmount);
 
         if (operationSuccessful)
         {
@@ -193,10 +193,9 @@ public class Restock extends javax.swing.JFrame {
             testMaintenance.setVisible(true);
             this.dispose();
         }
-            TestMaintenance testMaintenance = new TestMaintenance();
-            testMaintenance.setVisible(true);
-            this.dispose();
-
+        TestMaintenance testMaintenance = new TestMaintenance();
+        testMaintenance.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -216,20 +215,20 @@ public class Restock extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Restock().setVisible(true);
+                new RestockSVM().setVisible(true);
             }
         });
     }
