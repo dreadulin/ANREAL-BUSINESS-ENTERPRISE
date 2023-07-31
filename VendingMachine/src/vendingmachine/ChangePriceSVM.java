@@ -10,28 +10,26 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class ChangePrice extends javax.swing.JFrame {
+public class ChangePriceSVM extends javax.swing.JFrame {
 
     /**
-     * Creates new form ChangePrice
+     * Creates new form ChangePriceSVM
      */
-    public ChangePrice() {
+    public ChangePriceSVM() {
         initComponents();
-        setLocationRelativeTo(null);
     }
 
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    public void setOwner(Owner owner) 
-    {
+    Owner authorizedOwner; 
+    SpecialVendingMachine authenticatedSpecialMachine; 
+    
+    public void setOwner(Owner owner) {
         this.authorizedOwner = owner;
     }
     
-    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
+     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
     {
-        this.authenticatedRegularMachine = authenticatedRegularMachine;
+        this.authenticatedSpecialMachine = authenticateSpecialMachine;
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +58,7 @@ public class ChangePrice extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SETTING NEW PRICE FOR REGULAR VENDING MACHINE");
+        jLabel1.setText("SETTING NEW PRICE FOR MACHINE VENDING MACHINE");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -69,14 +67,14 @@ public class ChangePrice extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(34, 124, 157));
@@ -154,13 +152,13 @@ public class ChangePrice extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(229, 229, 229)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,20 +185,20 @@ public class ChangePrice extends javax.swing.JFrame {
         String name = itemName.getText();
         int newPrice = Integer.parseInt(jTextField4.getText());
 
-       if (authorizedOwner.setPrice(authenticatedRegularMachine, name, newPrice))
-       {
-            JOptionPane.showMessageDialog(null,"Price changed successfully. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);       
+        if (authorizedOwner.setPrice(authenticatedSpecialMachine, name, newPrice))
+        {
+            JOptionPane.showMessageDialog(null,"Price changed successfully. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
             TestMaintenance testMaintenance = new TestMaintenance();
             testMaintenance.setVisible(true);
             this.dispose();
-       } else 
-       {
-           JOptionPane.showMessageDialog(null,"Price changed failed. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);       
-           TestMaintenance testMaintenance = new TestMaintenance();
-           testMaintenance.setVisible(true);
-           this.dispose();
-       }
-        
+        } else
+        {
+            JOptionPane.showMessageDialog(null,"Price changed failed. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
+            TestMaintenance testMaintenance = new TestMaintenance();
+            testMaintenance.setVisible(true);
+            this.dispose();
+        }
+
         TestMaintenance testMaintenance = new TestMaintenance();
         testMaintenance.setVisible(true);
         this.dispose();
@@ -223,20 +221,20 @@ public class ChangePrice extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangePrice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangePrice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangePrice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangePrice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceSVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangePrice().setVisible(true);
+                new ChangePriceSVM().setVisible(true);
             }
         });
     }

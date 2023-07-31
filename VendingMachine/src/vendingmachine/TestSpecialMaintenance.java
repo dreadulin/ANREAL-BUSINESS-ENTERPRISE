@@ -264,8 +264,8 @@ public class TestSpecialMaintenance extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // Change Prices
-        ChangePrice changePrice = new ChangePrice();
-        changePrice.setVisible(true);
+        ChangePriceSVM changePriceSpecial = new ChangePriceSVM();
+        changePriceSpecial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
