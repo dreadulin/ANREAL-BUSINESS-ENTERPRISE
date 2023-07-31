@@ -476,7 +476,7 @@ public class Main {
                     }
 
                     System.out.print("Enter quantity you want to dispense: ");
-                    quantity = intScanner();
+                    selectedQuantity = intScanner();
 
                     System.out.println("Adding to cart...");
                     authenticatedMachine.addItemChoice(selectedItem, selectedQuantity);
@@ -523,8 +523,7 @@ public class Main {
                 dispenseDecision = choiceScanner(2);
 
                 if (dispenseDecision == 1) {
-                    // TODO: DISPENSE THE SPECIAL ITEM
-                    // TODO: SHOW THE PROCEDURES
+                    authenticatedMachine.dispenseSpecialItem(specialItemPayment);
                 }
 
                 if (dispenseDecision == 2) {
@@ -547,8 +546,8 @@ public class Main {
                 }
 
                 // TODO: DISPENSE CHANGE
-
                 authenticatedMachine.dispenseChange(specialItemPayment, authenticatedMachine.getChoiceTotalPrice());
+                testMachine(authenticatedMachine);
                 break;
             case 4:
                 render();
@@ -765,10 +764,9 @@ public class Main {
         System.out.println("2 - Replenish money");
         System.out.println("3 - Add Stock");
         System.out.println("4 - Restock");
-        System.out.println("5 - Add Special Item");
-        System.out.println("6 - Set price");
-        System.out.println("7 - Display Transaction Summary");
-        System.out.println("8 - Exit");
+        System.out.println("5 - Set price");
+        System.out.println("6 - Display Transaction Summary");
+        System.out.println("7 - Exit");
 
         System.out.print("Enter choice: ");
         int userInput = choiceScanner(7);
@@ -917,42 +915,10 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
-
-            case 5:
-                ArrayList<String> specialIngredients = new ArrayList<String>();
-                String specialItemName = "";
-                boolean continueIngredients = true;
-                System.out.println("------------------------\n");
-                System.out.println("|   ADD SPECIAL ITEM   |\n");
-                System.out.println("------------------------\n");
-
-                System.out.println("Create an item to add to the vending machine.");
-
-                System.out.print("Enter name: ");
-                specialItemName = sc.next();
-
-                System.out.println("Enter ingredients: ");
-
-                while (continueIngredients) {
-                    String enteredIngredient;
-                    System.out.println("Enter ingredient name: ");
-                    enteredIngredient = sc.next();
-
-                    if (specialIngredients.indexOf(enteredIngredient) >= 0) {
-                        System.out.println("Ingredient already exists. Enter another ingredient.");
-                    } else {
-                        specialIngredients.add(enteredIngredient);
-                        continueIngredients = false;
-                    }
-                }
-
-                SpecialItem newSpecialItem = new SpecialItem(specialItemName, specialIngredients);
-                authenticatedMachine.addSpecialItem(newSpecialItem);
-                break;
             /*
              * This is for updating/changing the price of an item
              */
-            case 6:
+            case 5:
                 String itemName;
                 int newPrice;
 
@@ -975,7 +941,7 @@ public class Main {
             /*
              * This displays a summary of the transactions made by the user
              */
-            case 7:
+            case 6:
                 System.out.println("------------------------\n");
                 System.out.println("| TRANSACTION SUMMARY  |\n");
                 System.out.println("------------------------\n");
@@ -985,7 +951,7 @@ public class Main {
 
                 testMaintenance(authenticatedMachine);
                 break;
-            case 8:
+            case 7:
                 render();
                 break;
         }

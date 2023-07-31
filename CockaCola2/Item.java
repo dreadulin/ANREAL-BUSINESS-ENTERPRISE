@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * This class represents the Items of the vending machine
  */
@@ -96,6 +98,8 @@ public class Item {
     }
 
     Item anotherItem = (Item) object;
-    return anotherItem.toString().equals(this.toString());
+    return Objects.equals(this.name, anotherItem.name) &&
+        Objects.equals(this.calories, anotherItem.calories) &&
+        Objects.equals(this.price, anotherItem.price);
   }
 }
