@@ -15,21 +15,9 @@ public class RegularVendingMachine {
     protected ArrayList<Slot> lastRestockSlots;
     protected long lastRestockDate;
     protected int collectedMoney = 0;
-
-    // Valid denominations
     protected final static int[] validDenominations = { 1000, 500, 200, 100, 50, 20, 10, 5, 1 };
-
-    // Valid denominations were set to have a default value of 0 at the start of the
-    // program.
-    protected int thousandPesos = 1000;
-    protected int fiveHundredPesos = 1000;
-    protected int twoHundredPesos = 1000;
-    protected int oneHundredPesos = 1000;
-    protected int fiftyPesos = 1000;
-    protected int twentyPesos = 1000;
-    protected int tenPesos = 1000;
-    protected int fivePesos = 1000;
-    protected int onePesos = 1000;
+    protected Money[] bills = { new Money(1000, 0), new Money(500, 0), new Money(200, 0), new Money(100, 0),
+            new Money(50, 0), new Money(20, 0), new Money(10, 0), new Money(5, 0), new Money(1, 0) };
 
     /**
      * This constructor initializes the owner of the vending machine, the slot
@@ -106,11 +94,6 @@ public class RegularVendingMachine {
 
         change = payment - (itemPrice * quantity);
 
-        if (this.getStockMoney() - change < 0) {
-            System.out.println("Vending Machine money is not enough to dispense change.");
-            return null;
-        }
-
         // Validate if amount is less or equal to the quantity of the slot where the
         // item is
         // If it is greater, than means that you can't get any more than what is in the
@@ -124,16 +107,20 @@ public class RegularVendingMachine {
         // denominations.
         // Create a new Transaction and put the necessary information in the Constructor
         int amountCost = quantity * itemPrice;
-        dispenseChange(payment, amountCost);
+        boolean dispenseChangeSuccess = dispenseChange(payment, amountCost);
 
-        // Push the new Transaction in the transactions array
-        Transaction newTransaction = new Transaction(item, quantity, amountCost);
-        newTransaction.displayTransaction();
-        transactions.add(newTransaction);
-        // If everything checks out and everything is done, return the Item
-        // Remove the item(s) from their slot
-        itemSlot.removeStock(quantity);
-        return item;
+        if (dispenseChangeSuccess) {
+            // Push the new Transaction in the transactions array
+            Transaction newTransaction = new Transaction(item, quantity, amountCost);
+            newTransaction.displayTransaction();
+            transactions.add(newTransaction);
+            // If everything checks out and everything is done, return the Item
+            // Remove the item(s) from their slot
+            itemSlot.removeStock(quantity);
+            return item;
+        }
+
+        return null;
     }
 
     /**
@@ -145,36 +132,13 @@ public class RegularVendingMachine {
      */
 
     public void receivePayment(int payment) {
-
         // Starts from the highest denomination to the lowest.
         // After modulo operation, subtract the result times the denomination value.
-        thousandPesos += (payment / 1000);
-
-        payment -= (payment / 1000) * 1000;
-        fiveHundredPesos += (payment / 500);
-
-        payment -= (payment / 500) * 500;
-        twoHundredPesos += (payment / 200);
-
-        payment -= (payment / 200) * 200;
-        oneHundredPesos += (payment / 100);
-
-        payment -= (payment / 100) * 100;
-        fiftyPesos += (payment / 50);
-
-        payment -= (payment / 50) * 50;
-        twentyPesos += (payment / 20);
-
-        payment -= (payment / 20) * 20;
-        tenPesos += (payment / 10);
-
-        payment -= (payment / 10) * 10;
-        fivePesos += (payment / 5);
-
-        payment -= (payment / 5) * 5;
-
-        onePesos += (payment / 1);
-        payment -= payment;
+        for (Money money : bills) {
+            int addedValue = payment / money.value;
+            money.addAmount(addedValue);
+            payment -= (addedValue) * money.value;
+        }
     }
 
     /**
@@ -186,66 +150,28 @@ public class RegularVendingMachine {
      *
      */
 
-    public int dispenseChange(int amountPaid, int amountCost) {
-        int change = amountPaid - amountCost;
+    public boolean dispenseChange(int amountPaid, int amountCost) {
+        int changeRemaining = amountPaid - amountCost;
+        int tempChange = amountPaid - amountCost;
         int changeDispensed = 0;
 
-        thousandPesos -= change / 1000;
-        System.out.println(change / 1000 != 0 ? "Dispensing " + (change / 1000) + " 1k bills as change..." : "");
+        for (Money money : bills) {
+            int subtractedValue = changeRemaining / money.value;
+            boolean success = money.subtractAmount(subtractedValue);
 
-        changeDispensed += (change / 1000) * 1000;
-        change -= (change / 1000) * 1000;
+            if (success) {
+                changeDispensed += subtractedValue * money.value;
+                tempChange -= subtractedValue * money.value;
+            }
+        }
 
-        fiveHundredPesos -= (change / 500);
-        System.out.println(change / 500 != 0 ? "Dispensing " + (change / 500) + " 500 bills as change..." : "");
-
-        changeDispensed += (change / 500) * 500;
-        change -= (change / 500) * 500;
-
-        twoHundredPesos -= (change / 200);
-        System.out.println(change / 200 != 0 ? "Dispensing " + (change / 200) + " 200 bills as change..." : "");
-
-        changeDispensed += (change / 200) * 200;
-        change -= (change / 200) * 200;
-
-        oneHundredPesos -= (change / 100);
-        System.out.println(change / 100 != 0 ? "Dispensing " + (change / 100) + " 100 bills as change..." : "");
-
-        changeDispensed += (change / 100) * 100;
-        change -= (change / 100) * 100;
-
-        fiftyPesos -= (change / 50);
-        System.out.println(change / 50 != 0 ? "Dispensing " + (change / 50) + " 50 bills as change..." : "");
-
-        changeDispensed += (change / 50) * 50;
-        change -= (change / 50) * 50;
-
-        twentyPesos -= (change / 20);
-        System.out.println(change / 20 != 0 ? "Dispensing " + (change / 20) + " 20 bills as change..." : "");
-
-        changeDispensed += (change / 20) * 20;
-        change -= (change / 20) * 20;
-
-        tenPesos -= (change / 10);
-        System.out.println(change / 10 != 0 ? "Dispensing " + (change / 10) + " 10 peso coins as change..." : "");
-
-        changeDispensed += (change / 10) * 10;
-        change -= (change / 10) * 10;
-
-        fivePesos -= (change / 5);
-        System.out.println(change / 5 != 0 ? "Dispensing " + (change / 5) + " 5 peso coins as change..." : "");
-
-        changeDispensed += (change / 5) * 5;
-        change -= (change / 5) * 5;
-
-        onePesos -= change;
-
-        System.out.println(change != 0 ? "Dispensing " + change + " 1 peso coins as change..." : "");
-        changeDispensed += change;
-        change -= change;
+        if (changeDispensed < changeRemaining) {
+            System.out.println("Vending machine money is not enough to dispense change for your transaction.");
+            return false;
+        }
 
         System.out.println("Total change dispensed: " + changeDispensed);
-        return changeDispensed;
+        return true;
     }
 
     /**
@@ -383,15 +309,19 @@ public class RegularVendingMachine {
      */
 
     public int getCollectedMoney() {
-        int collected = this.collectedMoney;
-        this.collectedMoney = 0;
+        int collected = 0;
+        for (Money money : bills) {
+            collected += money.collectValue();
+        }
         return collected;
     }
 
     public int getStockMoney() {
-        return (this.thousandPesos * 1000) + (this.fiveHundredPesos * 500) + (this.twoHundredPesos * 200)
-                + (this.oneHundredPesos * 100) + (this.fiftyPesos * 50) + (this.twentyPesos * 20)
-                + (this.tenPesos * 10) + (this.fivePesos * 5) + this.onePesos;
+        int totalStockMoney = 0;
+        for (Money money : bills) {
+            totalStockMoney += money.getValue() * money.getAmount();
+        }
+        return totalStockMoney;
     }
 
     /**
@@ -405,58 +335,13 @@ public class RegularVendingMachine {
      */
 
     public void setMoney(int amount, int denomination) {
-        boolean validDenom = this.denominationIsValid(denomination);
-        System.out.println("Denomination Input " + denomination);
-        System.out.println("Amount Input " + amount);
-        if (validDenom) {
-            switch (denomination) {
-                case 1:
-                    this.onePesos += amount;
-                    break;
-                case 5:
-                    this.fivePesos += amount;
-                    break;
-                case 10:
-                    this.tenPesos += amount;
-                    break;
-                case 20:
-                    this.twentyPesos += amount;
-                    break;
-                case 50:
-                    this.fiftyPesos += amount;
-                    break;
-                case 100:
-                    this.oneHundredPesos += amount;
-                    break;
-                case 200:
-                    this.twoHundredPesos += amount;
-                    break;
-                case 500:
-                    this.fiveHundredPesos += amount;
-                    break;
-                case 1000:
-                    this.thousandPesos += amount;
-                    break;
-                default:
-                    return;
+        for (Money money : bills) {
+            if (money.getValue() == denomination) {
+                money.addAmount(amount);
+                return;
             }
         }
-    }
-
-    /**
-     * This method uses a loop to check if a denomination is valid. If it is valid,
-     * it returns true. Otherwise, it returns false
-     * 
-     * @param denomination which are the money denomination
-     *
-     */
-
-    public boolean denominationIsValid(int denomination) {
-        for (int i = 0; i < validDenominations.length; ++i) {
-            if (validDenominations[i] == denomination)
-                return true;
-        }
-        return false;
+        System.out.println("No such denomination exists.");
     }
 
     /**
@@ -483,6 +368,22 @@ public class RegularVendingMachine {
 
             }
         }
+    }
+
+    /**
+     * This method uses a loop to check if a denomination is valid. If it is valid,
+     * it returns true. Otherwise, it returns false
+     * 
+     * @param denomination which are the money denomination
+     *
+     */
+
+    public boolean denominationIsValid(int denomination) {
+        for (int i = 0; i < validDenominations.length; ++i) {
+            if (validDenominations[i] == denomination)
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -527,39 +428,13 @@ public class RegularVendingMachine {
      *
      */
     public void displayMoney(int denomination) {
-        if (denominationIsValid(denomination)) {
-            switch (denomination) {
-                case 1:
-                    System.out.println(onePesos + " One Pesos");
-                    break;
-                case 5:
-                    System.out.println(fivePesos + " Five Pesos");
-                    break;
-                case 10:
-                    System.out.println(tenPesos + " Ten Pesos");
-                    break;
-                case 20:
-                    System.out.println(twentyPesos + " Twenty Pesos");
-                    break;
-                case 50:
-                    System.out.println(fiftyPesos + " Fifty Pesos");
-                    break;
-                case 100:
-                    System.out.println(oneHundredPesos + " 100 Pesos");
-                    break;
-                case 200:
-                    System.out.println(twoHundredPesos + " 200 Pesos");
-                    break;
-                case 500:
-                    System.out.println(fiveHundredPesos + " 500 Pesos");
-                    break;
-                case 1000:
-                    System.out.println(thousandPesos + " 1000 Pesos");
-                    break;
-                default:
-                    System.out.println("");
+        for (Money money : bills) {
+            if (money.getValue() == denomination) {
+                money.display();
+                return;
             }
         }
+        System.out.println("No such denomination exists.");
     }
 
     public boolean restockSlot(String itemName, int amount) {

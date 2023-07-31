@@ -1,33 +1,43 @@
 package vendingmachine;
 import java.util.ArrayList;
 
-public class SpecialItem {
+public abstract class SpecialItem {
     private String name;
-    private ArrayList<String> ingredients;
+    private String[] ingredients;
 
-    public SpecialItem(String name, ArrayList<String> ingredients) {
+    public SpecialItem(String name, String[] ingredients) {
         this.name = name;
         this.ingredients = ingredients;
     }
 
     public boolean compareIngredients(ArrayList<Item> givenIngredients) {
+        System.out.println(name + ": " + ingredients.length + " ingredients");
         int ingredientCount = 0;
         for (Item ingredient : givenIngredients) {
-            if (ingredients.indexOf(ingredient.getName()) >= 0) {
+            System.out.println("CURRENT INGREDIENT NAME: " + ingredient.getName());
+            if (ingredientExists(ingredient.getName())) {
                 ingredientCount++;
             }
         }
 
-        return ingredientCount == givenIngredients.size();
+        System.out.println("Ingredient count: " + ingredientCount);
+
+        return ingredientCount >= ingredients.length;
     }
 
-    public void displayProcess() {
-
+    public boolean ingredientExists(String ingredient) {
+        for (int i = 0; i < ingredients.length; ++i) {
+            if (ingredients[i].equals(ingredient))
+                return true;
+        }
+        return false;
     }
 
     public String getName() {
         return this.name;
     }
+
+    abstract public void displayProcess();
 
     @Override
     public String toString() {

@@ -5,7 +5,6 @@ import java.util.ArrayList;
  * This class represents the owner of the vending machine
  *
  */
-
 public class Owner {
   private int balance;
   private final String name;
