@@ -21,6 +21,7 @@ public class VMShop extends javax.swing.JFrame {
      */
     public VMShop() {
         initComponents();
+         setLocationRelativeTo(null); 
     }
 
     /**
@@ -247,6 +248,8 @@ public class VMShop extends javax.swing.JFrame {
 
         SpecialVM specialMachine = new SpecialVM();
         specialMachine.setVisible(true);
+//        specialMachine.setOwner(authorizedOwner);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -310,4 +313,8 @@ public class VMShop extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    private void setRelativeLocation(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

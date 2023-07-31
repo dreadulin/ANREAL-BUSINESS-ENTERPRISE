@@ -198,36 +198,36 @@ public class CreateSpecialVM extends javax.swing.JFrame {
         int slotsQt = Integer.parseInt(slots.getText());
         int itemSlotsQt = Integer.parseInt(itemPerSlot.getText());
 
-        boolean regularMachineExists = authorizedOwner.getRegularMachine(machineName) != null;
+        boolean specialMachineExists = authorizedOwner.getSpecialMachine(machineName) != null;
 
-        if (regularMachineExists) {
+        if (specialMachineExists) {
             JOptionPane.showMessageDialog(null, "Failed to create vending machine.", "Machine already exists", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
-            createRVM.setVisible(true);
+            CreateSpecialVM createSVM = new CreateSpecialVM();
+            createSVM.setOwner(authorizedOwner);
+            createSVM.setVisible(true);
             this.dispose();
         }
 
         if (slotsQt < 8) {
             JOptionPane.showMessageDialog(null, "Invalid Slots Capacity. Must be atleast 8.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
-            createRVM.setVisible(true);
+            CreateSpecialVM createSVM = new CreateSpecialVM();
+            createSVM.setOwner(authorizedOwner);
+            createSVM.setVisible(true);
             this.dispose();
         }
 
         if (itemSlotsQt < 10) {
             JOptionPane.showMessageDialog(null, "Invalid Items Per Slot Capacity. Must be atleast 10.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
-            createRVM.setVisible(true);
+            CreateSpecialVM createSVM = new CreateSpecialVM();
+            createSVM.setOwner(authorizedOwner);
+            createSVM.setVisible(true);
             this.dispose();
         }
 
-        RegularVendingMachine newVendingMachine = new RegularVendingMachine(authorizedOwner, machineName, slotsQt,itemSlotsQt);
+        SpecialVendingMachine newVendingMachine = new SpecialVendingMachine(authorizedOwner, machineName, slotsQt,itemSlotsQt);
         authorizedOwner.addMachine(newVendingMachine);
 
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);

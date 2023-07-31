@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class UltimateHaloHalo extends SpecialItem {
     private final static String[] ingredients = { "Ice", "Milk", "Banana", "Kamote", "Sugar", "Halaya", "Nata",
             "LecheFlan" };

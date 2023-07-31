@@ -15,7 +15,26 @@ public class TestMaintenance extends javax.swing.JFrame {
      */
     public TestMaintenance() {
         initComponents();
+        setLocationRelativeTo(null);
     }
+    
+//    Owner authorizedOwner; 
+//    RegularVendingMachine authenticatedRegularMachine; 
+//    SpecialVendingMachine authenticatedSpecialMachine; 
+//    
+//    public void setOwner(Owner owner) {
+//        this.authorizedOwner = owner;
+//    }
+//    
+//    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
+//    {
+//        this.authenticatedRegularMachine = authenticatedRegularMachine;
+//    }
+//    
+//     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
+//    {
+//        this.authenticatedSpecialMachine = authenticateSpecialMachine;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

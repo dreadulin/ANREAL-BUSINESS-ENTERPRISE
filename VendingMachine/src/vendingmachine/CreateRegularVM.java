@@ -17,7 +17,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
      */
     public CreateRegularVM() {
         initComponents();
-        setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
+         setLocationRelativeTo(null); 
     }
 
     Owner authorizedOwner;
@@ -232,7 +232,10 @@ public class CreateRegularVM extends javax.swing.JFrame {
         authorizedOwner.addMachine(newVendingMachine);
         
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-
+        Dashboard dashboard = new Dashboard(); 
+        dashboard.setOwner(authorizedOwner);
+        dashboard.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
