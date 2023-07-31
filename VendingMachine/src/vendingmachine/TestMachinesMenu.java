@@ -20,23 +20,13 @@ public class TestMachinesMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
     
-    Owner authorizedOwner; 
-    RegularVendingMachine authenticatedRegularMachine; 
-    SpecialVendingMachine authenticatedSpecialMachine; 
+    Owner authorizedOwner;
     
     public void setOwner(Owner owner) {
         this.authorizedOwner = owner;
     }
+
     
-    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
-    {
-        this.authenticatedRegularMachine = authenticatedRegularMachine;
-    }
-    
-     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
-    {
-        this.authenticatedSpecialMachine = authenticateSpecialMachine;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,8 +42,6 @@ public class TestMachinesMenu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,11 +90,6 @@ public class TestMachinesMenu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/VendingMachineIcon.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel3.setText("Enter machine name:");
-
-        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,11 +99,9 @@ public class TestMachinesMenu extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,15 +114,11 @@ public class TestMachinesMenu extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(118, 118, 118)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
+                        .addGap(95, 95, 95)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,39 +147,18 @@ public class TestMachinesMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Testing Special Vending Machine
-        String testMachineName = jTextField1.getText();
-        authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(testMachineName);
-        if (authenticatedSpecialMachine == null) 
-        {
-            JOptionPane.showMessageDialog(null,"Failed to authenticate. Going to back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Dashboard dashboard = new Dashboard(); 
-            dashboard.setVisible(true);
-            this.dispose();
-        } else 
-        {
-            TestMaintenance testMaintenance = new TestMaintenance(); 
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
+        TestSpecialMaintenance testSVMaintenance = new TestSpecialMaintenance(); 
+        testSVMaintenance.setOwner(authorizedOwner);
+        testSVMaintenance.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Testing Regular Vending Machine
-        String testMachineName = jTextField1.getText();
-        
-        authenticatedRegularMachine = authorizedOwner.getRegularMachine(testMachineName);
-        if (authenticatedRegularMachine == null) 
-        {
-            JOptionPane.showMessageDialog(null,"Failed to authenticate. Going to back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Dashboard dashboard = new Dashboard(); 
-            dashboard.setVisible(true);
-            this.dispose();
-        } else 
-        {
-            TestMaintenance testMaintenance = new TestMaintenance(); 
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
+        TestMaintenance testMaintenance = new TestMaintenance(); 
+        testMaintenance.setOwner(authorizedOwner);
+        testMaintenance.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -245,9 +201,7 @@ public class TestMachinesMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

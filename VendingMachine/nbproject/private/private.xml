@@ -6,12 +6,11 @@
         <group/>
 =======
         <group>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateSpecialVM.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/Dashboard.java</file>
+            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/Restock.java</file>
+            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePrice.java</file>
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestMaintenance.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestRegular.java</file>
             <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/AddStock.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateRegularVM.java</file>
+            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummary.java</file>
         </group>
 >>>>>>> b6fc8dd1f625e2f850fa0575636c8f38781b297c
     </open-files>
