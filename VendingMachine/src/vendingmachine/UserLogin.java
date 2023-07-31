@@ -196,7 +196,6 @@ public class UserLogin extends javax.swing.JFrame {
 
             if (currOwnerName.equals(userName) && currOwnerPass.equals(pass)) {
                 JOptionPane.showMessageDialog(null,"Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-                
                 Dashboard dashboard = new Dashboard();
                 dashboard.setOwner(owner);
                 dashboard.setVisible(true);
@@ -205,7 +204,9 @@ public class UserLogin extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null,"Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
                 Start StartMenu = new Start();
+                StartMenu.setOwnersArray(owners);
                 StartMenu.setVisible(true);
+                this.dispose();
             }
                 
         }
