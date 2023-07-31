@@ -6,11 +6,13 @@ package vendingmachine;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Andrea
  */
 public class ChangePassword extends javax.swing.JFrame {
+
     ArrayList<Owner> owners = new ArrayList<>();
 
     /**
@@ -147,22 +149,34 @@ public class ChangePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Owner changePassOwner = null;
         String userName = name.getText();
         String newPass = newPassword.getText();
 
         // TODO: insert code for getting the updated password
-        
-        //for successful password change 
-        JOptionPane.showMessageDialog(null,"Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-        
-        // for account not found 
-        JOptionPane.showMessageDialog(null,"Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-        
-        
-        Start StartMenu = new Start(); 
-        StartMenu.setVisible(true);
-        
-        this.dispose();
+        for (Owner owner : owners) {
+            String currOwnerName = owner.getName();
+            if (currOwnerName.equals(userName)) {
+                changePassOwner = owner;
+            }
+        }
+
+        if (changePassOwner != null) {
+            changePassOwner.setPassword(newPass);
+            //for successful password change 
+            JOptionPane.showMessageDialog(null, "Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            Start StartMenu = new Start();
+            StartMenu.setOwnersArray(owners);
+            StartMenu.setVisible(true);
+            this.dispose();
+        } else {
+            // for account not found 
+            JOptionPane.showMessageDialog(null, "Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            Start StartMenu = new Start();
+            StartMenu.setOwnersArray(owners);
+            StartMenu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
