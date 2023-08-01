@@ -1,7 +1,9 @@
 package vendingmachine;
+
 import java.util.ArrayList;
 
 public abstract class SpecialItem {
+
     private String name;
     private String[] ingredients;
 
@@ -27,8 +29,9 @@ public abstract class SpecialItem {
 
     public boolean ingredientExists(String ingredient) {
         for (int i = 0; i < ingredients.length; ++i) {
-            if (ingredients[i].equals(ingredient))
+            if (ingredients[i].equals(ingredient)) {
                 return true;
+            }
         }
         return false;
     }
@@ -37,13 +40,17 @@ public abstract class SpecialItem {
         return this.name;
     }
 
+    public String[] getIngredients() {
+        return this.ingredients;
+    }
+
     abstract public void displayProcess();
 
     @Override
     public String toString() {
-        String displayString = "\n==============================\n" +
-                this.name + "\n==============================\n" +
-                "INGREDIENTS:\n\n";
+        String displayString = "\n==============================\n"
+                + this.name + "\n==============================\n"
+                + "INGREDIENTS:\n\n";
 
         for (String ingredient : ingredients) {
             displayString += ingredient + "\n";

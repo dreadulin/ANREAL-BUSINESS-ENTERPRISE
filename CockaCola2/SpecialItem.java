@@ -36,6 +36,10 @@ public abstract class SpecialItem {
         return this.name;
     }
 
+    public String[] getIngredients() {
+        return this.ingredients;
+    }
+
     abstract public void displayProcess();
 
     @Override

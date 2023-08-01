@@ -114,7 +114,7 @@ public class ChangePriceRVM extends javax.swing.JFrame {
 
         itemPriceLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         itemPriceLabel.setForeground(new java.awt.Color(255, 255, 255));
-        itemPriceLabel.setText("jLabel6");
+        itemPriceLabel.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

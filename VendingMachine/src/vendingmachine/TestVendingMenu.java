@@ -162,8 +162,8 @@ public class TestVendingMenu extends javax.swing.JFrame {
 
     private void specialVendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialVendingButtonActionPerformed
         // Testing Special Vending Machine
-        SpecialVM specialVendingMaintenance = new SpecialVM(authorizedOwner, authenticatedSpecialMachine);
-        specialVendingMaintenance.setVisible(true);
+        SpecialVM specialVendingMachine = new SpecialVM(authorizedOwner, authenticatedSpecialMachine);
+        specialVendingMachine.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_specialVendingButtonActionPerformed
 
@@ -173,7 +173,6 @@ public class TestVendingMenu extends javax.swing.JFrame {
             String machineName = regularVendingList.getSelectedItem().toString();
             authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
             regularVendingButton.setEnabled(true);
-            this.dispose();
         }
     }//GEN-LAST:event_regularVendingListActionPerformed
 
@@ -183,7 +182,6 @@ public class TestVendingMenu extends javax.swing.JFrame {
             String machineName = specialVendingList.getSelectedItem().toString();
             authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
             specialVendingButton.setEnabled(true);
-            this.dispose();
         }
     }//GEN-LAST:event_specialVendingListActionPerformed
 
