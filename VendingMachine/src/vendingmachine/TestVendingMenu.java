@@ -11,17 +11,29 @@ package vendingmachine;
 public class TestVendingMenu extends javax.swing.JFrame {
 
     Owner authorizedOwner;
+    RegularVendingMachine authenticatedRegularMachine = null;
+    SpecialVendingMachine authenticatedSpecialMachine = null;
 
     /**
      * Creates new form TestVendingMenu
      */
     public TestVendingMenu() {
         initComponents();
+        regularVendingButton.setEnabled(false);
+        specialVendingButton.setEnabled(false);
     }
 
     public TestVendingMenu(Owner owner) {
         this();
         authorizedOwner = owner;
+
+        for (RegularVendingMachine regularMachine : authorizedOwner.getRegularMachines()) {
+            regularVendingList.addItem(regularMachine.getName());
+        }
+
+        for (SpecialVendingMachine specialMachine : authorizedOwner.getSpecialMachines()) {
+            specialVendingList.addItem(specialMachine.getName());
+        }
     }
 
     /**
@@ -33,20 +45,25 @@ public class TestVendingMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        regularVendingButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        specialVendingButton = new javax.swing.JButton();
+        regularVendingList = new javax.swing.JComboBox<>();
+        specialVendingList = new javax.swing.JComboBox<>();
+
+        jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 21)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/TestRVMButton.png"))); // NOI18N
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        regularVendingButton.setFont(new java.awt.Font("Century Gothic", 1, 21)); // NOI18N
+        regularVendingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/TestRVMButton.png"))); // NOI18N
+        regularVendingButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regularVendingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                regularVendingButtonActionPerformed(evt);
             }
         });
 
@@ -63,7 +80,7 @@ public class TestVendingMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(207, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(221, 221, 221))
         );
@@ -75,12 +92,24 @@ public class TestVendingMenu extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 21)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/TestSVMButton.png"))); // NOI18N
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        specialVendingButton.setFont(new java.awt.Font("Century Gothic", 1, 21)); // NOI18N
+        specialVendingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/TestSVMButton.png"))); // NOI18N
+        specialVendingButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        specialVendingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                specialVendingButtonActionPerformed(evt);
+            }
+        });
+
+        regularVendingList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regularVendingListActionPerformed(evt);
+            }
+        });
+
+        specialVendingList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                specialVendingListActionPerformed(evt);
             }
         });
 
@@ -92,45 +121,69 @@ public class TestVendingMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(specialVendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regularVendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regularVendingList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(specialVendingList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(59, 59, 59)
+                        .addComponent(regularVendingList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(regularVendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(specialVendingList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(specialVendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void regularVendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularVendingButtonActionPerformed
         // Testing Regular Vending Machine
-        TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
-        testMaintenance.setVisible(true);
+        RegularVM regularVendingMachine = new RegularVM(authorizedOwner, authenticatedRegularMachine);
+        regularVendingMachine.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_regularVendingButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void specialVendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialVendingButtonActionPerformed
         // Testing Special Vending Machine
-        TestSpecialMaintenance testSVMaintenance = new TestSpecialMaintenance(authorizedOwner);
-        testSVMaintenance.setVisible(true);
+        SpecialVM specialVendingMaintenance = new SpecialVM(authorizedOwner, authenticatedSpecialMachine);
+        specialVendingMaintenance.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_specialVendingButtonActionPerformed
+
+    private void regularVendingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularVendingListActionPerformed
+        // TODO add your handling code here:
+        if (evt.getSource() == regularVendingList) {
+            String machineName = regularVendingList.getSelectedItem().toString();
+            authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
+            regularVendingButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_regularVendingListActionPerformed
+
+    private void specialVendingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialVendingListActionPerformed
+        // TODO add your handling code here:
+        if (evt.getSource() == specialVendingList) {
+            String machineName = specialVendingList.getSelectedItem().toString();
+            authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
+            specialVendingButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_specialVendingListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,10 +221,13 @@ public class TestVendingMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton regularVendingButton;
+    private javax.swing.JComboBox<String> regularVendingList;
+    private javax.swing.JButton specialVendingButton;
+    private javax.swing.JComboBox<String> specialVendingList;
     // End of variables declaration//GEN-END:variables
 }

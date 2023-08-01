@@ -157,9 +157,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Test Vending Machine 
-
-        RegularVM regularVM = new RegularVM(authorizedOwner);
-        regularVM.setVisible(true);
+        TestVendingMenu vendingMenu = new TestVendingMenu(authorizedOwner);
+        vendingMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -176,7 +175,6 @@ public class Dashboard extends javax.swing.JFrame {
         TestMaintenanceMenu testMenu = new TestMaintenanceMenu(authorizedOwner);
         testMenu.setVisible(true);
         this.dispose();
-
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
