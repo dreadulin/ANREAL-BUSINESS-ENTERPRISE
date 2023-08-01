@@ -455,9 +455,12 @@ public class RegularVendingMachine {
             if (!slot.isEmpty()) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
                     boolean status = slot.restockSlot(amount);
-                    if (status) // If successful
+                    if (status == true) // If successful
+                    {
                         this.updateLastRestock();
-                    return status;
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
@@ -468,9 +471,12 @@ public class RegularVendingMachine {
         for (Slot slot : this.getItemSlots()) {
             if (slot.isEmpty()) {
                 boolean status = slot.stockSlot(item, amount);
-                if (status) // If successful
+                if (status == true) // If successful
+                {
                     this.updateLastRestock();
-                return status;
+                    return true;
+                }
+                return false;
             }
         }
         return false;
