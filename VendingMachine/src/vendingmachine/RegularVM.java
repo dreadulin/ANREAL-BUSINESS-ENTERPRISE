@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Andrea
  */
 public class RegularVM extends javax.swing.JFrame {
-
+    
     Owner authorizedOwner;
     RegularVendingMachine authenticatedRegularMachine;
     Item selectedItem;
@@ -34,18 +34,18 @@ public class RegularVM extends javax.swing.JFrame {
         cancelDispenseBtn.setEnabled(false);
         payBtn.setEnabled(false);
     }
-
+    
     public RegularVM(Owner owner, RegularVendingMachine regularMachine) {
         this();
         authorizedOwner = owner;
         authenticatedRegularMachine = regularMachine;
-
+        
         String[] columnNames = {"Name", "Price", "Calories", "Stock"};
         DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
-
+        
         availableItemsTable.setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = regularMachine.getItemSlots();
-
+        
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
@@ -54,14 +54,14 @@ public class RegularVM extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void resetMachineInput() {
         String[] columnNames = {"Name", "Price", "Quantity", "Total"};
         DefaultTableModel chosenItemTableModel = new DefaultTableModel(columnNames, 0);
-
+        
         selectedItem = null;
         selectedItemSlot = null;
-
+        
         itemNameTF.setText("");
         quantityTF.setText("");
         totalCostLabel.setText("0");
@@ -70,16 +70,16 @@ public class RegularVM extends javax.swing.JFrame {
         dispenseBtn.setEnabled(false);
         cancelDispenseBtn.setEnabled(false);
         payBtn.setEnabled(false);
-
+        
         chosenItemsTable.setModel(chosenItemTableModel);
         chosenItemTableModel.setRowCount(0);
-
+        
         DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
 
         // UPDATE THE AVAILABLE ITEMS LIST
         availableItemsTable.setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = authenticatedRegularMachine.getItemSlots();
-
+        
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
@@ -674,21 +674,21 @@ public class RegularVM extends javax.swing.JFrame {
         int totalCost = Integer.parseInt(totalCostLabel.getText());
         int totalChange = Integer.parseInt(totalChangeLabel.getText());
         boolean dispenseChangeSuccess = authenticatedRegularMachine.dispenseChange(payment, totalCost);
-
+        
         if (!dispenseChangeSuccess) {
             JOptionPane.showMessageDialog(null, "Vending machine money is not enough to dispense change for your transaction.", "Message", JOptionPane.INFORMATION_MESSAGE);
             dispenseBtn.setEnabled(false);
             cancelDispenseBtn.setEnabled(true);
             return;
         }
-
+        
         Transaction newTransaction = new Transaction(selectedItem, dispenseQuantity, totalCost);
-
+        
         authenticatedRegularMachine.addTransaction(newTransaction);
         // If everything checks out and everything is done, return the Item
         // Remove the item(s) from their slot
         selectedItemSlot.removeStock(dispenseQuantity);
-
+        
         String summaryString = String.format("""
                                              ==================
                                              DISPENSE SUMMARY
@@ -702,9 +702,9 @@ public class RegularVM extends javax.swing.JFrame {
                                              Thank you for shopping!
                                              """,
                 selectedItem.getName(), dispenseQuantity, totalCost, payment, totalChange);
-
+        
         JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
-
+        
         this.resetMachineInput();
     }//GEN-LAST:event_dispenseBtnActionPerformed
 
@@ -713,16 +713,18 @@ public class RegularVM extends javax.swing.JFrame {
         payBtn.setEnabled(false);
         payment = Integer.parseInt(paymentTF.getText());
         int totalCost = Integer.parseInt(totalCostLabel.getText());
-
+        
         if (payment < (totalCost)) {
             JOptionPane.showMessageDialog(null, "Your payment is not enough for this item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             paymentTF.setText("");
             return;
         }
-
+        
+        authenticatedRegularMachine.receivePayment(payment);
+        
         int change = payment - totalCost;
         totalChangeLabel.setText(Integer.toString(change));
-
+        
         paymentTF.setText("");
         dispenseBtn.setEnabled(true);
         cancelDispenseBtn.setEnabled(true);
@@ -765,29 +767,29 @@ public class RegularVM extends javax.swing.JFrame {
                 }
             }
         }
-
+        
         if (selectedItemSlot == null || selectedItem == null) {
             JOptionPane.showMessageDialog(null, "Item does not exist in the vending machine.", "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+        
         if (selectedItemSlot.getItemQuantity() < dispenseQuantity) {
             JOptionPane.showMessageDialog(null, "Quantity exceeds the stock for the item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             itemNameTF.setText("");
             quantityTF.setText("");
             return;
         }
-
+        
         String[] columnNames = {"Name", "Price", "Quantity", "Total"};
         DefaultTableModel chosenItemTableModel = new DefaultTableModel(columnNames, 0);
-
+        
         chosenItemsTable.setModel(chosenItemTableModel);
-
+        
         int totalCost = selectedItem.getPrice() * dispenseQuantity;
-
+        
         Object[] row = {selectedItem.getName(), selectedItem.getPrice(), dispenseQuantity, totalCost};
         chosenItemTableModel.addRow(row);
-
+        
         totalCostLabel.setText(Integer.toString(totalCost));
         itemNameTF.setText("");
         quantityTF.setText("");

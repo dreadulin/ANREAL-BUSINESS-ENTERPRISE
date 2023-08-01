@@ -867,6 +867,8 @@ public class SpecialVM extends javax.swing.JFrame {
             return;
         }
 
+        authenticatedSpecialMachine.receivePayment(payment);
+
         int change = payment - totalCost;
         totalChangeLabel.setText(Integer.toString(change));
 
@@ -924,11 +926,13 @@ public class SpecialVM extends javax.swing.JFrame {
             int totalCost = 0;
             for (String ingredient : ingredients) {
                 Item item = authenticatedSpecialMachine.getItem(ingredient);
-                Object[] row = {item.getName(), item.getPrice(), item.getCalories(), 1};
-                totalCost += item.getPrice();
-                cartItemTableModel.addRow(row);
-                selectedItems.add(item);
-                selectedItemsQuantities.add(1);
+                if (item != null) {
+                    Object[] row = {item.getName(), item.getPrice(), item.getCalories(), 1};
+                    totalCost += item.getPrice();
+                    cartItemTableModel.addRow(row);
+                    selectedItems.add(item);
+                    selectedItemsQuantities.add(1);
+                }
             }
 
             totalCostLabel.setText(Integer.toString(totalCost));
