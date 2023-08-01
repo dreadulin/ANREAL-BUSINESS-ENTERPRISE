@@ -41,12 +41,6 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
         }
     }
 
-    public TestRegularMaintenance(Owner owner, RegularVendingMachine regularMachine) {
-        this(owner);
-        authorizedOwner = owner;
-        authenticatedRegularMachine = regularMachine;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -250,15 +244,21 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // collect money
+        CollectMoneyRVM collectMoney = new CollectMoneyRVM(authorizedOwner, authenticatedRegularMachine);
+        collectMoney.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // replenish money
+        ReplenishMoneyRVM replenishMoney = new ReplenishMoneyRVM(authorizedOwner, authenticatedRegularMachine);
+        replenishMoney.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // display transaction summary
-        TransactionSummaryRVM displaySummary = new TransactionSummaryRVM();
+        TransactionSummaryRVM displaySummary = new TransactionSummaryRVM(authorizedOwner, authenticatedRegularMachine);
         displaySummary.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

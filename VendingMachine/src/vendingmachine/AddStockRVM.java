@@ -211,7 +211,13 @@ public class AddStockRVM extends javax.swing.JFrame {
 
         if (existingItem != null) {
             JOptionPane.showMessageDialog(null, "Item already exists. Restocking instead...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            authorizedOwner.restock(authenticatedRegularMachine, stockName, stockItemAmount);
+            boolean successOp = authorizedOwner.restock(authenticatedRegularMachine, stockName, stockItemAmount);
+            if (successOp) {
+                JOptionPane.showMessageDialog(null, "Restocking successful. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Slot is full. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            }
+
             TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
@@ -219,17 +225,17 @@ public class AddStockRVM extends javax.swing.JFrame {
         }
 
         Item newItem = new Item(stockName, stockPrice, stockCalories);
-        JOptionPane.showMessageDialog(null, "Restocking slot..", "Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Stocking slot..", "Message", JOptionPane.INFORMATION_MESSAGE);
 
         success = authorizedOwner.stock(authenticatedRegularMachine, newItem, stockItemAmount);
 
         if (success) {
-            JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Stock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Failed to restock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to stock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();

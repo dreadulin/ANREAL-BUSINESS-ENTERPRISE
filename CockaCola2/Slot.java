@@ -20,16 +20,17 @@ public class Slot {
         this.itemCapacity = itemCapacity;
     }
 
-    public void restockSlot(int amount) {
+    public boolean restockSlot(int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
-            return;
+            return false;
         }
         Item slotItem = this.getSlotItemType();
         while (amount > 0 && !this.isFull()) {
             this.items.add(slotItem);
             amount--;
         }
+        return true;
     }
 
     /**
@@ -40,15 +41,16 @@ public class Slot {
      * @amount which is the amount of items to put in the vending machine
      */
 
-    public void stockSlot(Item item, int amount) {
+    public boolean stockSlot(Item item, int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
-            return;
+            return false;
         }
         while (amount > 0 && !this.isFull()) {
             this.items.add(item);
             amount--;
         }
+        return true;
     }
 
     /**

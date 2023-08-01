@@ -4,17 +4,41 @@
  */
 package vendingmachine;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Andrea
  */
 public class TransactionSummaryRVM extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+    RegularVendingMachine authenticatedRegularMachine;
+
     /**
      * Creates new form TransactionSummary
      */
     public TransactionSummaryRVM() {
         initComponents();
+    }
+
+    public TransactionSummaryRVM(Owner owner, RegularVendingMachine vendingMachine) {
+        this();
+        authorizedOwner = owner;
+        authenticatedRegularMachine = vendingMachine;
+        String[] columnNames = {"Item Name", "Quantity Purchase", "Total Sale", "Date"};
+        DefaultTableModel transactionTableModel = new DefaultTableModel(columnNames, 0);
+
+        transactionTable.setModel(transactionTableModel);
+        ArrayList<Transaction> transactions = vendingMachine.getTransactions();
+        List<Transaction> transactionsToSummarize = transactions.stream().filter(t -> t.getTransactionDate() > authenticatedRegularMachine.lastRestockDate).toList();
+
+        for (Transaction transaction : transactionsToSummarize) {
+            Object[] row = {transaction.getItemPurchased().getName(), transaction.getPurchaseAmount(), transaction.getTotalSales(), transaction.getTransactionDate()};
+            transactionTableModel.addRow(row);
+        }
     }
 
     /**
@@ -28,14 +52,14 @@ public class TransactionSummaryRVM extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transactionTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(254, 249, 239));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        transactionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -46,7 +70,7 @@ public class TransactionSummaryRVM extends javax.swing.JFrame {
                 "Item Name", "Quantity Purchase", "Total Sale", "Date"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(transactionTable);
 
         jLabel1.setBackground(new java.awt.Color(34, 124, 157));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
@@ -130,6 +154,6 @@ public class TransactionSummaryRVM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable transactionTable;
     // End of variables declaration//GEN-END:variables
 }

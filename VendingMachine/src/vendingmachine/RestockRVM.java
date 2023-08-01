@@ -30,8 +30,11 @@ public class RestockRVM extends javax.swing.JFrame {
         authenticatedRegularMachine = regularMachine;
 
         for (Slot slot : regularMachine.getItemSlots()) {
-            jComboBox1.addItem(slot.getSlotItemType().getName());
+            if (slot.getSlotItemType() != null) {
+                jComboBox1.addItem(slot.getSlotItemType().getName());
+            }
         }
+
     }
 
     /**
@@ -51,6 +54,8 @@ public class RestockRVM extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        itemStockLabel = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,33 +104,47 @@ public class RestockRVM extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Current Stock: ");
+
+        itemStockLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        itemStockLabel.setForeground(new java.awt.Color(255, 255, 255));
+        itemStockLabel.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemStockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(itemStockLabel))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
 
         jButton7.setBackground(new java.awt.Color(255, 203, 119));
@@ -157,7 +176,7 @@ public class RestockRVM extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,12 +204,12 @@ public class RestockRVM extends javax.swing.JFrame {
 
         if (operationSuccessful) {
             JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner, authenticatedRegularMachine);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "There is no slot that matches the item name. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner, authenticatedRegularMachine);
+            JOptionPane.showMessageDialog(null, "Restock Failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         }
@@ -200,6 +219,14 @@ public class RestockRVM extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getSource() == jComboBox1) {
             selectedItemName = jComboBox1.getSelectedItem().toString();
+            for (Slot slot : authenticatedRegularMachine.getItemSlots()) {
+                if (slot.getSlotItemType() != null) {
+                    if (slot.getSlotItemType().getName().equals(selectedItemName)) {
+                        itemStockLabel.setText(Integer.toString(slot.getItemQuantity()));
+                        return;
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -240,9 +267,11 @@ public class RestockRVM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel itemStockLabel;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

@@ -1,4 +1,5 @@
 package vendingmachine;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,8 +7,8 @@ import java.util.Date;
 /**
  * This class represents the vending machine
  */
-
 public class RegularVendingMachine {
+
     protected Owner owner;
     protected String name;
     protected ArrayList<Slot> itemSlots;
@@ -15,21 +16,20 @@ public class RegularVendingMachine {
     protected ArrayList<Slot> lastRestockSlots;
     protected long lastRestockDate;
     protected int collectedMoney = 0;
-    protected final static int[] validDenominations = { 1000, 500, 200, 100, 50, 20, 10, 5, 1 };
-    protected Money[] bills = { new Money(1000, 0), new Money(500, 0), new Money(200, 0), new Money(100, 0),
-            new Money(50, 0), new Money(20, 0), new Money(10, 0), new Money(5, 0), new Money(1, 0) };
+    protected final static int[] validDenominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1};
+    protected Money[] bills = {new Money(1000, 0), new Money(500, 0), new Money(200, 0), new Money(100, 0),
+        new Money(50, 0), new Money(20, 0), new Money(10, 0), new Money(5, 0), new Money(1, 0)};
 
     /**
      * This constructor initializes the owner of the vending machine, the slot
-     * capacity and the item
-     * capacity.
-     * 
-     * @param owner            which is the owner of the vending machine.
-     * @param slotCapacity     which is the maximum number of slots the vending
-     *                         machine can hold
-     * @param slotItemCapacity which is the maximum number of items a slot can hold
+     * capacity and the item capacity.
+     *
+     * @param owner which is the owner of the vending machine.
+     * @param slotCapacity which is the maximum number of slots the vending
+     * machine can hold
+     * @param slotItemCapacity which is the maximum number of items a slot can
+     * hold
      */
-
     public RegularVendingMachine(Owner owner, String name, int slotCapacity, int slotItemCapacity) {
         // Assign owner to attribute
         this.owner = owner;
@@ -54,15 +54,14 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method gets the quantity of an item from the vending machine by taking
-     * the itemName, quantity, and payment as its parameters.
-     * 
+     * This method gets the quantity of an item from the vending machine by
+     * taking the itemName, quantity, and payment as its parameters.
+     *
      * @param itemName which is the name of the item in the vending machine
      * @param quantity which is how many items will be bought by the user
-     * @param payment  which is the amount entered by the user
+     * @param payment which is the amount entered by the user
      *
      */
-
     public Item dispenseItem(String itemName, int quantity, int payment) {
         Item item = null;
         Slot itemSlot = null;
@@ -99,7 +98,6 @@ public class RegularVendingMachine {
         // If it is greater, than means that you can't get any more than what is in the
         // slot
         // This cannot accept < 0 values
-
         // When payment is valid (greater than 0), verify if price of item times the
         // amount is less or equal to payment.
         // Execute receivePayment to distribute the money to respective denominations.
@@ -124,13 +122,11 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method gets the total number of bills or coins the payment
-     * contains
-     * 
+     * This method gets the total number of bills or coins the payment contains
+     *
      * @param payment which is the amount entered by the user
      *
      */
-
     public void receivePayment(int payment) {
         // Starts from the highest denomination to the lowest.
         // After modulo operation, subtract the result times the denomination value.
@@ -142,14 +138,12 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method gets the amount of change to be given back to the
-     * user
-     * 
+     * This method gets the amount of change to be given back to the user
+     *
      * @param amountPaid which is the amount paid by the user
      * @param amountCost which is the cost of the item bought.
      *
      */
-
     public boolean dispenseChange(int amountPaid, int amountCost) {
         int changeRemaining = amountPaid - amountCost;
         int tempChange = amountPaid - amountCost;
@@ -175,20 +169,19 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method informs the user of the number of calories an item
-     * contains.
-     * 
+     * This method informs the user of the number of calories an item contains.
+     *
      * @param name which represents the item name in the vending machine
      * @return calories of the item
      *
      */
-
     public double getCalories(String name) {
         for (int i = 0; i < itemSlots.size(); ++i) {
             Item currSlotItemType = itemSlots.get(i).getSlotItemType();
 
-            if (currSlotItemType.getName().equals(name))
+            if (currSlotItemType.getName().equals(name)) {
                 return currSlotItemType.getCalories();
+            }
         }
 
         return (double) 0;
@@ -198,7 +191,6 @@ public class RegularVendingMachine {
      * This method gets the summary of transactions.
      *
      */
-
     public void getTransactionSummary() {
         int totalSales = 0;
         System.out.println("-------------------------------------------------");
@@ -232,12 +224,11 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method saves the array for inventory in a variable whenever there is a
-     * restock. This also displays the starting inventory and the current inventory
-     * by displaying all of the slots
+     * This method saves the array for inventory in a variable whenever there is
+     * a restock. This also displays the starting inventory and the current
+     * inventory by displaying all of the slots
      *
      */
-
     public void displayInventory() {
         Date date = new Date(this.lastRestockDate);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -270,44 +261,40 @@ public class RegularVendingMachine {
 
     /**
      * This method gets the slots of the item
-     * 
+     *
      * @return itemSlots
      *
      */
-
     public ArrayList<Slot> getItemSlots() {
         return this.itemSlots;
     }
 
     /**
      * This method gets the transactions from the Transaction arraylist
-     * 
+     *
      * @return transactions
      *
      */
-
     public ArrayList<Transaction> getTransactions() {
         return this.transactions;
     }
 
     /**
      * This method gets the total amount of collected money
-     * 
+     *
      * @return the last restock date in long form.
      *
      */
-
     public long getLastRestockDate() {
         return this.lastRestockDate;
     }
 
     /**
      * This method gets the total amount of collected money
-     * 
+     *
      * @return collected
      *
      */
-
     public int getCollectedMoney() {
         int collected = 0;
         for (Money money : bills) {
@@ -324,16 +311,28 @@ public class RegularVendingMachine {
         return totalStockMoney;
     }
 
+    public Money[] getMoneyArray() {
+        return this.bills;
+    }
+
+    public Money getMoney(int denomination) {
+        for (Money money : bills) {
+            if (money.getValue() == denomination) {
+                return money;
+            }
+        }
+
+        return null;
+    }
+
     /**
-     * This method checks if a denomination is valid. If the denomination is valid,
-     * it adds the denomination to the amount
-     * 
-     * @param amount       which will be inserted/entered to the vending
-     *                     machine.
+     * This method checks if a denomination is valid. If the denomination is
+     * valid, it adds the denomination to the amount
+     *
+     * @param amount which will be inserted/entered to the vending machine.
      * @param denomination which are the money denomination
      *
      */
-
     public void setMoney(int amount, int denomination) {
         for (Money money : bills) {
             if (money.getValue() == denomination) {
@@ -345,8 +344,8 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method updates the last restock date and the restock slots of the last
-     * restock.
+     * This method updates the last restock date and the restock slots of the
+     * last restock.
      *
      */
     public void updateLastRestock() {
@@ -371,17 +370,17 @@ public class RegularVendingMachine {
     }
 
     /**
-     * This method uses a loop to check if a denomination is valid. If it is valid,
-     * it returns true. Otherwise, it returns false
-     * 
+     * This method uses a loop to check if a denomination is valid. If it is
+     * valid, it returns true. Otherwise, it returns false
+     *
      * @param denomination which are the money denomination
      *
      */
-
     public boolean denominationIsValid(int denomination) {
         for (int i = 0; i < validDenominations.length; ++i) {
-            if (validDenominations[i] == denomination)
+            if (validDenominations[i] == denomination) {
                 return true;
+            }
         }
         return false;
     }
@@ -404,7 +403,7 @@ public class RegularVendingMachine {
 
     /**
      * This method gets the item for a slot
-     * 
+     *
      * @param name which is the name of the item
      * @return slot of the item
      */
@@ -422,9 +421,9 @@ public class RegularVendingMachine {
 
     /**
      * This method displays the money of the vending machine
-     * 
+     *
      * @param denomination which is the denomination of the money in the vending
-     *                     machine
+     * machine
      *
      */
     public void displayMoney(int denomination) {
@@ -441,9 +440,13 @@ public class RegularVendingMachine {
         for (Slot slot : this.getItemSlots()) {
             if (!slot.isEmpty()) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
-                    slot.restockSlot(amount);
-                    this.updateLastRestock();
-                    return true;
+                    boolean status = slot.restockSlot(amount);
+                    if (status == true) // If successful
+                    {
+                        this.updateLastRestock();
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
@@ -453,9 +456,13 @@ public class RegularVendingMachine {
     public boolean stock(Item item, int amount) {
         for (Slot slot : this.getItemSlots()) {
             if (slot.isEmpty()) {
-                slot.stockSlot(item, amount);
-                this.updateLastRestock();
-                return true;
+                boolean status = slot.stockSlot(item, amount);
+                if (status == true) // If successful
+                {
+                    this.updateLastRestock();
+                    return true;
+                }
+                return false;
             }
         }
         return false;

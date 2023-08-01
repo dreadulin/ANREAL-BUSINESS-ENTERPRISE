@@ -323,6 +323,20 @@ public class RegularVendingMachine {
         return totalStockMoney;
     }
 
+    public Money[] getMoneyArray() {
+        return this.bills;
+    }
+
+    public Money getMoney(int denomination) {
+        for (Money money : bills) {
+            if (money.getValue() == denomination) {
+                return money;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * This method checks if a denomination is valid. If the denomination is valid,
      * it adds the denomination to the amount
@@ -440,9 +454,10 @@ public class RegularVendingMachine {
         for (Slot slot : this.getItemSlots()) {
             if (!slot.isEmpty()) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
-                    slot.restockSlot(amount);
-                    this.updateLastRestock();
-                    return true;
+                    boolean status = slot.restockSlot(amount);
+                    if (status) // If successful
+                        this.updateLastRestock();
+                    return status;
                 }
             }
         }
@@ -452,9 +467,10 @@ public class RegularVendingMachine {
     public boolean stock(Item item, int amount) {
         for (Slot slot : this.getItemSlots()) {
             if (slot.isEmpty()) {
-                slot.stockSlot(item, amount);
-                this.updateLastRestock();
-                return true;
+                boolean status = slot.stockSlot(item, amount);
+                if (status) // If successful
+                    this.updateLastRestock();
+                return status;
             }
         }
         return false;
