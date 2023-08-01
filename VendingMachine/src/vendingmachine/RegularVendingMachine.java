@@ -480,6 +480,10 @@ public class RegularVendingMachine {
         return false;
     }
 
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+    }
+
     @Override
     public String toString() {
         return "\n================================\n" + this.name + "\nRegular Vending Machine\n"

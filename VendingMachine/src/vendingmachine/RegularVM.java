@@ -7,6 +7,8 @@ package vendingmachine;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +18,10 @@ public class RegularVM extends javax.swing.JFrame {
 
     Owner authorizedOwner;
     RegularVendingMachine authenticatedRegularMachine;
+    Item selectedItem;
+    Slot selectedItemSlot;
+    int dispenseQuantity = 0;
+    int payment = 0;
 
     /**
      * Creates new form RegularVM
@@ -24,17 +30,63 @@ public class RegularVM extends javax.swing.JFrame {
         super("Regular Vending Machine");
         initComponents();
         setResizable(false);
-    }
-
-    public RegularVM(Owner owner) {
-        this();
-        authorizedOwner = owner;
+        dispenseBtn.setEnabled(false);
+        cancelDispenseBtn.setEnabled(false);
+        payBtn.setEnabled(false);
     }
 
     public RegularVM(Owner owner, RegularVendingMachine regularMachine) {
         this();
         authorizedOwner = owner;
         authenticatedRegularMachine = regularMachine;
+
+        String[] columnNames = {"Name", "Price", "Calories", "Stock"};
+        DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
+
+        availableItemsTable.setModel(availableItemTableModel);
+        ArrayList<Slot> machineSlots = regularMachine.getItemSlots();
+
+        for (Slot slot : machineSlots) {
+            if (slot.getSlotItemType() != null) {
+                Item slotItem = slot.getSlotItemType();
+                Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
+                availableItemTableModel.addRow(row);
+            }
+        }
+    }
+
+    private void resetMachineInput() {
+        String[] columnNames = {"Name", "Price", "Quantity", "Total"};
+        DefaultTableModel chosenItemTableModel = new DefaultTableModel(columnNames, 0);
+
+        selectedItem = null;
+        selectedItemSlot = null;
+
+        itemNameTF.setText("");
+        quantityTF.setText("");
+        totalCostLabel.setText("0");
+        totalChangeLabel.setText("0");
+        addItemBtn.setEnabled(true);
+        dispenseBtn.setEnabled(false);
+        cancelDispenseBtn.setEnabled(false);
+        payBtn.setEnabled(false);
+
+        chosenItemsTable.setModel(chosenItemTableModel);
+        chosenItemTableModel.setRowCount(0);
+
+        DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
+
+        // UPDATE THE AVAILABLE ITEMS LIST
+        availableItemsTable.setModel(availableItemTableModel);
+        ArrayList<Slot> machineSlots = authenticatedRegularMachine.getItemSlots();
+
+        for (Slot slot : machineSlots) {
+            if (slot.getSlotItemType() != null) {
+                Item slotItem = slot.getSlotItemType();
+                Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
+                availableItemTableModel.addRow(row);
+            }
+        }
     }
 
     /**
@@ -46,12 +98,15 @@ public class RegularVM extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addItemBtn1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        itemsCart = new javax.swing.JList<>();
         jLabel9 = new javax.swing.JLabel();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        chosenItemsTable = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        totalCostLabel = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -64,24 +119,35 @@ public class RegularVM extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        quantityTF = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         calorieCount = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        addItemBtn = new javax.swing.JButton();
+        itemNameTF = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        dispenseBtn = new javax.swing.JButton();
+        paymentTF = new javax.swing.JTextField();
+        payBtn = new javax.swing.JButton();
+        cancelDispenseBtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         itemList = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        availableItemsTable = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        totalChangeLabel = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+
+        addItemBtn1.setBackground(new java.awt.Color(23, 195, 178));
+        addItemBtn1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        addItemBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        addItemBtn1.setText("Add");
+        addItemBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addItemBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemBtn1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,36 +155,96 @@ public class RegularVM extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 203, 119));
 
-        itemsCart.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jScrollPane3.setViewportView(itemsCart);
-
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(34, 124, 157));
         jLabel9.setText("Chosen Item:");
+
+        chosenItemsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Name", "Price", "Quantity", "Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        chosenItemsTable.setEnabled(false);
+        chosenItemsTable.setFocusable(false);
+        chosenItemsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(chosenItemsTable);
+        if (chosenItemsTable.getColumnModel().getColumnCount() > 0) {
+            chosenItemsTable.getColumnModel().getColumn(0).setResizable(false);
+            chosenItemsTable.getColumnModel().getColumn(1).setResizable(false);
+            chosenItemsTable.getColumnModel().getColumn(2).setResizable(false);
+            chosenItemsTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel6.setText("Total Cost: ");
+
+        totalCostLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        totalCostLabel.setText("0");
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel8.setText("P");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalCostLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(totalCostLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
 
         jPanel2.setBackground(new java.awt.Color(254, 109, 115));
 
@@ -133,7 +259,7 @@ public class RegularVM extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,28 +393,39 @@ public class RegularVM extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 203, 119));
 
-        jTextField2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        quantityTF.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setText("Quantity:");
 
         calorieCount.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
 
-        jButton6.setBackground(new java.awt.Color(23, 195, 178));
-        jButton6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Add");
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        addItemBtn.setBackground(new java.awt.Color(23, 195, 178));
+        addItemBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        addItemBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addItemBtn.setText("Add");
+        addItemBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addItemBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                addItemBtnActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        itemNameTF.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel5.setText("Item name:");
+
+        resetBtn.setBackground(new java.awt.Color(23, 195, 178));
+        resetBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        resetBtn.setForeground(new java.awt.Color(255, 255, 255));
+        resetBtn.setText("Reset");
+        resetBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -303,15 +440,17 @@ public class RegularVM extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(218, 218, 218)
                                 .addComponent(calorieCount, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 70, Short.MAX_VALUE))
+                            .addComponent(quantityTF, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 72, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -320,67 +459,49 @@ public class RegularVM extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quantityTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(14, 14, 14)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(323, 323, 323)
                 .addComponent(calorieCount)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(34, 124, 157));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Dispense Item");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        dispenseBtn.setBackground(new java.awt.Color(34, 124, 157));
+        dispenseBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        dispenseBtn.setForeground(new java.awt.Color(255, 255, 255));
+        dispenseBtn.setText("Dispense Item");
+        dispenseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                dispenseBtnActionPerformed(evt);
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        paymentTF.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
-        jButton3.setBackground(new java.awt.Color(34, 124, 157));
-        jButton3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Change");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        payBtn.setBackground(new java.awt.Color(23, 195, 178));
+        payBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        payBtn.setForeground(new java.awt.Color(255, 255, 255));
+        payBtn.setText("Submit Payment");
+        payBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                payBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(23, 195, 178));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Enter Payment");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelDispenseBtn.setBackground(new java.awt.Color(34, 124, 157));
+        cancelDispenseBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        cancelDispenseBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cancelDispenseBtn.setText("Cancel Dispense");
+        cancelDispenseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setBackground(new java.awt.Color(34, 124, 157));
-        jButton4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Total");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setBackground(new java.awt.Color(34, 124, 157));
-        jButton5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Cancel Dispense");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                cancelDispenseBtnActionPerformed(evt);
             }
         });
 
@@ -390,10 +511,7 @@ public class RegularVM extends javax.swing.JFrame {
 
         itemList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel10.setText("Item Information");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        availableItemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -419,16 +537,27 @@ public class RegularVM extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        availableItemsTable.setEnabled(false);
+        availableItemsTable.setFocusable(false);
+        availableItemsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(availableItemsTable);
+        availableItemsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (availableItemsTable.getColumnModel().getColumnCount() > 0) {
+            availableItemsTable.getColumnModel().getColumn(0).setResizable(false);
+            availableItemsTable.getColumnModel().getColumn(1).setResizable(false);
+            availableItemsTable.getColumnModel().getColumn(2).setResizable(false);
+            availableItemsTable.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        jLabel10.setBackground(new java.awt.Color(23, 195, 178));
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel10.setText("Total Change: ");
+
+        totalChangeLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        totalChangeLabel.setText("0");
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel12.setText("P");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -462,25 +591,21 @@ public class RegularVM extends javax.swing.JFrame {
                             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(payBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dispenseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(paymentTF, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                        .addComponent(cancelDispenseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(totalChangeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -502,40 +627,32 @@ public class RegularVM extends javax.swing.JFrame {
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(payBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paymentTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(dispenseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelDispenseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totalChangeLabel)
+                            .addComponent(jLabel12))))
                 .addGap(28, 28, 28)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(itemList)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -552,36 +669,139 @@ public class RegularVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void dispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispenseBtnActionPerformed
         // for total
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int totalCost = Integer.parseInt(totalCostLabel.getText());
+        int totalChange = Integer.parseInt(totalChangeLabel.getText());
+        boolean dispenseChangeSuccess = authenticatedRegularMachine.dispenseChange(payment, totalCost);
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!dispenseChangeSuccess) {
+            JOptionPane.showMessageDialog(null, "Vending machine money is not enough to dispense change for your transaction.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            dispenseBtn.setEnabled(false);
+            cancelDispenseBtn.setEnabled(true);
+            return;
+        }
+
+        Transaction newTransaction = new Transaction(selectedItem, dispenseQuantity, totalCost);
+
+        authenticatedRegularMachine.addTransaction(newTransaction);
+        // If everything checks out and everything is done, return the Item
+        // Remove the item(s) from their slot
+        selectedItemSlot.removeStock(dispenseQuantity);
+
+        String summaryString = String.format("""
+                                             ==================
+                                             DISPENSE SUMMARY
+                                             ==================
+                                             Item: %s
+                                             Quantity: %d
+                                             Total Cost: P %d
+                                             Total Paid: P %d
+                                             Change: P %d
+                                             ==================
+                                             Thank you for shopping!
+                                             """,
+                selectedItem.getName(), dispenseQuantity, totalCost, payment, totalChange);
+
+        JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
+
+        this.resetMachineInput();
+    }//GEN-LAST:event_dispenseBtnActionPerformed
+
+    private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         // for entering amount
-    }//GEN-LAST:event_jButton2ActionPerformed
+        payBtn.setEnabled(false);
+        payment = Integer.parseInt(paymentTF.getText());
+        int totalCost = Integer.parseInt(totalCostLabel.getText());
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // for change
-    }//GEN-LAST:event_jButton3ActionPerformed
+        if (payment < (totalCost)) {
+            JOptionPane.showMessageDialog(null, "Your payment is not enough for this item.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            paymentTF.setText("");
+            return;
+        }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        int change = payment - totalCost;
+        totalChangeLabel.setText(Integer.toString(change));
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        paymentTF.setText("");
+        dispenseBtn.setEnabled(true);
+        cancelDispenseBtn.setEnabled(true);
+    }//GEN-LAST:event_payBtnActionPerformed
+
+    private void cancelDispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDispenseBtnActionPerformed
+        authenticatedRegularMachine.dispenseChange(payment, 0);
+        String summaryString = String.format("""
+                                             ==================
+                                             DISPENSE CANCELLED
+                                             ==================
+                                             Change: P %d
+                                             ==================
+                                             Come again!
+                                             """,
+                payment);
+        JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
+        this.resetMachineInput();
+    }//GEN-LAST:event_cancelDispenseBtnActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // going back to the dashboard
-        Dashboard dashboard = new Dashboard();
+        Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed
         // adding items to cart
-    }//GEN-LAST:event_jButton6ActionPerformed
+        String itemName = itemNameTF.getText();
+        dispenseQuantity = Integer.parseInt(quantityTF.getText());
+
+        // FIND THE SLOT THE ITEM BELONGS TO
+        for (Slot slot : authenticatedRegularMachine.getItemSlots()) {
+            if (slot.getSlotItemType() != null) {
+                if (slot.getSlotItemType().getName().equals(itemName)) {
+                    selectedItemSlot = slot;
+                    selectedItem = slot.getSlotItemType();
+                    break;
+                }
+            }
+        }
+
+        if (selectedItemSlot == null || selectedItem == null) {
+            JOptionPane.showMessageDialog(null, "Item does not exist in the vending machine.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (selectedItemSlot.getItemQuantity() < dispenseQuantity) {
+            JOptionPane.showMessageDialog(null, "Quantity exceeds the stock for the item.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            itemNameTF.setText("");
+            quantityTF.setText("");
+            return;
+        }
+
+        String[] columnNames = {"Name", "Price", "Quantity", "Total"};
+        DefaultTableModel chosenItemTableModel = new DefaultTableModel(columnNames, 0);
+
+        chosenItemsTable.setModel(chosenItemTableModel);
+
+        int totalCost = selectedItem.getPrice() * dispenseQuantity;
+
+        Object[] row = {selectedItem.getName(), selectedItem.getPrice(), dispenseQuantity, totalCost};
+        chosenItemTableModel.addRow(row);
+
+        totalCostLabel.setText(Integer.toString(totalCost));
+        itemNameTF.setText("");
+        quantityTF.setText("");
+        addItemBtn.setEnabled(false);
+        payBtn.setEnabled(true);
+    }//GEN-LAST:event_addItemBtnActionPerformed
+
+    private void addItemBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemBtn1ActionPerformed
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        this.resetMachineInput();
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,22 +839,25 @@ public class RegularVM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addItemBtn;
+    private javax.swing.JButton addItemBtn1;
+    private javax.swing.JTable availableItemsTable;
     private javax.swing.JLabel calorieCount;
+    private javax.swing.JButton cancelDispenseBtn;
+    private javax.swing.JTable chosenItemsTable;
+    private javax.swing.JButton dispenseBtn;
     private javax.swing.JLabel itemList;
-    private javax.swing.JList<String> itemsCart;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JTextField itemNameTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -647,14 +870,14 @@ public class RegularVM extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton payBtn;
+    private javax.swing.JTextField paymentTF;
+    private javax.swing.JTextField quantityTF;
+    private javax.swing.JButton resetBtn;
+    private javax.swing.JLabel totalChangeLabel;
+    private javax.swing.JLabel totalCostLabel;
     // End of variables declaration//GEN-END:variables
 
 }

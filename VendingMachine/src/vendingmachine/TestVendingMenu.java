@@ -173,6 +173,7 @@ public class TestVendingMenu extends javax.swing.JFrame {
             String machineName = regularVendingList.getSelectedItem().toString();
             authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
             regularVendingButton.setEnabled(true);
+            this.dispose();
         }
     }//GEN-LAST:event_regularVendingListActionPerformed
 
@@ -182,6 +183,7 @@ public class TestVendingMenu extends javax.swing.JFrame {
             String machineName = specialVendingList.getSelectedItem().toString();
             authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
             specialVendingButton.setEnabled(true);
+            this.dispose();
         }
     }//GEN-LAST:event_specialVendingListActionPerformed
 
