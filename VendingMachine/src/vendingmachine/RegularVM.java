@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
@@ -11,8 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andrea
+ * This class represents how the regular vending machine works (including its features)
+ * @author Andrea Dulin and Darryl Javier
  */
 public class RegularVM extends javax.swing.JFrame {
     
@@ -35,17 +31,27 @@ public class RegularVM extends javax.swing.JFrame {
         payBtn.setEnabled(false);
     }
     
+    /**
+     * This constructor initializes authorizedOwner and authenticatedRegularMachine to be used althroughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param regularMachine which is the type of vending machine to be used
+     */
     public RegularVM(Owner owner, RegularVendingMachine regularMachine) {
         this();
         authorizedOwner = owner;
         authenticatedRegularMachine = regularMachine;
         
+        /*
+         * This sets the column titles which will display the list of available items, 
+         * its price, its number of calories and the stock. 
+         */
         String[] columnNames = {"Name", "Price", "Calories", "Stock"};
         DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
         
         availableItemsTable.setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = regularMachine.getItemSlots();
         
+        // This adds the details of the items to the table and display it
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
@@ -55,6 +61,9 @@ public class RegularVM extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * This method is for resetting the regular vending machine's input 
+     */
     private void resetMachineInput() {
         String[] columnNames = {"Name", "Price", "Quantity", "Total"};
         DefaultTableModel chosenItemTableModel = new DefaultTableModel(columnNames, 0);
@@ -76,7 +85,7 @@ public class RegularVM extends javax.swing.JFrame {
         
         DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames, 0);
 
-        // UPDATE THE AVAILABLE ITEMS LIST
+        // This updates the available items list 
         availableItemsTable.setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = authenticatedRegularMachine.getItemSlots();
         
@@ -669,13 +678,18 @@ public class RegularVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for dispensing items and change 
+     * @param evt which is an action event of an element 
+     */
     private void dispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispenseBtnActionPerformed
-        // for total
-        int totalCost = Integer.parseInt(totalCostLabel.getText());
-        int totalChange = Integer.parseInt(totalChangeLabel.getText());
+        // For the total
+        int totalCost = Integer.parseInt(totalCostLabel.getText()); // gets the total cost of the items 
+        int totalChange = Integer.parseInt(totalChangeLabel.getText()); // gets the total change 
         boolean dispenseChangeSuccess = authenticatedRegularMachine.dispenseChange(payment, totalCost);
         
         if (!dispenseChangeSuccess) {
+            // Informs the user that the money inside the vending machine is not enough to dispense the change 
             JOptionPane.showMessageDialog(null, "Vending machine money is not enough to dispense change for your transaction.", "Message", JOptionPane.INFORMATION_MESSAGE);
             dispenseBtn.setEnabled(false);
             cancelDispenseBtn.setEnabled(true);
@@ -685,8 +699,11 @@ public class RegularVM extends javax.swing.JFrame {
         Transaction newTransaction = new Transaction(selectedItem, dispenseQuantity, totalCost);
         
         authenticatedRegularMachine.addTransaction(newTransaction);
-        // If everything checks out and everything is done, return the Item
-        // Remove the item(s) from their slot
+
+        /*
+         *  If everything checks out and everything is done, return the Item
+         *  Remove the item(s) from their slot
+         */
         selectedItemSlot.removeStock(dispenseQuantity);
         
         String summaryString = String.format("""
@@ -703,11 +720,16 @@ public class RegularVM extends javax.swing.JFrame {
                                              """,
                 selectedItem.getName(), dispenseQuantity, totalCost, payment, totalChange);
         
+        // Displays the summary of the item dispensed
         JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
         
         this.resetMachineInput();
     }//GEN-LAST:event_dispenseBtnActionPerformed
 
+    /**
+     * This button allows the user to enter their payment
+     * @param evt is an action event of an element
+     */
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         // for entering amount
         payBtn.setEnabled(false);
@@ -715,6 +737,7 @@ public class RegularVM extends javax.swing.JFrame {
         int totalCost = Integer.parseInt(totalCostLabel.getText());
         
         if (payment < (totalCost)) {
+            // Informs the user that the amount they entered for payment isn't enough
             JOptionPane.showMessageDialog(null, "Your payment is not enough for this item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             paymentTF.setText("");
             return;
@@ -730,6 +753,10 @@ public class RegularVM extends javax.swing.JFrame {
         cancelDispenseBtn.setEnabled(true);
     }//GEN-LAST:event_payBtnActionPerformed
 
+    /**
+     * This is for cancelling the dispense of an item when the user wishes to do so
+     * @param evt which is an action event of an element
+     */
     private void cancelDispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDispenseBtnActionPerformed
         authenticatedRegularMachine.dispenseChange(payment, 0);
         String summaryString = String.format("""
@@ -741,23 +768,30 @@ public class RegularVM extends javax.swing.JFrame {
                                              Come again!
                                              """,
                 payment);
+        // Informs the user that the dispensing of item is cancelled 
         JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
         this.resetMachineInput();
     }//GEN-LAST:event_cancelDispenseBtnActionPerformed
 
+    /**
+     * This redirects the user to the dashboard 
+     * @param evt which is an action event of an element
+     */
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // going back to the dashboard
         Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    /**
+     * This button allows the user to add items to their cart 
+     * @param evt which is an action event of an element
+     */
     private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed
-        // adding items to cart
         String itemName = itemNameTF.getText();
         dispenseQuantity = Integer.parseInt(quantityTF.getText());
 
-        // FIND THE SLOT THE ITEM BELONGS TO
+        // finds the slot the item belongs to 
         for (Slot slot : authenticatedRegularMachine.getItemSlots()) {
             if (slot.getSlotItemType() != null) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
@@ -769,11 +803,13 @@ public class RegularVM extends javax.swing.JFrame {
         }
         
         if (selectedItemSlot == null || selectedItem == null) {
+            // Informs the user that the item doesn't exist in the machine 
             JOptionPane.showMessageDialog(null, "Item does not exist in the vending machine.", "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         
         if (selectedItemSlot.getItemQuantity() < dispenseQuantity) {
+            // Informs the user that the user has chosen a quantity more than the stock of the item
             JOptionPane.showMessageDialog(null, "Quantity exceeds the stock for the item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             itemNameTF.setText("");
             quantityTF.setText("");
@@ -798,9 +834,13 @@ public class RegularVM extends javax.swing.JFrame {
     }//GEN-LAST:event_addItemBtnActionPerformed
 
     private void addItemBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtn1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_addItemBtn1ActionPerformed
 
+    /**
+     * This calls the resetMachineInput method
+     * @param evt which is an action event of an element
+     */
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         this.resetMachineInput();
     }//GEN-LAST:event_resetBtnActionPerformed

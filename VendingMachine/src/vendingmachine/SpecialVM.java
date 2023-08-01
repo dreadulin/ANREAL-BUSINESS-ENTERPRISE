@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
@@ -9,8 +5,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andrea
+ * This class represents how the special vending machine works (including its features)
+ * @author Andrea Dulin and Darryl Javier
  */
 public class SpecialVM extends javax.swing.JFrame {
 
@@ -33,6 +29,11 @@ public class SpecialVM extends javax.swing.JFrame {
         setResizable(false);
     }
 
+    /**
+     * This constructor initializes authorizedOwner and authenticatedSpecialMachine to be used althroughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param specialMachine which is the type of vending machine to be used
+     */
     public SpecialVM(Owner owner, SpecialVendingMachine specialMachine) {
         this();
         authorizedOwner = owner;
@@ -41,6 +42,7 @@ public class SpecialVM extends javax.swing.JFrame {
         availableItemsTable.setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = specialMachine.getItemSlots();
 
+        // Lists the available items of the special vending machine 
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
@@ -49,12 +51,16 @@ public class SpecialVM extends javax.swing.JFrame {
             }
         }
 
+        // Lists the options of the drop down menu where the user can choose a special item
         specialComboBox.addItem("Select Combo Item");
         for (SpecialItem specialItem : authenticatedSpecialMachine.getSpecialItems()) {
             specialComboBox.addItem(specialItem.getName());
         }
     }
 
+    /**
+     * This method is for resetting the regular vending machine's input 
+     */
     private void resetMachineInput() {
         selectedItems = new ArrayList<>();
         selectedItemsQuantities = new ArrayList<>();
@@ -682,13 +688,21 @@ public class SpecialVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This redirects the user to the dashboard 
+     * @param evt which is an action event of an element
+     */
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // going back to the dashboard
         Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+
+    /**
+     * This button allows the user to add items to their cart 
+     * @param evt which is an action event of an element
+     */
     private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed
         String itemName = itemNameTF.getText();
         int dispenseQuantity = Integer.parseInt(quantityTF.getText());
@@ -696,7 +710,7 @@ public class SpecialVM extends javax.swing.JFrame {
         Slot selectedItemSlot = null;
         int currentTotalCost = Integer.parseInt(totalCostLabel.getText());
 
-        // FIND THE SLOT THE ITEM BELONGS TO
+         // finds the slot the item belongs to 
         for (Slot slot : authenticatedSpecialMachine.getItemSlots()) {
             if (slot.getSlotItemType() != null) {
                 if (slot.getSlotItemType().getName().equals(itemName)) {
@@ -708,11 +722,13 @@ public class SpecialVM extends javax.swing.JFrame {
         }
 
         if (selectedItemSlot == null || selectedItem == null) {
+            // Informs the user that the item doesn't exist in the machine 
             JOptionPane.showMessageDialog(null, "Item does not exist in the vending machine.", "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
         if (selectedItemSlot.getItemQuantity() < dispenseQuantity) {
+            // Informs the user that the user has chosen a quantity more than the stock of the item
             JOptionPane.showMessageDialog(null, "Quantity exceeds the stock for the item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             itemNameTF.setText("");
             quantityTF.setText("");
@@ -721,7 +737,8 @@ public class SpecialVM extends javax.swing.JFrame {
 
         int totalCost = selectedItem.getPrice() * dispenseQuantity;
 
-        System.out.println(selectedItems.indexOf(selectedItem) >= 0);
+        System.out.println(selectedItems.indexOf(selectedItem) >= 0); // for mco1
+
         // IF ITEM ALREADY EXISTS, UPDATE THE ITEM IN SELECTED ITEMS AND IN THE CART.
         if (selectedItems.indexOf(selectedItem) >= 0) {
             int existingItemIndex = selectedItems.indexOf(selectedItem);
@@ -759,15 +776,18 @@ public class SpecialVM extends javax.swing.JFrame {
         payBtn.setEnabled(true);
     }//GEN-LAST:event_addItemBtnActionPerformed
 
+    /**
+     * This button is for dispensing items and change 
+     * @param evt which is an action event of an element 
+     */
     private void dispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispenseBtnActionPerformed
         int totalCost = Integer.parseInt(totalCostLabel.getText());
         int totalChange = Integer.parseInt(totalChangeLabel.getText());
         boolean dispenseChangeSuccess = authenticatedSpecialMachine.dispenseChange(payment, totalCost);
 
         SpecialItem specialCombination = null;
-        // TODO: LOOP THROUGH THE ITEMS ARRAY AND CHECK IF QUANTITY IS
-        // VALID.
 
+        // Loops through Items array and checks if quantity is valid 
         if (selectedItems.size() > 1) {
             for (SpecialItem special : authenticatedSpecialMachine.getSpecialItems()) {
                 if (special.compareIngredients(selectedItems)) {
@@ -777,6 +797,7 @@ public class SpecialVM extends javax.swing.JFrame {
             }
 
             if (specialCombination == null) {
+                // Informs the user that the special item cannot be made 
                 JOptionPane.showMessageDialog(null, "The special item could not be made.", "Message", JOptionPane.INFORMATION_MESSAGE);
                 dispenseBtn.setEnabled(false);
                 cancelDispenseBtn.setEnabled(true);
@@ -785,6 +806,7 @@ public class SpecialVM extends javax.swing.JFrame {
         }
 
         if (!dispenseChangeSuccess) {
+            // Informs the user that vending machine money is not enough to give the user their change
             JOptionPane.showMessageDialog(null, "Vending machine money is not enough to dispense change for your transaction.", "Message", JOptionPane.INFORMATION_MESSAGE);
             dispenseBtn.setEnabled(false);
             cancelDispenseBtn.setEnabled(true);
@@ -851,17 +873,23 @@ public class SpecialVM extends javax.swing.JFrame {
                     selectedItems.get(0).getName(), selectedItemsQuantities.get(0), totalCost, payment, totalChange);
         }
 
+        // Informs the user of the dispensed item's summary
         JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
 
         this.resetMachineInput();
     }//GEN-LAST:event_dispenseBtnActionPerformed
 
+    /**
+     * This button allows the user to enter their payment
+     * @param evt is an action event of an element
+     */
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         payBtn.setEnabled(false);
         payment = Integer.parseInt(paymentTF.getText());
         int totalCost = Integer.parseInt(totalCostLabel.getText());
 
         if (payment < (totalCost)) {
+            // Informs the user that the amount they entered for payment isn't enough
             JOptionPane.showMessageDialog(null, "Your payment is not enough for this item.", "Message", JOptionPane.INFORMATION_MESSAGE);
             paymentTF.setText("");
             return;
@@ -878,6 +906,10 @@ public class SpecialVM extends javax.swing.JFrame {
         cancelDispenseBtn.setEnabled(true);
     }//GEN-LAST:event_payBtnActionPerformed
 
+    /**
+     * This is for cancelling the dispense of an item when the user wishes to do so
+     * @param evt which is an action event of an element
+     */
     private void cancelDispenseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDispenseBtnActionPerformed
         authenticatedSpecialMachine.dispenseChange(payment, 0);
         String summaryString = String.format("""
@@ -889,12 +921,18 @@ public class SpecialVM extends javax.swing.JFrame {
                                              Come again!
                                              """,
                 payment);
+        
+                // Informs the user that the dispensing of item is cancelled 
         JOptionPane.showMessageDialog(null, summaryString, "Message", JOptionPane.INFORMATION_MESSAGE);
         this.resetMachineInput();
     }//GEN-LAST:event_cancelDispenseBtnActionPerformed
 
+    /**
+     * This method is for when a special combo was chosen by the user, the ingredients of the 
+     * special combo will be automatically added to the cart
+     * @param evt which is an action event of an element
+     */
     private void specialComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialComboBoxActionPerformed
-        // TODO add your handling code here:
         selectedItems = new ArrayList<>();
         selectedItemsQuantities = new ArrayList<>();
         cartItemTableModel.setRowCount(0);

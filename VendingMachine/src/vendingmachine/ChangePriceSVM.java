@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the changing of item price in the special vending machine
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class ChangePriceSVM extends javax.swing.JFrame {
 
@@ -23,11 +19,17 @@ public class ChangePriceSVM extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * This initializes the authorizedOwner and authenticatedSpecialMachine to be used all throughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param vendingMachine which is the type of vending machine to be used
+     */
     public ChangePriceSVM(Owner owner, SpecialVendingMachine vendingMachine) {
         this();
         authorizedOwner = owner;
         authenticatedSpecialMachine = vendingMachine;
 
+        // This displays the list of available items and the user will choose from the drop box menu
         for (Slot slot : vendingMachine.getItemSlots()) {
             if (slot.getSlotItemType() != null) {
                 jComboBox1.addItem(slot.getSlotItemType().getName());
@@ -203,14 +205,20 @@ public class ChangePriceSVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for setting the new price of the item in the special vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int newPrice = Integer.parseInt(jTextField4.getText());
         if (authorizedOwner.setPrice(authenticatedSpecialMachine, selectedItemName, newPrice)) {
+            // Informs the user that price change was successful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Price changed successfully. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
+            // Informs the user that price change was unsuccessful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Price changed failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
@@ -218,8 +226,11 @@ public class ChangePriceSVM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    /**
+     * This gets the selected item from the drop down menu and displays the current price of the item
+     * @param evt which is an action event of an element 
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == jComboBox1) {
             selectedItemName = jComboBox1.getSelectedItem().toString();
             Item selectedItem = authenticatedSpecialMachine.getItem(selectedItemName);

@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 /**
- *
- * @author Andrea
+ * This class represents the dashboard of the application upon successful login
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class Dashboard extends javax.swing.JFrame {
 
@@ -18,6 +14,10 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
+    /**
+     * This initializes the authorizedOwner to be used althroughout the program 
+     * @param owner which is the name of the owner of the vending machine 
+     */
     public Dashboard(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -155,23 +155,31 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for testing the vending machines 
+     * @param evt which is an action event of an element
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Test Vending Machine 
         TestVendingMenu vendingMenu = new TestVendingMenu(authorizedOwner);
         vendingMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * This button is for purchasing vending machines
+     * @param evt which is an action event of an element
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // purchase vending machine
-
         VMShop shopVending = new VMShop(authorizedOwner);
         shopVending.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /**
+     * This button is for testing the maintenance features of the vending machine 
+     * @param evt which is an action event of an element
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Test Machine Menu 
         TestMaintenanceMenu testMenu = new TestMaintenanceMenu(authorizedOwner);
         testMenu.setVisible(true);
         this.dispose();

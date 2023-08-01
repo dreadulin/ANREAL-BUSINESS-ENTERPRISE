@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the restocking of the special vending machine
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class RestockSVM extends javax.swing.JFrame {
 
@@ -24,11 +20,17 @@ public class RestockSVM extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This constructor initializes authorizedOwner and authenticatedSpecialMachine to be used althroughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param specialMachine which is the type of vending machine to be used
+     */
     public RestockSVM(Owner owner, SpecialVendingMachine specialMachine) {
         this();
         authorizedOwner = owner;
         authenticatedSpecialMachine = specialMachine;
 
+        // This is to choose which Item to restock 
         for (Slot slot : specialMachine.getItemSlots()) {
             if (slot.getSlotItemType() != null) {
                 jComboBox1.addItem(slot.getSlotItemType().getName());
@@ -209,17 +211,23 @@ public class RestockSVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * This is for restocking the item in the special vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int itemAmount = Integer.parseInt(jTextField4.getText());
         boolean operationSuccessful;
         operationSuccessful = authorizedOwner.restock(authenticatedSpecialMachine, selectedItemName, itemAmount);
 
         if (operationSuccessful) {
+            // Informs the user that restock was successful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
+            // Informs the user that restock was unsuccessful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Restock failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
@@ -227,8 +235,11 @@ public class RestockSVM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    /**
+     * This method is for getting the stock quantity of the selected item
+     * @param evt which is an action event of an element 
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == jComboBox1) {
             selectedItemName = jComboBox1.getSelectedItem().toString();
             for (Slot slot : authenticatedSpecialMachine.getItemSlots()) {

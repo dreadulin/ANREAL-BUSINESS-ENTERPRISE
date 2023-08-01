@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Darryl
+ * This class represents the replenishing of money of the special vending machine 
+ * @author Darryl Javier and Andrea Dulin 
  */
 public class ReplenishMoneySVM extends javax.swing.JFrame {
 
@@ -23,11 +20,17 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * This constructor initializes authorizedOwner and authenticatedSpecialMachine to be used althroughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param regularMachine which is the type of vending machine to be used
+     */
     public ReplenishMoneySVM(Owner owner, SpecialVendingMachine vendingMachine) {
         this();
         authorizedOwner = owner;
         authenticatedSpecialMachine = vendingMachine;
 
+        // This is to select which money to replenish
         for (Money bill : vendingMachine.getMoneyArray()) {
             jComboBox1.addItem(Integer.toString(bill.getValue()));
         }
@@ -206,8 +209,12 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is to get the value of the selected money value for operations
+     * 
+     * @param evt which is an action event of an element 
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == jComboBox1) {
             selectedValue = Integer.parseInt(jComboBox1.getSelectedItem().toString());
             Money money = authenticatedSpecialMachine.getMoney(selectedValue);
@@ -215,6 +222,10 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    /**
+     * This is for entering the amount of money to replenish a certain denomination
+     * @param evt which is an action event of an element 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int amount = Integer.parseInt(jTextField4.getText());
 
@@ -222,6 +233,7 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
         int beforeAmount = money.getAmount();
 
         if (authorizedOwner.getBalance() - (selectedValue * amount) < 0) {
+            // Informs the user that they do not have enough money to replenish the amount
             JOptionPane.showMessageDialog(null, "You do not have enough money to replenish this amount.", "Message", JOptionPane.INFORMATION_MESSAGE);
             TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
@@ -231,8 +243,12 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
 
         authorizedOwner.replenishMoney(authenticatedSpecialMachine, amount, selectedValue);
 
+        /**
+         * Informs the user the before replenish amount and after replenish amount of a denomination
+         */
         String message = "Before Replenish Amount: " + beforeAmount + "\n" + "After Replenish Amount: " + money.getAmount();
         JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+        
         TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
         testMaintenance.setVisible(true);
         this.dispose();

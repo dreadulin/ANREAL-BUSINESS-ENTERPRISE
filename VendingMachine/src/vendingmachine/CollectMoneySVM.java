@@ -3,13 +3,9 @@ package vendingmachine;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 /**
- *
- * @author Darryl
+ * This class represents the collection of money from the special vending machine 
+ * @author Darryl Javier and Andrea Dulin
  */
 public class CollectMoneySVM extends javax.swing.JFrame {
 
@@ -23,17 +19,24 @@ public class CollectMoneySVM extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * This initializes the authorizedOwner and authenticatedSpecialMachine to be used all throughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param vendingMachine which is the type of vending machine to be used
+     */
     public CollectMoneySVM(Owner owner, SpecialVendingMachine vendingMachine) {
         this();
         authorizedOwner = owner;
         authenticatedSpecialMachine = vendingMachine;
 
+        // Sets the column titles of the table
         String[] columnNames = {"Value", "Amount"};
         DefaultTableModel moneyTableModel = new DefaultTableModel(columnNames, 0);
 
         moneyTable.setModel(moneyTableModel);
         Money[] bills = vendingMachine.getMoneyArray();
 
+        // Gets the denomination of the bill and the quantity of each bill and will be displayed to the table row 
         for (Money bill : bills) {
             Object[] moneyRow = {bill.getValue(), bill.getAmount()};
             moneyTableModel.addRow(moneyRow);
@@ -156,6 +159,11 @@ public class CollectMoneySVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for showing the balance before and after the money from the 
+     * vending machine was collected and the amount of collected money 
+     * @param evt which is an action event of the element 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int balanceBefore = authorizedOwner.getBalance();
         int collectedMoney = authenticatedSpecialMachine.getStockMoney();
@@ -164,7 +172,10 @@ public class CollectMoneySVM extends javax.swing.JFrame {
         String resultMessage = "Balance before collecting money: " + balanceBefore + "\n"
                 + "Collected money: " + collectedMoney + "\n"
                 + "Balance after collecting money: " + balanceAfter + "\n";
-
+        /*
+            Informs the user of their balance before money was collected, the amount of collected money 
+            and the balance after the money was collected 
+        */
         JOptionPane.showMessageDialog(null, resultMessage, "Message", JOptionPane.INFORMATION_MESSAGE);
         TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
         testMaintenance.setVisible(true);

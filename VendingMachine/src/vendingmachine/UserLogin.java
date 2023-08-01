@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the user login 
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class UserLogin extends javax.swing.JFrame {
 
@@ -23,6 +19,10 @@ public class UserLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
+    /**
+     * This initializes the owners which will be used althroughout the program 
+     * @param ownersArray which is the array that stores the details of the owner
+     */
     public UserLogin(ArrayList<Owner> ownersArray) {
         this();
         owners = ownersArray;
@@ -181,26 +181,37 @@ public class UserLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is for allowing the user to proceed to the creation of account 
+     * frame if they dont have an account yet 
+     * @param evt is an action event of an element 
+     */
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         CreateAccount createAccount = new CreateAccount(owners);
         createAccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    /**
+     * This is for the user login 
+     * @param evt is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String pass = password.getText();
         String userName = name.getText();
 
         for (Owner owner : owners) {
-            String currOwnerName = owner.getName();
-            String currOwnerPass = owner.getPassword();
+            String currOwnerName = owner.getName(); // gets the owner's name from the textfield 
+            String currOwnerPass = owner.getPassword(); // gets the owner's password from the textfield 
 
             if (currOwnerName.equals(userName) && currOwnerPass.equals(pass)) {
+                // Informs the user that login was successful
                 JOptionPane.showMessageDialog(null, "Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
                 Dashboard dashboard = new Dashboard(owner);
                 dashboard.setVisible(true);
                 this.dispose();
             } else {
+                // Informs the user that they have entered the wrong credentials
                 JOptionPane.showMessageDialog(null, "Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
                 Start StartMenu = new Start(owners);
                 StartMenu.setVisible(true);

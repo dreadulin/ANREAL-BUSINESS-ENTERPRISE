@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
@@ -9,8 +5,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the testing of the maintenance menu of the regular vending machine 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class TestRegularMaintenance extends javax.swing.JFrame {
 
@@ -31,6 +27,10 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
         jButton6.setVisible(false);
     }
 
+    /**
+     * This initializes the authorizedOwner which will be used althroughout the program 
+     * @param owner which is the owner of the vending machine
+     */
     public TestRegularMaintenance(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -235,50 +235,73 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is changing the prices of the items 
+     * @param evt which is an action event of an element 
+     */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // Change Prices
         ChangePriceRVM changePrice = new ChangePriceRVM(authorizedOwner, authenticatedRegularMachine);
         changePrice.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    /**
+     * This is adding stock of the items 
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // add Stock 
         AddStockRVM addStock = new AddStockRVM(authorizedOwner, authenticatedRegularMachine);
         addStock.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * This is restocking the items 
+     * @param evt which is an action event of an element 
+     */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // Restock
         RestockRVM restock = new RestockRVM(authorizedOwner, authenticatedRegularMachine);
         restock.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    /**
+     * This is collecting the money from the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // collect money
         CollectMoneyRVM collectMoney = new CollectMoneyRVM(authorizedOwner, authenticatedRegularMachine);
         collectMoney.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * This is for replenishing the money in the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // replenish money
         ReplenishMoneyRVM replenishMoney = new ReplenishMoneyRVM(authorizedOwner, authenticatedRegularMachine);
         replenishMoney.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /**
+     * This is for displaying the transaction summary of the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // display transaction summary
         TransactionSummaryRVM displaySummary = new TransactionSummaryRVM(authorizedOwner, authenticatedRegularMachine);
         displaySummary.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+
+   /**
+     * This is for displaying the buttons that are the options of the user in maintenance 
+     *  menu when the user have chosen a machine to test maintenance on
+     * @param evt which is an action event of an element 
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == jComboBox1) {
             String machineName = jComboBox1.getSelectedItem().toString();
             authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
@@ -291,8 +314,11 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+     /**
+     * This is for redirecting the user back to the test maintenance menu 
+     * @param evt which is an action event of an element 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
         TestMaintenanceMenu maintenanceMenu = new TestMaintenanceMenu(authorizedOwner);
         maintenanceMenu.setVisible(true);
         this.dispose();

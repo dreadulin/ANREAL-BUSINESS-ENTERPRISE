@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
@@ -9,8 +5,8 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andrea
+ * This class displays the transaction summary of the regular vending machine
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class TransactionSummaryRVM extends javax.swing.JFrame {
 
@@ -24,6 +20,11 @@ public class TransactionSummaryRVM extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * This initializes the authorizedOwner and authenticatedRegularMachine to be used all throughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param regularMachine which is the type of vending machine to be used
+    */
     public TransactionSummaryRVM(Owner owner, RegularVendingMachine vendingMachine) {
         this();
         authorizedOwner = owner;

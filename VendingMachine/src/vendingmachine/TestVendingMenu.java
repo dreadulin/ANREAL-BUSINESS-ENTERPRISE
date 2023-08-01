@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 /**
- *
- * @author Darryl
+ * This class represents the menu of the testing of machines 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class TestVendingMenu extends javax.swing.JFrame {
 
@@ -23,6 +19,10 @@ public class TestVendingMenu extends javax.swing.JFrame {
         specialVendingButton.setEnabled(false);
     }
 
+    /**
+     * This initializes the authorizedOwner which will be used althroughout the program 
+     * @param owner which is the owner of the vending machine
+     */
     public TestVendingMenu(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -153,22 +153,32 @@ public class TestVendingMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is for testing the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void regularVendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularVendingButtonActionPerformed
-        // Testing Regular Vending Machine
         RegularVM regularVendingMachine = new RegularVM(authorizedOwner, authenticatedRegularMachine);
         regularVendingMachine.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_regularVendingButtonActionPerformed
 
+     /**
+     * This is for testing the special vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void specialVendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialVendingButtonActionPerformed
-        // Testing Special Vending Machine
         SpecialVM specialVendingMachine = new SpecialVM(authorizedOwner, authenticatedSpecialMachine);
         specialVendingMachine.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_specialVendingButtonActionPerformed
 
+    /**
+     * This displays the drop down menu wherein the user will choose which vending machine 
+     * they want to test. In this case, the user chooses to test the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void regularVendingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularVendingListActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == regularVendingList) {
             String machineName = regularVendingList.getSelectedItem().toString();
             authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
@@ -176,8 +186,12 @@ public class TestVendingMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_regularVendingListActionPerformed
 
+    /**
+     * This displays the drop down menu wherein the user will choose which vending machine 
+     * they want to test. In this case, the user chooses to test the special vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void specialVendingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialVendingListActionPerformed
-        // TODO add your handling code here:
         if (evt.getSource() == specialVendingList) {
             String machineName = specialVendingList.getSelectedItem().toString();
             authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);

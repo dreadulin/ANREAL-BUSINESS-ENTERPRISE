@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the adding of stocks to the special vending machine
+ * @author Andrea Dulin and Darryl Javier
  */
 public class AddStockSVM extends javax.swing.JFrame {
 
@@ -23,6 +19,11 @@ public class AddStockSVM extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This initializes the authorizedOwner and authenticatedSpecialMachine to be used all throughout the program
+     * @param owner which is the name of the owner of the vending machine 
+     * @param specialMachine  which is the type of vending machine to be used
+     */
     public AddStockSVM(Owner owner, SpecialVendingMachine specialMachine) {
         this();
         this.authorizedOwner = owner;
@@ -200,25 +201,30 @@ public class AddStockSVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for adding stock to the special vending machine
+     * @param evt which is an action event for an element
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // add stock to vending machine
-        boolean success;
-        String stockName = itemName.getText();
-        int stockPrice = Integer.parseInt(jTextField1.getText());
-        double stockCalories = Integer.parseInt(jTextField2.getText());
-        int stockItemAmount = Integer.parseInt(jTextField4.getText());
-
+        boolean success; // determines if adding stock is successful 
+        String stockName = itemName.getText();  // gets item name from the textfield 
+        int stockPrice = Integer.parseInt(jTextField1.getText()); // gets item price from the text field 
+        double stockCalories = Integer.parseInt(jTextField2.getText()); // gets item calories from the text field 
+        int stockItemAmount = Integer.parseInt(jTextField4.getText()); // gets item amount from the text field
         Item existingItem;
 
         existingItem = authenticatedSpecialMachine.getItem(stockName);
 
+         // If there is no existing item, it will notify the user then goes back to the maintenance menu 
         if (existingItem != null) {
             JOptionPane.showMessageDialog(null, "Item does not exist. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             boolean successOp = authorizedOwner.restock(authenticatedSpecialMachine, stockName, stockItemAmount);
 
             if (successOp) {
+                // Informs the user that restocking is successful and will redirect them to the main menu 
                 JOptionPane.showMessageDialog(null, "Restocking successful. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                // Informs the user that slot is full and will redirect them to the main menu
                 JOptionPane.showMessageDialog(null, "Slot is full. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -234,11 +240,13 @@ public class AddStockSVM extends javax.swing.JFrame {
         success = authorizedOwner.stock(authenticatedSpecialMachine, newItem, stockItemAmount);
 
         if (success) {
+            // Informs the user that adding stock is successful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Stock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
+            // Informs the user that adding stock is unsuccessful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Failed to Stock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);

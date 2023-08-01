@@ -1,4 +1,11 @@
 package vendingmachine;
+
+/**
+ * This class represents an Ultimate Halo Halo special item which contains ingredients and a displayProcess 
+ * method to display its specific process.
+ * 
+ * @author Andrea Dulin and Darryl Javier
+ */
 public class UltimateHaloHalo extends SpecialItem {
     private final static String[] ingredients = { "Ice", "Milk", "Banana", "Kamote", "Sugar", "Halaya", "Nata",
             "LecheFlan" };

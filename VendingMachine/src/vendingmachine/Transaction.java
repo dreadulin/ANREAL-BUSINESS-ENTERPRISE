@@ -2,8 +2,8 @@ package vendingmachine;
 import java.util.Date;
 
 /**
- * This class represents the transactions
- *
+ * This class represents the transactions of the vending machine 
+ * @author Andrea Dulin and Darryl Javier
  */
 
 public class Transaction {
@@ -31,8 +31,7 @@ public class Transaction {
 
   /**
    * This method gets the total amount of sales.
-   * 
-   * @return totalSales
+   * @return the total sales of the machine
    *
    */
 
@@ -42,8 +41,7 @@ public class Transaction {
 
   /**
    * This method gets the details of the item bought.
-   * 
-   * @return itemsPurchased
+   * @return the items purchased by the user 
    *
    */
 
@@ -51,6 +49,11 @@ public class Transaction {
     return this.itemPurchased;
   }
 
+  /**
+   * This method gets the purchase amount 
+   * @return the amounts of items purchased
+   *
+   */
   public int getPurchaseAmount() {
     return this.amount;
   }
@@ -58,7 +61,7 @@ public class Transaction {
   /**
    * This method gets the date when a transaction was made
    * 
-   * @return transactionDate
+   * @return date of the transaction
    *
    */
 
@@ -66,7 +69,7 @@ public class Transaction {
     return this.transactionDate;
   }
 
-  /**
+  /** FOR MCO1
    * This method displays the Transaction that has occured when dispensing an
    * item.
    * 

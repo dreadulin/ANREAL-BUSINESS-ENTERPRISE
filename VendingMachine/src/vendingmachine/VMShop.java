@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 /**
- *
- * @author Andrea
+ * This class represents the shop of the two types of vending machines: regular and special vending machines 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class VMShop extends javax.swing.JFrame {
 
@@ -20,6 +16,10 @@ public class VMShop extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This initializes the authorizedOwner to be used althroughout the program
+     * @param owner
+     */
     public VMShop(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -244,17 +244,21 @@ public class VMShop extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is for the creation of special vending machine 
+     * @param evt is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // for Special Vending Machine
-
         CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
         createSVM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * This is for the creation of regular vending machine 
+     * @param evt is an action event of an element 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Creation of Vending Machine 
-
         CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
         createRVM.setVisible(true);
         this.dispose();

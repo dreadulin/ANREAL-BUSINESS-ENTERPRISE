@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the creation of the regular vending machine
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class CreateRegularVM extends javax.swing.JFrame {
 
@@ -22,6 +18,10 @@ public class CreateRegularVM extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This initializes the authorizedOwner to be used all throughout the program 
+     * @param owner which is the name of the owner of the vending machine
+     */
     public CreateRegularVM(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -194,14 +194,18 @@ public class CreateRegularVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This button is for creating the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // For creating vending machine
-        String machineName = vendingName.getText();
-        int slotsQt = Integer.parseInt(slots.getText());
-        int itemSlotsQt = Integer.parseInt(itemPerSlot.getText());
+        String machineName = vendingName.getText(); // gets the vending machine name from the textfield 
+        int slotsQt = Integer.parseInt(slots.getText()); // gets the number of slots from the textfield 
+        int itemSlotsQt = Integer.parseInt(itemPerSlot.getText()); // gets the number of items per slot from the textfield 
 
         boolean regularMachineExists = authorizedOwner.getRegularMachine(machineName) != null;
 
+         // informs the user that creation of machine is unsuccessful if the vending machine already exists in the system
         if (regularMachineExists) {
             JOptionPane.showMessageDialog(null, "Failed to create vending machine.", "Machine already exists", JOptionPane.INFORMATION_MESSAGE);
             CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
@@ -210,6 +214,10 @@ public class CreateRegularVM extends javax.swing.JFrame {
             return;
         }
 
+        /*
+            If the number of slots entered by the user is less than eight, this will inform 
+            the user that they entered an invalid slots capacity. 
+        */ 
         if (slotsQt < 8) {
             JOptionPane.showMessageDialog(null, "Invalid Slots Capacity. Must be atleast 8.", "Message", JOptionPane.INFORMATION_MESSAGE);
             CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
@@ -218,6 +226,10 @@ public class CreateRegularVM extends javax.swing.JFrame {
             return;
         }
 
+        /*
+            If the number of item per slot entered by the user is less than 10, this will inform 
+            the user that they entered an invalid item per slot capacity. 
+        */
         if (itemSlotsQt < 10) {
             JOptionPane.showMessageDialog(null, "Invalid Items Per Slot Capacity. Must be atleast 10.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -230,6 +242,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
         RegularVendingMachine newVendingMachine = new RegularVendingMachine(authorizedOwner, machineName, slotsQt, itemSlotsQt);
         authorizedOwner.addMachine(newVendingMachine);
 
+        // Informs the user that creation of regular vending machine is successful
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
         Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);

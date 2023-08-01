@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * This class represents the slots of the items.
+ * 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class Slot {
 
@@ -20,6 +22,12 @@ public class Slot {
         this.itemCapacity = itemCapacity;
     }
 
+    /**
+     * This restocks the item and if it is full, it stops restocking
+     * @param amount of items to be restocked 
+     * @return true if restocking was successful 
+     * @return false if restocking was unsuccessful 
+     */
     public boolean restockSlot(int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
@@ -38,7 +46,7 @@ public class Slot {
      * the item to the array. Otherwise, it notifies the owner that it is full.
      *
      * @param item which is the item of the vending machine
-     * @amount which is the amount of items to put in the vending machine
+     * @param amount which is the amount of items to put in the vending machine
      */
     public boolean stockSlot(Item item, int amount) {
         if (this.isFull()) {
@@ -55,8 +63,7 @@ public class Slot {
     /**
      * This method removes a certain amount of items in the slot.
      *
-     * @param item which is the item of the vending machine
-     * @amount which is the amount of items to remove in the vending machine
+     * @param @amount which is the amount of items to remove in the vending machine
      */
     public void removeStock(int amount) {
         Item slotItem = this.getSlotItemType();
@@ -86,6 +93,10 @@ public class Slot {
         return this.getSlotItemType().getPrice();
     }
 
+    /**
+     * This method gets the item quantity of an item
+     * @return the quantity of the item
+     */
     public int getItemQuantity() {
         int quantity = 0;
         for (Item item : this.items) {
@@ -99,7 +110,7 @@ public class Slot {
     /**
      * This method gets the item array of the slot
      *
-     * @return items
+     * @return items from the Item array
      *
      */
     public ArrayList<Item> getItems() {
@@ -149,6 +160,7 @@ public class Slot {
         return items.size() == itemCapacity;
     }
 
+    // FOR MCO1
     public void display() {
         if (this.isEmpty()) {
             System.out.println("================");
@@ -174,6 +186,7 @@ public class Slot {
         displayLines(itemName);
     }
 
+    // FOR MCO1
     private void displayLines(String itemName) {
         int lineLength = itemName.length() + 6;
         while (lineLength > 0) {

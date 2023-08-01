@@ -1,15 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 /**
- *
- * @author Andrea
+ * This class represents the changing of user password if they wish to do so
+ * @author Andrea Dulin and Darryl Javier
  */
 public class ChangePassword extends javax.swing.JFrame {
 
@@ -23,6 +18,10 @@ public class ChangePassword extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This initializes the ownersArray 
+     * @param ownersArray which is the list of owners details 
+     */
     public ChangePassword(ArrayList<Owner> ownersArray) {
         this();
         owners = ownersArray;
@@ -149,12 +148,16 @@ public class ChangePassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This sets the password to the updated one 
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Owner changePassOwner = null;
         String userName = name.getText();
         String newPass = newPassword.getText();
 
-        // TODO: insert code for getting the updated password
+        // This is for getting the updated user password
         for (Owner owner : owners) {
             String currOwnerName = owner.getName();
             if (currOwnerName.equals(userName)) {
@@ -164,13 +167,13 @@ public class ChangePassword extends javax.swing.JFrame {
 
         if (changePassOwner != null) {
             changePassOwner.setPassword(newPass);
-            //for successful password change 
+           // Informs the user that their password change was successful  
             JOptionPane.showMessageDialog(null, "Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             Start StartMenu = new Start(owners);
             StartMenu.setVisible(true);
             this.dispose();
         } else {
-            // for account not found 
+            // Informs the user that account is not found. Therefore, no password change will occur. 
             JOptionPane.showMessageDialog(null, "Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
             Start StartMenu = new Start(owners);
             StartMenu.setVisible(true);

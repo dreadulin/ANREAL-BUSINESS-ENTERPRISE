@@ -1,4 +1,10 @@
 package vendingmachine;
+
+/**
+ * This class represents a CremaDeLeche special item which contains ingredients and a 
+ * displayProcess method to display its specific process.
+ * @author Andrea Dulin and Darryl Javier
+ */
 public class CremaDeLeche extends SpecialItem {
     private final static String[] ingredients = { "Ice", "Milk", "Banana", "Sugar", "LecheFlan" };
 

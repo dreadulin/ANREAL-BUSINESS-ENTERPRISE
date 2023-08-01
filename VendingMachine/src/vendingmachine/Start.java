@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author Andrea
+ * This shows the starting menu of the program. 
+ * It contains the creation of the account, login of the user and the changing of password of the user.  
+ * @author Andrea Dulin and Darryl Javier 
  */
 public class Start extends javax.swing.JFrame {
 
@@ -22,6 +19,10 @@ public class Start extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This initializes the owners which will be used althroughout the program 
+     * @param ownersArray which is the array that stores the details of the user
+     */
     public Start(ArrayList<Owner> ownersArray) {
         this();
         owners = ownersArray;
@@ -157,22 +158,31 @@ public class Start extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is for the user login 
+     * @param evt which is an action event of an element 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // For user login
         UserLogin login = new UserLogin(owners);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+     /**
+     * This is for creating the user account 
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // For creating account
         CreateAccount createAccount = new CreateAccount(owners);
         createAccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+     /**
+     * This is the changing of user password if they wish to do so 
+     * @param evt which is an action event of an element 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // For changing password
         ChangePassword changePass = new ChangePassword(owners);
         changePass.setVisible(true);
         this.dispose();

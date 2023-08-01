@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the creation of user account 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class CreateAccount extends javax.swing.JFrame {
 
@@ -23,6 +19,10 @@ public class CreateAccount extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
+    /**
+     * This initializes the ownersArray 
+     * @param ownersArray which is the list of owners details 
+     */
     public CreateAccount(ArrayList<Owner> ownersArray) {
         this();
         owners = ownersArray;
@@ -163,17 +163,22 @@ public class CreateAccount extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * This button is for creating the account of the user after getting necessary details
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean accountExists = false;
 
-        String pass = password.getText();
-        String userName = name.getText();
-        int bal = Integer.parseInt(balance.getText());
+        String pass = password.getText(); // gets user password from the text field 
+        String userName = name.getText(); // gets the user's name from the text field 
+        int bal = Integer.parseInt(balance.getText());  // gets the initial balance of the user from the text field 
 
         // This checks if the account already exists or not 
         for (Owner owner : owners) {
             String currOwnerName = owner.getName();
             if (currOwnerName.equals(userName)) {
+                // Informs the user that account already exists 
                 JOptionPane.showMessageDialog(null, "Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
                 Start StartMenu = new Start(owners);
                 StartMenu.setVisible(true);
@@ -182,6 +187,11 @@ public class CreateAccount extends javax.swing.JFrame {
             }
         }
 
+        /* 
+         *  This checks if the user has entered all necessary details in creating the account. 
+         *  If one of the text field is empty, it will inform the user that they have to fill out all the necessary details before 
+         *  they proceed. 
+         */
         if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
             CreateAccount createAccount = new CreateAccount(owners);
@@ -192,6 +202,8 @@ public class CreateAccount extends javax.swing.JFrame {
 
         Owner newOwner = new Owner(userName, bal, pass);
         owners.add(newOwner);
+
+        // Informs the user that the creation of account was successful
         JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
 
         Start StartMenu = new Start(owners);

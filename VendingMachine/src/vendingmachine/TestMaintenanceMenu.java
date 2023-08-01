@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vendingmachine;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * This class represents the testing of maintenance menu of the regular and special vending machine 
+ * @author Andrea Dulin and Darryl Javier
  */
 public class TestMaintenanceMenu extends javax.swing.JFrame {
 
@@ -22,6 +18,10 @@ public class TestMaintenanceMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
+    /**
+     * This initializes the authorizedOwner which will be used althroughout the program 
+     * @param owner which is the owner of the vending machine
+     */
     public TestMaintenanceMenu(Owner owner) {
         this();
         authorizedOwner = owner;
@@ -161,22 +161,31 @@ public class TestMaintenanceMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This is for testing the special vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Testing Special Vending Machine
         TestSpecialMaintenance testSVMaintenance = new TestSpecialMaintenance(authorizedOwner);
         testSVMaintenance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+     /**
+     * This is for testing the regular vending machine 
+     * @param evt which is an action event of an element 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Testing Regular Vending Machine
         TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
         testMaintenance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+     /**
+     * This is for redirecting the user back to the dashboard 
+     * @param evt which is an action event of an element 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
