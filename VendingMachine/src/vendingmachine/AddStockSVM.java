@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
  */
 public class AddStockSVM extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+    SpecialVendingMachine authenticatedSpecialMachine;
+
     /**
      * Creates new form AddStockSVM
      */
@@ -19,17 +22,11 @@ public class AddStockSVM extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    Owner authorizedOwner; 
-    SpecialVendingMachine authenticatedSpecialMachine; 
-    
-    public void setOwner(Owner owner) {
+
+    public AddStockSVM(Owner owner, SpecialVendingMachine specialMachine) {
+        this();
         this.authorizedOwner = owner;
-    }
-    
-     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
-    {
-        this.authenticatedSpecialMachine = authenticateSpecialMachine;
+        this.authenticatedSpecialMachine = specialMachine;
     }
 
     /**
@@ -205,60 +202,41 @@ public class AddStockSVM extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // add stock to vending machine
-
+        boolean success;
         String stockName = itemName.getText();
-        int stockPrice =  Integer.parseInt(jTextField1.getText());
+        int stockPrice = Integer.parseInt(jTextField1.getText());
         double stockCalories = Integer.parseInt(jTextField2.getText());
         int stockItemAmount = Integer.parseInt(jTextField4.getText());
 
         Item existingItem;
-        boolean success = false;
 
         existingItem = authenticatedSpecialMachine.getItem(stockName);
 
-        if (existingItem != null)
-        {
-            JOptionPane.showMessageDialog(null,"Restocking slot..","Messgae", JOptionPane.INFORMATION_MESSAGE);
+        if (existingItem != null) {
+            JOptionPane.showMessageDialog(null, "Item does not exist. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            authorizedOwner.restock(authenticatedSpecialMachine, stockName, stockItemAmount);
+            TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
+            testMaintenance.setVisible(true);
+            this.dispose();
+            return;
+        }
 
-            success = authorizedOwner.restock(authenticatedSpecialMachine, stockName, stockItemAmount);
+        Item newItem = new Item(stockName, stockPrice, stockCalories);
+        JOptionPane.showMessageDialog(null, "Restocking slot..", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            if (success) {
-                JOptionPane.showMessageDialog(null,"Restock successful. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-                TestMaintenance testMaintenance = new TestMaintenance();
-                testMaintenance.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null,"Failed to restock. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-                TestMaintenance testMaintenance = new TestMaintenance();
-                testMaintenance.setVisible(true);
-                this.dispose();
-            }
+        success = authorizedOwner.stock(authenticatedSpecialMachine, newItem, stockItemAmount);
 
-            TestMaintenance testMaintenance = new TestMaintenance();
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
+            testMaintenance.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to restock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            TestSpecialMaintenance testMaintenance = new TestSpecialMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         }
-
-        Item stockItem = new Item(stockName, stockPrice, stockCalories);
-        success = authorizedOwner.stock(authenticatedSpecialMachine, stockItem, stockItemAmount);
-
-        if(success)
-        {
-            JOptionPane.showMessageDialog(null,"Stocking successful. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance();
-            testMaintenance.setVisible(true);
-            this.dispose();
-        } else
-        {
-            JOptionPane.showMessageDialog(null,"Slots are full. Cannot insert item anymore. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance();
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
-        TestMaintenance testMaintenance = new TestMaintenance();
-        testMaintenance.setVisible(true);
-        this.dispose();
-
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

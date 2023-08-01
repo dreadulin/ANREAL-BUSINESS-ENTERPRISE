@@ -12,18 +12,19 @@ import javax.swing.JOptionPane;
  */
 public class CreateRegularVM extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+
     /**
      * Creates new form CreateRegularVM
      */
     public CreateRegularVM() {
         initComponents();
-         setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
     }
 
-    Owner authorizedOwner;
-
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
+    public CreateRegularVM(Owner owner) {
+        this();
+        authorizedOwner = owner;
     }
 
     /**
@@ -203,44 +204,41 @@ public class CreateRegularVM extends javax.swing.JFrame {
 
         if (regularMachineExists) {
             JOptionPane.showMessageDialog(null, "Failed to create vending machine.", "Machine already exists", JOptionPane.INFORMATION_MESSAGE);
-
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
+            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
+            return;
         }
 
         if (slotsQt < 8) {
             JOptionPane.showMessageDialog(null, "Invalid Slots Capacity. Must be atleast 8.", "Message", JOptionPane.INFORMATION_MESSAGE);
-
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
+            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
+            return;
         }
 
         if (itemSlotsQt < 10) {
             JOptionPane.showMessageDialog(null, "Invalid Items Per Slot Capacity. Must be atleast 10.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateRegularVM createRVM = new CreateRegularVM();
-            createRVM.setOwner(authorizedOwner);
+            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
+            return;
         }
-            
-        RegularVendingMachine newVendingMachine = new RegularVendingMachine(authorizedOwner, machineName, slotsQt,itemSlotsQt);
+
+        RegularVendingMachine newVendingMachine = new RegularVendingMachine(authorizedOwner, machineName, slotsQt, itemSlotsQt);
         authorizedOwner.addMachine(newVendingMachine);
-        
+
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-        Dashboard dashboard = new Dashboard(); 
-        dashboard.setOwner(authorizedOwner);
+        Dashboard dashboard = new Dashboard(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

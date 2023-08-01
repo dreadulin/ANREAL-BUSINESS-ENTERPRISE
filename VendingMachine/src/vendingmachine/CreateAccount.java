@@ -11,20 +11,21 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class CreateAcc extends javax.swing.JFrame {
+public class CreateAccount extends javax.swing.JFrame {
 
     ArrayList<Owner> owners = new ArrayList<>();
 
     /**
      * Creates new form CreateAcc
      */
-    public CreateAcc() {
+    public CreateAccount() {
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
-    public void setOwnersArray(ArrayList<Owner> owners) {
-        this.owners = owners;
+    public CreateAccount(ArrayList<Owner> ownersArray) {
+        this();
+        owners = ownersArray;
     }
 
     /**
@@ -174,25 +175,27 @@ public class CreateAcc extends javax.swing.JFrame {
             String currOwnerName = owner.getName();
             if (currOwnerName.equals(userName)) {
                 JOptionPane.showMessageDialog(null, "Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
-                accountExists = true;
-                Start StartMenu = new Start();
+                Start StartMenu = new Start(owners);
                 StartMenu.setVisible(true);
+                this.dispose();
+                return;
             }
         }
 
         if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            CreateAcc createAccount = new CreateAcc();
+            CreateAccount createAccount = new CreateAccount(owners);
             createAccount.setVisible(true);
-        } else if (!accountExists) {
-            Owner newOwner = new Owner(userName, bal, pass);
-            owners.add(newOwner);
-            JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-
-            Start StartMenu = new Start();
-            StartMenu.setOwnersArray(owners);
-            StartMenu.setVisible(true);
+            this.dispose();
+            return;
         }
+
+        Owner newOwner = new Owner(userName, bal, pass);
+        owners.add(newOwner);
+        JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+        Start StartMenu = new Start(owners);
+        StartMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -221,20 +224,21 @@ public class CreateAcc extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateAcc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateAcc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateAcc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateAcc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateAcc().setVisible(true);
+                new CreateAccount().setVisible(true);
             }
         });
     }

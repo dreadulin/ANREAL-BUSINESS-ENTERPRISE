@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
  */
 public class TestSpecialMaintenance extends javax.swing.JFrame {
 
+    Owner authorizedOwner;
+    SpecialVendingMachine authenticatedSpecialMachine;
+
     /**
      * Creates new form TestSpecialMaintenance
      */
@@ -25,17 +28,16 @@ public class TestSpecialMaintenance extends javax.swing.JFrame {
         jButton5.setVisible(false);
         jButton6.setVisible(false);
     }
-    
-    Owner authorizedOwner; 
-    SpecialVendingMachine authenticatedSpecialMachine; 
-    
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
+
+    public TestSpecialMaintenance(Owner owner) {
+        this();
+        authorizedOwner = owner;
     }
-    
-     public void setAuthenticateMachine(SpecialVendingMachine authenticateSpecialMachine)
-    {
-        this.authenticatedSpecialMachine = authenticateSpecialMachine;
+
+    public TestSpecialMaintenance(Owner owner, SpecialVendingMachine specialMachine) {
+        this();
+        authorizedOwner = owner;
+        authenticatedSpecialMachine = specialMachine;
     }
 
     /**
@@ -248,48 +250,44 @@ public class TestSpecialMaintenance extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // add Stock
-        AddStockSVM addStockSpecial = new AddStockSVM();
-        addStockSpecial.setOwner(authorizedOwner);
+        AddStockSVM addStockSpecial = new AddStockSVM(authorizedOwner, authenticatedSpecialMachine);
         addStockSpecial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Restock
-        RestockSVM restockSpecial = new RestockSVM();
-        restockSpecial.setOwner(authorizedOwner);
+        RestockSVM restockSpecial = new RestockSVM(authorizedOwner, authenticatedSpecialMachine);
         restockSpecial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // Change Prices
-        ChangePriceSVM changePriceSpecial = new ChangePriceSVM();
+        ChangePriceSVM changePriceSpecial = new ChangePriceSVM(authorizedOwner, authenticatedSpecialMachine);
         changePriceSpecial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // display transaction summary
-        TransactionSummary displaySummary = new TransactionSummary();
+        TransactionSummaryRVM displaySummary = new TransactionSummaryRVM();
         displaySummary.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       // Verifying machine name
-       
-       String testMachineName = jTextField1.getText();
-       
-       authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(testMachineName);
-        if (authenticatedSpecialMachine == null) 
-        {
-            JOptionPane.showMessageDialog(null,"Failed to authenticate. Going to back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Dashboard dashboard = new Dashboard(); 
+        // Verifying machine name
+
+        String testMachineName = jTextField1.getText();
+
+        authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(testMachineName);
+        if (authenticatedSpecialMachine == null) {
+            JOptionPane.showMessageDialog(null, "Failed to authenticate. Going to back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            Dashboard dashboard = new Dashboard(authorizedOwner);
             dashboard.setVisible(true);
             this.dispose();
-        } else 
-        {
+        } else {
             jButton1.setVisible(true);
             jButton2.setVisible(true);
             jButton3.setVisible(true);

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vendingmachine;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -12,11 +13,7 @@ import javax.swing.JOptionPane;
 public class CreateSpecialVM extends javax.swing.JFrame {
 
     Owner authorizedOwner;
-    
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
-    }
-     
+
     /**
      * Creates new form CreateSpecialVM
      */
@@ -24,6 +21,10 @@ public class CreateSpecialVM extends javax.swing.JFrame {
         initComponents();
     }
 
+    public CreateSpecialVM(Owner owner) {
+        this();
+        authorizedOwner = owner;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -202,35 +203,37 @@ public class CreateSpecialVM extends javax.swing.JFrame {
 
         if (specialMachineExists) {
             JOptionPane.showMessageDialog(null, "Failed to create vending machine.", "Machine already exists", JOptionPane.INFORMATION_MESSAGE);
-
-            CreateSpecialVM createSVM = new CreateSpecialVM();
-            createSVM.setOwner(authorizedOwner);
+            CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
             createSVM.setVisible(true);
             this.dispose();
+            return;
         }
 
         if (slotsQt < 8) {
             JOptionPane.showMessageDialog(null, "Invalid Slots Capacity. Must be atleast 8.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateSpecialVM createSVM = new CreateSpecialVM();
-            createSVM.setOwner(authorizedOwner);
+            CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
             createSVM.setVisible(true);
             this.dispose();
+            return;
         }
 
         if (itemSlotsQt < 10) {
             JOptionPane.showMessageDialog(null, "Invalid Items Per Slot Capacity. Must be atleast 10.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateSpecialVM createSVM = new CreateSpecialVM();
-            createSVM.setOwner(authorizedOwner);
+            CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
             createSVM.setVisible(true);
             this.dispose();
+            return;
         }
 
-        SpecialVendingMachine newVendingMachine = new SpecialVendingMachine(authorizedOwner, machineName, slotsQt,itemSlotsQt);
+        SpecialVendingMachine newVendingMachine = new SpecialVendingMachine(authorizedOwner, machineName, slotsQt, itemSlotsQt);
         authorizedOwner.addMachine(newVendingMachine);
-
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+        Dashboard dashboard = new Dashboard(authorizedOwner);
+        dashboard.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

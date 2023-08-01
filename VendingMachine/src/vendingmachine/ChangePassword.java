@@ -23,8 +23,9 @@ public class ChangePassword extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void setOwnersArray(ArrayList<Owner> owners) {
-        this.owners = owners;
+    public ChangePassword(ArrayList<Owner> ownersArray) {
+        this();
+        owners = ownersArray;
     }
 
     /**
@@ -165,15 +166,13 @@ public class ChangePassword extends javax.swing.JFrame {
             changePassOwner.setPassword(newPass);
             //for successful password change 
             JOptionPane.showMessageDialog(null, "Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Start StartMenu = new Start();
-            StartMenu.setOwnersArray(owners);
+            Start StartMenu = new Start(owners);
             StartMenu.setVisible(true);
             this.dispose();
         } else {
             // for account not found 
             JOptionPane.showMessageDialog(null, "Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Start StartMenu = new Start();
-            StartMenu.setOwnersArray(owners);
+            Start StartMenu = new Start(owners);
             StartMenu.setVisible(true);
             this.dispose();
         }

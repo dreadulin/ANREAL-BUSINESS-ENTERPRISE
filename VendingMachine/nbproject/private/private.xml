@@ -3,16 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/Restock.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RegularVM.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestSpecialMaintenance.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePrice.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockSVM.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/Dashboard.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestMaintenance.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestMachinesMenu.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/AddStock.java</file>
-            <file>file:/C:/Users/Andrea/Documents/GitHub/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/AddStockSVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TestRegularMaintenance.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/ChangePassword.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/ChangePriceSVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/UserLogin.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TestMaintenanceMenu.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TestVendingMenu.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/Dashboard.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/RegularVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/ChangePriceRVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/VMShop.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/Start.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/CreateRegularVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/AddStockRVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TestRVMButton.png</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/RegularVendingMachine.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TestSpecialMaintenance.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/TransactionSummaryRVM.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/VendingMachine.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/portfolio/VendingMachine/src/vendingmachine/RestockRVM.java</file>
         </group>
     </open-files>
 </project-private>

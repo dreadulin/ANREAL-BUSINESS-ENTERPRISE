@@ -11,15 +11,16 @@ package vendingmachine;
 public class Dashboard extends javax.swing.JFrame {
 
     Owner authorizedOwner;
-    
+
     public Dashboard() {
         super("Anreal Business Enterprises");
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
+    public Dashboard(Owner owner) {
+        this();
+        authorizedOwner = owner;
     }
 
     /**
@@ -156,29 +157,26 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Test Vending Machine 
-        
-        RegularVM regularVM = new RegularVM();
-        regularVM.setOwner(authorizedOwner);
+
+        RegularVM regularVM = new RegularVM(authorizedOwner);
         regularVM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // purchase vending machine
-        
-        VMShop shopVending = new VMShop(); 
-        shopVending.setOwner(authorizedOwner);
+
+        VMShop shopVending = new VMShop(authorizedOwner);
         shopVending.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Test Machine Menu 
-        TestMachinesMenu testMenu = new TestMachinesMenu();
-        testMenu.setVisible(true); 
-        testMenu.setOwner(authorizedOwner);
+        TestMaintenanceMenu testMenu = new TestMaintenanceMenu(authorizedOwner);
+        testMenu.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

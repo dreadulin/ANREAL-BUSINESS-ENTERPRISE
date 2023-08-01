@@ -23,8 +23,9 @@ public class UserLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
 
-    public void setOwnersArray(ArrayList<Owner> owners) {
-        this.owners = owners;                                                                                                                                                                           
+    public UserLogin(ArrayList<Owner> ownersArray) {
+        this();
+        owners = ownersArray;
     }
 
     /**
@@ -181,7 +182,7 @@ public class UserLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        CreateAcc createAccount = new CreateAcc();
+        CreateAccount createAccount = new CreateAccount(owners);
         createAccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
@@ -195,22 +196,19 @@ public class UserLogin extends javax.swing.JFrame {
             String currOwnerPass = owner.getPassword();
 
             if (currOwnerName.equals(userName) && currOwnerPass.equals(pass)) {
-                JOptionPane.showMessageDialog(null,"Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-                Dashboard dashboard = new Dashboard();
-                dashboard.setOwner(owner);
+                JOptionPane.showMessageDialog(null, "Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                Dashboard dashboard = new Dashboard(owner);
                 dashboard.setVisible(true);
                 this.dispose();
-            } else
-            {
-                JOptionPane.showMessageDialog(null,"Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-                Start StartMenu = new Start();
-                StartMenu.setOwnersArray(owners);
+            } else {
+                JOptionPane.showMessageDialog(null, "Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                Start StartMenu = new Start(owners);
                 StartMenu.setVisible(true);
                 this.dispose();
             }
-                
+
         }
-       
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

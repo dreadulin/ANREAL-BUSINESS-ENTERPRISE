@@ -12,16 +12,17 @@ public class VMShop extends javax.swing.JFrame {
 
     Owner authorizedOwner;
 
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
-    }
-
     /**
      * Creates new form VMShop
      */
     public VMShop() {
         initComponents();
-         setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
+    }
+
+    public VMShop(Owner owner) {
+        this();
+        authorizedOwner = owner;
     }
 
     /**
@@ -246,17 +247,15 @@ public class VMShop extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // for Special Vending Machine
 
-        SpecialVM specialMachine = new SpecialVM();
-        specialMachine.setVisible(true);
-//        specialMachine.setOwner(authorizedOwner);
+        CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
+        createSVM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Creation of Vending Machine 
-        
-        CreateRegularVM createRVM = new CreateRegularVM(); 
-        createRVM.setOwner(authorizedOwner);
+
+        CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
         createRVM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

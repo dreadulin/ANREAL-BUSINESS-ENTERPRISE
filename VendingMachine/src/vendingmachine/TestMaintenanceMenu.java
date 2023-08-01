@@ -10,23 +10,23 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class TestMachinesMenu extends javax.swing.JFrame {
+public class TestMaintenanceMenu extends javax.swing.JFrame {
+
+    Owner authorizedOwner;
 
     /**
      * Creates new form TestMachinesMenu
      */
-    public TestMachinesMenu() {
+    public TestMaintenanceMenu() {
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
     }
-    
-    Owner authorizedOwner;
-    
-    public void setOwner(Owner owner) {
-        this.authorizedOwner = owner;
+
+    public TestMaintenanceMenu(Owner owner) {
+        this();
+        authorizedOwner = owner;
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,23 +51,23 @@ public class TestMachinesMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("TEST VENDING MACHINE");
+        jLabel1.setText("TEST MACHINE MAINTENANCE");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(255, 255, 255)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(221, 221, 221))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jButton1.setFont(new java.awt.Font("Century Gothic", 1, 21)); // NOI18N
@@ -147,16 +147,14 @@ public class TestMachinesMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Testing Special Vending Machine
-        TestSpecialMaintenance testSVMaintenance = new TestSpecialMaintenance(); 
-        testSVMaintenance.setOwner(authorizedOwner);
+        TestSpecialMaintenance testSVMaintenance = new TestSpecialMaintenance(authorizedOwner);
         testSVMaintenance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Testing Regular Vending Machine
-        TestMaintenance testMaintenance = new TestMaintenance(); 
-        testMaintenance.setOwner(authorizedOwner);
+        TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
         testMaintenance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -178,20 +176,21 @@ public class TestMachinesMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestMachinesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestMaintenanceMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestMachinesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestMaintenanceMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestMachinesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestMaintenanceMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestMachinesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestMaintenanceMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TestMachinesMenu().setVisible(true);
+                new TestMaintenanceMenu().setVisible(true);
             }
         });
     }

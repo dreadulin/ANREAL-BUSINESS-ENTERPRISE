@@ -10,27 +10,30 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class Restock extends javax.swing.JFrame {
+public class RestockRVM extends javax.swing.JFrame {
+
+    Owner authorizedOwner;
+    RegularVendingMachine authenticatedRegularMachine;
+    String selectedItemName;
 
     /**
      * Creates new form Restock
      */
-    public Restock() {
+    public RestockRVM() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    public void setOwner(Owner owner) 
-    {
-        this.authorizedOwner = owner;
+    public RestockRVM(Owner owner, RegularVendingMachine regularMachine) {
+        this();
+        authorizedOwner = owner;
+        authenticatedRegularMachine = regularMachine;
+
+        for (Slot slot : regularMachine.getItemSlots()) {
+            jComboBox1.addItem(slot.getSlotItemType().getName());
+        }
     }
-    
-    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
-    {
-        this.authenticatedRegularMachine = authenticatedRegularMachine;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,9 +48,9 @@ public class Restock extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        itemName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,15 +85,19 @@ public class Restock extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Enter item name:");
-
-        itemName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel3.setText("Select item:");
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Enter item quantity to put in:");
 
         jTextField4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -102,19 +109,19 @@ public class Restock extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(itemName))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -172,32 +179,29 @@ public class Restock extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // restock 
-
-        String name = itemName.getText();
         int itemAmount = Integer.parseInt(jTextField4.getText());
         boolean operationSuccessful;
+        operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, selectedItemName, itemAmount);
 
-        operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, name, itemAmount);
-
-        if (operationSuccessful)
-        {
-            JOptionPane.showMessageDialog(null,"Restock successful. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance();
+        if (operationSuccessful) {
+            JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner, authenticatedRegularMachine);
             testMaintenance.setVisible(true);
             this.dispose();
-        } else
-        {
-            JOptionPane.showMessageDialog(null,"There is no slot that matches the item name. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance();
+        } else {
+            JOptionPane.showMessageDialog(null, "There is no slot that matches the item name. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner, authenticatedRegularMachine);
             testMaintenance.setVisible(true);
             this.dispose();
         }
-            TestMaintenance testMaintenance = new TestMaintenance();
-            testMaintenance.setVisible(true);
-            this.dispose();
-
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        if (evt.getSource() == jComboBox1) {
+            selectedItemName = jComboBox1.getSelectedItem().toString();
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,27 +220,28 @@ public class Restock extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Restock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Restock().setVisible(true);
+                new RestockRVM().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField itemName;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

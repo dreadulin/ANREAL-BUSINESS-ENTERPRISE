@@ -10,29 +10,25 @@ import javax.swing.JOptionPane;
  *
  * @author Andrea
  */
-public class AddStock extends javax.swing.JFrame {
+public class AddStockRVM extends javax.swing.JFrame {
+
+    Owner authorizedOwner;
+    RegularVendingMachine authenticatedRegularMachine;
 
     /**
      * Creates new form AddStock
      */
-    public AddStock() {
+    public AddStockRVM() {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    public void setOwner(Owner owner) 
-    {
+
+    public AddStockRVM(Owner owner, RegularVendingMachine regularMachine) {
+        this();
         this.authorizedOwner = owner;
+        this.authenticatedRegularMachine = regularMachine;
     }
-    
-    public void setAuthenticateMachine(RegularVendingMachine authenticatedRegularMachine)
-    {
-        this.authenticatedRegularMachine = authenticatedRegularMachine;
-    }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -204,60 +200,40 @@ public class AddStock extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // add stock to vending machine
-         
+        boolean success;
         String stockName = itemName.getText();
-        int stockPrice =  Integer.parseInt(jTextField1.getText());
+        int stockPrice = Integer.parseInt(jTextField1.getText());
         double stockCalories = Integer.parseInt(jTextField2.getText());
         int stockItemAmount = Integer.parseInt(jTextField4.getText());
-         
+
         Item existingItem;
-        boolean success = false;
-        
         existingItem = authenticatedRegularMachine.getItem(stockName);
-        
-        if (existingItem != null) 
-        {
-            JOptionPane.showMessageDialog(null,"Restocking slot..","Messgae", JOptionPane.INFORMATION_MESSAGE);
 
-            success = authorizedOwner.restock(authenticatedRegularMachine, stockName, stockItemAmount);
+        if (existingItem != null) {
+            JOptionPane.showMessageDialog(null, "Item already exists. Restocking instead...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            authorizedOwner.restock(authenticatedRegularMachine, stockName, stockItemAmount);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            testMaintenance.setVisible(true);
+            this.dispose();
+            return;
+        }
 
-            if (success) {
-                JOptionPane.showMessageDialog(null,"Restock successful. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-                TestMaintenance testMaintenance = new TestMaintenance(); 
-                testMaintenance.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null,"Failed to restock. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-                TestMaintenance testMaintenance = new TestMaintenance(); 
-                testMaintenance.setVisible(true);
-                this.dispose();
-            }
-            
-            TestMaintenance testMaintenance = new TestMaintenance(); 
+        Item newItem = new Item(stockName, stockPrice, stockCalories);
+        JOptionPane.showMessageDialog(null, "Restocking slot..", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+        success = authorizedOwner.stock(authenticatedRegularMachine, newItem, stockItemAmount);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            testMaintenance.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to restock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         }
-        
-        Item stockItem = new Item(stockName, stockPrice, stockCalories);
-        success = authorizedOwner.stock(authenticatedRegularMachine, stockItem, stockItemAmount);
-        
-        if(success)
-        {
-            JOptionPane.showMessageDialog(null,"Stocking successful. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance(); 
-            testMaintenance.setVisible(true);
-            this.dispose();
-        } else
-        {
-            JOptionPane.showMessageDialog(null,"Slots are full. Cannot insert item anymore. Going back to the maintenance menu...","Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestMaintenance testMaintenance = new TestMaintenance(); 
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
-        TestMaintenance testMaintenance = new TestMaintenance(); 
-        testMaintenance.setVisible(true);
-        this.dispose();
-        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -277,20 +253,21 @@ public class AddStock extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddStock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddStock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddStock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddStock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddStock().setVisible(true);
+                new AddStockRVM().setVisible(true);
             }
         });
     }
