@@ -4,7 +4,6 @@
  */
 package vendingmachine;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -36,8 +35,7 @@ public class UserLoginController {
 
             if (authenticatedOwner != null) {
                 loginView.showSuccessMessage();
-                ArrayList<Owner> owners = startModel.getOwnersList();
-                //DashboardController dashboardController = new DashboardController(owner);
+                DashboardController dashboardController = new DashboardController(authenticatedOwner);
                 loginView.dispose();
             } else {
                 ArrayList<Owner> owners = startModel.getOwnersList();
@@ -45,7 +43,5 @@ public class UserLoginController {
                 StartController startController = new StartController(owners);
                 loginView.dispose();
             }
-
         }
     }
-}

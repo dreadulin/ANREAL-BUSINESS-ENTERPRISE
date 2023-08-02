@@ -1,30 +1,23 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
  * This class represents the creation of the regular vending machine
- * @author Andrea Dulin and Darryl Javier 
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class CreateRegularVM extends javax.swing.JFrame {
+public class CreateRegularVMView extends javax.swing.JFrame {
 
     Owner authorizedOwner;
 
     /**
      * Creates new form CreateRegularVM
      */
-    public CreateRegularVM() {
+    public CreateRegularVMView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the authorizedOwner to be used all throughout the program 
-     * @param owner which is the name of the owner of the vending machine
-     */
-    public CreateRegularVM(Owner owner) {
-        this();
-        authorizedOwner = owner;
     }
 
     /**
@@ -46,7 +39,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
         slots = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         itemPerSlot = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        createRegularBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,13 +127,13 @@ public class CreateRegularVM extends javax.swing.JFrame {
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 203, 119));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton1.setText("Create Vending Machine");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createRegularBtn.setBackground(new java.awt.Color(255, 203, 119));
+        createRegularBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        createRegularBtn.setText("Create Vending Machine");
+        createRegularBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        createRegularBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createRegularBtnActionPerformed(evt);
             }
         });
 
@@ -156,7 +149,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(292, 292, 292)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(createRegularBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -166,7 +159,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(createRegularBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
 
@@ -195,20 +188,45 @@ public class CreateRegularVM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This button is for creating the regular vending machine 
-     * @param evt which is an action event of an element 
+     * This button is for creating the regular vending machine
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    public void addCreateRegularListener(ActionListener listenForCreateRegular) {
+        createRegularBtn.addActionListener(listenForCreateRegular);
+    }
+
+    public String getInputMachineName() {
+        return vendingName.getText();
+    }
+
+    public int getInputSlotsQt() {
+        return Integer.parseInt(slots.getText());
+    }
+
+    public int getInputItemSlotsQt() {
+        return Integer.parseInt(itemPerSlot.getText());
+    }
+    
+    public void showSuccessMessage() {
+        
+    }
+    
+    public void showErrorMessage() {
+        
+    }
+
+    private void createRegularBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRegularBtnActionPerformed
         String machineName = vendingName.getText(); // gets the vending machine name from the textfield 
         int slotsQt = Integer.parseInt(slots.getText()); // gets the number of slots from the textfield 
         int itemSlotsQt = Integer.parseInt(itemPerSlot.getText()); // gets the number of items per slot from the textfield 
 
         boolean regularMachineExists = authorizedOwner.getRegularMachine(machineName) != null;
 
-         // informs the user that creation of machine is unsuccessful if the vending machine already exists in the system
+        // informs the user that creation of machine is unsuccessful if the vending machine already exists in the system
         if (regularMachineExists) {
             JOptionPane.showMessageDialog(null, "Failed to create vending machine.", "Machine already exists", JOptionPane.INFORMATION_MESSAGE);
-            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
+            CreateRegularVMView createRVM = new CreateRegularVMView(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
             return;
@@ -217,10 +235,10 @@ public class CreateRegularVM extends javax.swing.JFrame {
         /*
             If the number of slots entered by the user is less than eight, this will inform 
             the user that they entered an invalid slots capacity. 
-        */ 
+         */
         if (slotsQt < 8) {
             JOptionPane.showMessageDialog(null, "Invalid Slots Capacity. Must be atleast 8.", "Message", JOptionPane.INFORMATION_MESSAGE);
-            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
+            CreateRegularVMView createRVM = new CreateRegularVMView(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
             return;
@@ -229,11 +247,11 @@ public class CreateRegularVM extends javax.swing.JFrame {
         /*
             If the number of item per slot entered by the user is less than 10, this will inform 
             the user that they entered an invalid item per slot capacity. 
-        */
+         */
         if (itemSlotsQt < 10) {
             JOptionPane.showMessageDialog(null, "Invalid Items Per Slot Capacity. Must be atleast 10.", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
+            CreateRegularVMView createRVM = new CreateRegularVMView(authorizedOwner);
             createRVM.setVisible(true);
             this.dispose();
             return;
@@ -247,7 +265,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
         DashboardView dashboard = new DashboardView(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createRegularBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,27 +284,28 @@ public class CreateRegularVM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateRegularVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateRegularVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateRegularVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateRegularVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateRegularVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateRegularVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateRegularVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateRegularVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateRegularVM().setVisible(true);
+                new CreateRegularVMView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createRegularBtn;
     private javax.swing.JTextField itemPerSlot;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

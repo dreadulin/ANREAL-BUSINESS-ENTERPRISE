@@ -32,8 +32,15 @@ public class AddStockRVMController {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            String itemName = addStockView.getStockName();
+            int itemPrice = addStockView.getStockPrice();
+            double itemCalories = addStockView.getStockCalories();
+            int itemAmount = addStockView.getStockItemAmount();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            boolean success = maintenanceModel.addStock(itemName, itemPrice, itemCalories, itemAmount);
+            
+
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             addStockView.dispose();
         }
     }

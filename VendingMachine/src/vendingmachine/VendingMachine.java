@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author Andrea Dulin and Darryl Javier
  */
-public class VendingMachine extends DashboardView {
+public class VendingMachine {
 
     /**
      * @param args the command line arguments
@@ -16,5 +16,4 @@ public class VendingMachine extends DashboardView {
         ArrayList<Owner> owners = new ArrayList<>();
         StartController startController = new StartController(owners);
     }
-
 }

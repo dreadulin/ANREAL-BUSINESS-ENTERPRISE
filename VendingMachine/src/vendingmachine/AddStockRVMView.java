@@ -207,6 +207,13 @@ public class AddStockRVMView extends javax.swing.JFrame {
         return Integer.parseInt(jTextField4.getText());
     }
 
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Added stock successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Failed to add stock. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments

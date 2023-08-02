@@ -1,48 +1,26 @@
 package vendingmachine;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
 
 /**
- * This class represents the collection of money from the regular vending machine 
+ * This class represents the collection of money from the regular vending
+ * machine
+ *
  * @author Darryl Javier and Andrea Dulin
  */
-public class CollectMoneyRVM extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
+public class CollectMoneyRVMView extends javax.swing.JFrame {
 
     /**
      * Creates new form CollectMoneyRVM
      */
-    public CollectMoneyRVM() {
+    public CollectMoneyRVMView() {
         initComponents();
     }
 
-    /**
-     * This initializes the authorizedOwner and authenticatedRegularMachine to be used all throughout the program
-     * @param owner which is the name of the owner of the vending machine 
-     * @param vendingMachine which is the type of vending machine to be used
-     */
-    public CollectMoneyRVM(Owner owner, RegularVendingMachine vendingMachine) {
-        this();
-        authorizedOwner = owner;
-        authenticatedRegularMachine = vendingMachine;
-
-        // Sets the column titles of the table
-        String[] columnNames = {"Value", "Amount"};
-        DefaultTableModel moneyTableModel = new DefaultTableModel(columnNames, 0);
-
-        moneyTable.setModel(moneyTableModel);
-        Money[] bills = vendingMachine.getMoneyArray();
-
-        // Gets the denomination of the bill and the quantity of each bill and will be displayed to the table row 
-        for (Money bill : bills) {
-            Object[] moneyRow = {bill.getValue(), bill.getAmount()};
-            moneyTableModel.addRow(moneyRow);
-        }
+    public JTable getMoneyTable() {
+        return moneyTable;
     }
 
     /**
@@ -59,7 +37,7 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         moneyTable = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
+        collectMoneyBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,15 +90,10 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
         moneyTable.setFocusable(false);
         jScrollPane1.setViewportView(moneyTable);
 
-        jButton7.setBackground(new java.awt.Color(255, 203, 119));
-        jButton7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton7.setText("Collect Money");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        collectMoneyBtn.setBackground(new java.awt.Color(255, 203, 119));
+        collectMoneyBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        collectMoneyBtn.setText("Collect Money");
+        collectMoneyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,7 +106,7 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(collectMoneyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(305, 305, 305))
         );
         jPanel1Layout.setVerticalGroup(
@@ -143,7 +116,7 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(collectMoneyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -162,28 +135,18 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This button is for showing the balance before and after the money from the 
-     * vending machine was collected and the amount of collected money 
-     * @param evt which is an action event of the element 
+     * This button is for showing the balance before and after the money from
+     * the vending machine was collected and the amount of collected money
+     *
+     * @param evt which is an action event of the element
      */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int balanceBefore = authorizedOwner.getBalance();
-        int collectedMoney = authenticatedRegularMachine.getStockMoney();
-        int balanceAfter = balanceBefore + collectedMoney;
-        authorizedOwner.collectMoney(authenticatedRegularMachine);
-        String resultMessage = "Balance before collecting money: " + balanceBefore + "\n"
-                + "Collected money: " + collectedMoney + "\n"
-                + "Balance after collecting money: " + balanceAfter + "\n";
+    public void addCollectMoneyListener(ActionListener listenForCollectMoney) {
+        collectMoneyBtn.addActionListener(listenForCollectMoney);
+    }
 
-        /*
-            Informs the user of their balance before money was collected, the amount of collected money 
-            and the balance after the money was collected 
-        */
-        JOptionPane.showMessageDialog(null, resultMessage, "Message", JOptionPane.INFORMATION_MESSAGE);
-        TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
-        testMaintenance.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -202,26 +165,27 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CollectMoneyRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CollectMoneyRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CollectMoneyRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CollectMoneyRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CollectMoneyRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CollectMoneyRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CollectMoneyRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CollectMoneyRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CollectMoneyRVM().setVisible(true);
+                new CollectMoneyRVMView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton collectMoneyBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

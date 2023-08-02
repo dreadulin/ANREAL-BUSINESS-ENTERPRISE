@@ -20,6 +20,10 @@ public class TestRegularMaintenanceController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         testRegularMaintenanceView = new TestRegularMaintenanceView();
 
+        for (RegularVendingMachine vendingMachine : maintenanceModel.getAuthOwner().getRegularMachines()) {
+            testRegularMaintenanceView.getRegularMachineComboBox().addItem(vendingMachine.getName());
+        }
+
         this.testRegularMaintenanceView.addCollectMoneyListener(new CollectMoneyListener());
         this.testRegularMaintenanceView.addReplenishListener(new ReplenishListener());
         this.testRegularMaintenanceView.addChangePriceListener(new ChangePriceListener());

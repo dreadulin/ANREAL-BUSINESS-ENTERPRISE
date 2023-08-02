@@ -1,41 +1,23 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- * This class represents the changing of item price in the regular vending machine
- * @author Andrea Dulin and Darryl Javier 
+ * This class represents the changing of item price in the regular vending
+ * machine
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class ChangePriceRVM extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    String selectedItemName;
+public class ChangePriceRVMView extends javax.swing.JFrame {
 
     /**
      * Creates new form ChangePrice
      */
-    public ChangePriceRVM() {
+    public ChangePriceRVMView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the authorizedOwner and authenticatedRegularMachine to be used all throughout the program
-     * @param owner which is the name of the owner of the vending machine 
-     * @param vendingMachine which is the type of vending machine to be used
-     */
-    public ChangePriceRVM(Owner owner, RegularVendingMachine vendingMachine) {
-        this();
-        authorizedOwner = owner;
-        authenticatedRegularMachine = vendingMachine;
-
-         // This displays the list of available items and the user will choose from the drop box menu
-        for (Slot slot : vendingMachine.getItemSlots()) {
-            if (slot.getSlotItemType() != null) {
-                jComboBox1.addItem(slot.getSlotItemType().getName());
-            }
-        }
     }
 
     /**
@@ -55,10 +37,10 @@ public class ChangePriceRVM extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        itemComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         itemPriceLabel = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        changePriceBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,12 +86,6 @@ public class ChangePriceRVM extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Note: Cents not allowed");
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Current Price: ");
@@ -132,7 +108,7 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(itemPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
         );
@@ -142,7 +118,7 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -156,15 +132,10 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        jButton7.setBackground(new java.awt.Color(255, 203, 119));
-        jButton7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton7.setText("Update Price");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        changePriceBtn.setBackground(new java.awt.Color(255, 203, 119));
+        changePriceBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        changePriceBtn.setText("Update Price");
+        changePriceBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,7 +149,7 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(229, 229, 229)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(changePriceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,7 +159,7 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(changePriceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
 
@@ -206,38 +177,45 @@ public class ChangePriceRVM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * This button is for setting the new price of the item in the regular vending machine 
-     * @param evt which is an action event of an element 
-     */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int newPrice = Integer.parseInt(jTextField4.getText());
-        if (authorizedOwner.setPrice(authenticatedRegularMachine, selectedItemName, newPrice)) {
-            // Informs the user that price change was successful and will redirect them to the maintenance menu 
-            JOptionPane.showMessageDialog(null, "Price changed successfully. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        } else {
-            // Informs the user that price change was unsuccessful and will redirect them to the maintenance menu 
-            JOptionPane.showMessageDialog(null, "Price changed failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    public int getInputPrice() {
+        return Integer.parseInt(jTextField4.getText());
+    }
+
+    public void setCurrentPrice(int price) {
+        itemPriceLabel.setText(Integer.toString(price));
+    }
 
     /**
-     * This gets the selected item from the drop down menu and displays the current price of the item
-     * @param evt which is an action event of an element 
+     * This button is for setting the new price of the item in the regular
+     * vending machine
+     *
+     * @param evt which is an action event of an element
      */
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if (evt.getSource() == jComboBox1) {
-            selectedItemName = jComboBox1.getSelectedItem().toString();
-            Item selectedItem = authenticatedRegularMachine.getItem(selectedItemName);
-            itemPriceLabel.setText(Integer.toString(selectedItem.getPrice()));
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    public void addChangePriceListener(ActionListener listenForChangePrice) {
+        changePriceBtn.addActionListener(listenForChangePrice);
+    }
+
+    /**
+     * This gets the selected item from the drop down menu and displays the
+     * current price of the item
+     *
+     * @param evt which is an action event of an element
+     */
+    public JComboBox<String> getItemComboBox() {
+        return itemComboBox;
+    }
+
+    public void addItemChangeListener(ActionListener listenForItemChange) {
+        itemComboBox.addActionListener(listenForItemChange);
+    }
+
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Changed price successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Failed to change price. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -256,29 +234,31 @@ public class ChangePriceRVM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangePriceRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangePriceRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangePriceRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangePriceRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePriceRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangePriceRVM().setVisible(true);
+                new ChangePriceRVMView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton changePriceBtn;
+    private javax.swing.JComboBox<String> itemComboBox;
     private javax.swing.JLabel itemPriceLabel;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

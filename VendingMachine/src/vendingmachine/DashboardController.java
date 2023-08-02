@@ -33,7 +33,7 @@ public class DashboardController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = dashboardModel.getAuthOwner();
-            //VMShopController VMShop = new VMShopController(authOwner);
+            VMShopController VMShop = new VMShopController(authOwner);
 
             dashboardView.dispose();
         }
@@ -44,13 +44,14 @@ public class DashboardController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = dashboardModel.getAuthOwner();
-            //TestVendingMenuController VMShop = new TestVendingMenuController(authOwner);
+            // TestVendingMenuController VMShop = new TestVendingMenuController(authOwner);
 
             dashboardView.dispose();
         }
     }
 
     class TestMaintainListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = dashboardModel.getAuthOwner();

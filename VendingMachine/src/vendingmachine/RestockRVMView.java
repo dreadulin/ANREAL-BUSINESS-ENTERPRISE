@@ -1,42 +1,46 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
  * This class represents the restocking of the regular vending machine
- * @author Andrea Dulin and Darryl Javier 
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class RestockRVM extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
-    String selectedItemName;
+public class RestockRVMView extends javax.swing.JFrame {
 
     /**
      * Creates new form Restock
      */
-    public RestockRVM() {
+    public RestockRVMView() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    /**
-     * This constructor initializes authorizedOwner and authenticatedRegularMachine to be used althroughout the program
-     * @param owner which is the name of the owner of the vending machine 
-     * @param regularMachine which is the type of vending machine to be used
-     */
-    public RestockRVM(Owner owner, RegularVendingMachine regularMachine) {
-        this();
-        authorizedOwner = owner;
-        authenticatedRegularMachine = regularMachine;
+    public void addRestockListener(ActionListener listenForAddStock) {
+        restockBtn.addActionListener(listenForAddStock);
+    }
 
-        // This is to choose which Item to restock 
-        for (Slot slot : regularMachine.getItemSlots()) {
-            if (slot.getSlotItemType() != null) {
-                jComboBox1.addItem(slot.getSlotItemType().getName());
-            }
-        }
+    public int getInputAmount() {
+        return Integer.parseInt(jTextField4.getText());
+    }
 
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Added stock successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Failed to add stock. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public JComboBox<String> getItemComboBox() {
+        return itemComboBox;
+    }
+
+    public void setStockQuantity(int quantity) {
+        itemStockLabel.setText(Integer.toString(quantity));
     }
 
     /**
@@ -55,10 +59,10 @@ public class RestockRVM extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        itemComboBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         itemStockLabel = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        restockBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,19 +104,13 @@ public class RestockRVM extends javax.swing.JFrame {
 
         jTextField4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Current Stock: ");
 
         itemStockLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         itemStockLabel.setForeground(new java.awt.Color(255, 255, 255));
-        itemStockLabel.setText("jLabel4");
+        itemStockLabel.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -127,7 +125,7 @@ public class RestockRVM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(itemStockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
         );
@@ -137,7 +135,7 @@ public class RestockRVM extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -149,15 +147,10 @@ public class RestockRVM extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jButton7.setBackground(new java.awt.Color(255, 203, 119));
-        jButton7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton7.setText("Restock");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        restockBtn.setBackground(new java.awt.Color(255, 203, 119));
+        restockBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        restockBtn.setText("Restock");
+        restockBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,7 +164,7 @@ public class RestockRVM extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(250, 250, 250)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(restockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,7 +174,7 @@ public class RestockRVM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(restockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
@@ -200,48 +193,13 @@ public class RestockRVM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This is for restocking the item in the regular vending machine 
-     * @param evt which is an action event of an element 
-     */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int itemAmount = Integer.parseInt(jTextField4.getText());
-        boolean operationSuccessful;
-        operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, selectedItemName, itemAmount);
-
-        if (operationSuccessful) {
-            // Informs the user that restock was successful and will redirect them to the maintenance menu 
-            JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            
-            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        } else {
-            // Informs the user that restock was unsuccessful and will redirect them to the maintenance menu 
-            JOptionPane.showMessageDialog(null, "Restock Failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            
-            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    /**
      * This method is for getting the stock quantity of the selected item
-     * @param evt which is an action event of an element 
+     *
+     * @param evt which is an action event of an element
      */
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        if (evt.getSource() == jComboBox1) {
-            selectedItemName = jComboBox1.getSelectedItem().toString();
-            for (Slot slot : authenticatedRegularMachine.getItemSlots()) {
-                if (slot.getSlotItemType() != null) {
-                    if (slot.getSlotItemType().getName().equals(selectedItemName)) {
-                        itemStockLabel.setText(Integer.toString(slot.getItemQuantity()));
-                        return;
-                    }
-                }
-            }
-        }
-    }                                          
+    public void addItemChangeListener(ActionListener listenForItemChange) {
+        restockBtn.addActionListener(listenForItemChange);
+    }
 
     /**
      * @param args the command line arguments
@@ -260,29 +218,30 @@ public class RestockRVM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RestockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RestockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RestockRVM().setVisible(true);
+                new RestockRVMView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> itemComboBox;
     private javax.swing.JLabel itemStockLabel;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -291,5 +250,6 @@ public class RestockRVM extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton restockBtn;
     // End of variables declaration//GEN-END:variables
 }

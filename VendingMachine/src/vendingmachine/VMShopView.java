@@ -1,28 +1,21 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
+
 /**
- * This class represents the shop of the two types of vending machines: regular and special vending machines 
+ * This class represents the shop of the two types of vending machines: regular
+ * and special vending machines
+ *
  * @author Andrea Dulin and Darryl Javier
  */
-public class VMShop extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
+public class VMShopView extends javax.swing.JFrame {
 
     /**
      * Creates new form VMShop
      */
-    public VMShop() {
+    public VMShopView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the authorizedOwner to be used althroughout the program
-     * @param owner
-     */
-    public VMShop(Owner owner) {
-        this();
-        authorizedOwner = owner;
     }
 
     /**
@@ -35,12 +28,12 @@ public class VMShop extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        specialBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        regularBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -55,16 +48,11 @@ public class VMShop extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(254, 249, 239));
         jPanel5.setName("DashboardBG"); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(34, 124, 157));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Special Vending Machine");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        specialBtn.setBackground(new java.awt.Color(34, 124, 157));
+        specialBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        specialBtn.setForeground(new java.awt.Color(255, 255, 255));
+        specialBtn.setText("Special Vending Machine");
+        specialBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jPanel3.setBackground(new java.awt.Color(255, 203, 119));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 203, 119), 1, true));
@@ -106,16 +94,11 @@ public class VMShop extends javax.swing.JFrame {
                         .addGap(47, 47, 47))))
         );
 
-        jButton2.setBackground(new java.awt.Color(34, 124, 157));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Regular Vending Machine");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        regularBtn.setBackground(new java.awt.Color(34, 124, 157));
+        regularBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        regularBtn.setForeground(new java.awt.Color(255, 255, 255));
+        regularBtn.setText("Regular Vending Machine");
+        regularBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(254, 109, 115));
@@ -202,14 +185,14 @@ public class VMShop extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(78, 78, 78)
-                                .addComponent(jButton2)))
+                                .addComponent(regularBtn)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(66, 66, 66)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
+                                .addComponent(specialBtn)
                                 .addGap(62, 62, 62)))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
@@ -225,8 +208,8 @@ public class VMShop extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(regularBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(specialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
@@ -245,25 +228,22 @@ public class VMShop extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This is for the creation of special vending machine 
-     * @param evt is an action event of an element 
+     * This is for the creation of special vending machine
+     *
+     * @param evt is an action event of an element
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CreateSpecialVM createSVM = new CreateSpecialVM(authorizedOwner);
-        createSVM.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    public void addCreateSpecialListener(ActionListener listenForCreateSpecial) {
+        specialBtn.addActionListener(listenForCreateSpecial);
+    }
 
     /**
-     * This is for the creation of regular vending machine 
-     * @param evt is an action event of an element 
+     * This is for the creation of regular vending machine
+     *
+     * @param evt is an action event of an element
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CreateRegularVM createRVM = new CreateRegularVM(authorizedOwner);
-        createRVM.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    public void addCreateRegularListener(ActionListener listenForCreateRegular) {
+        regularBtn.addActionListener(listenForCreateRegular);
+    }
     /**
      * @param args the command line arguments
      */
@@ -281,27 +261,26 @@ public class VMShop extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VMShop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VMShopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VMShop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VMShopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VMShop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VMShopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VMShop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VMShopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VMShop().setVisible(true);
+                new VMShopView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -315,6 +294,8 @@ public class VMShop extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JButton regularBtn;
+    private javax.swing.JButton specialBtn;
     // End of variables declaration//GEN-END:variables
 
     private void setRelativeLocation(Object object) {

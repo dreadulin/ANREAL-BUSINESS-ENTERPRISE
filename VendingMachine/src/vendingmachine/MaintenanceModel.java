@@ -43,6 +43,14 @@ public class MaintenanceModel {
         authorizedOwner.getRegularMachine(machineName);
     }
 
+    public Item getRegularVMItem(String machineName) {
+        return authenticatedRegularMachine.getItem(machineName);
+    }
+
+    public Item getSpecialVMItem(String machineName) {
+        return authenticatedSpecialMachine.getItem(machineName);
+    }
+
     public boolean addStock(String stockName, int stockPrice, double stockCalories, int stockItemAmount) {
         Item existingItem;
         existingItem = authenticatedRegularMachine.getItem(stockName);
@@ -59,4 +67,50 @@ public class MaintenanceModel {
         return success;
     }
 
+    public boolean setPrice(String selectedItem, int newPrice) {
+        return authorizedOwner.setPrice(authenticatedRegularMachine, selectedItem, newPrice);
+    }
+
+    public String collectMoney() {
+        int balanceBefore = authorizedOwner.getBalance();
+        int collectedMoney = authenticatedRegularMachine.getStockMoney();
+        int balanceAfter = balanceBefore + collectedMoney;
+        authorizedOwner.collectMoney(authenticatedRegularMachine);
+        String resultMessage = "Balance before collecting money: " + balanceBefore + "\n"
+                + "Collected money: " + collectedMoney + "\n"
+                + "Balance after collecting money: " + balanceAfter + "\n";
+
+        /*
+            Informs the user of their balance before money was collected, the amount of collected money 
+            and the balance after the money was collected 
+         */
+        return resultMessage;
+    }
+
+    public String replenishMoney(int amount, int selectedValue) {
+        Money money = authenticatedRegularMachine.getMoney(selectedValue);
+        int beforeAmount = money.getAmount();
+
+        if (authorizedOwner.getBalance() - (selectedValue * amount) < 0) {
+            // Informs the user that they do not have enough money to replenish the amount
+            JOptionPane.showMessageDialog(null, "You do not have enough money to replenish this amount.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            return "You do not have enough money to replenish this amount.";
+        }
+
+        authorizedOwner.replenishMoney(authenticatedRegularMachine, amount, selectedValue);
+
+        /**
+         * Informs the user the before replenish amount and after replenish
+         * amount of a denomination
+         */
+        String message = "Before Replenish Amount: " + beforeAmount + "\n" + "After Replenish Amount: " + money.getAmount();
+        return message;
+    }
+
+    public boolean restock(int itemAmount, String selectedItem) {
+        boolean operationSuccessful;
+        operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, selectedItem, itemAmount);
+
+        return operationSuccessful;
+    }
 }
