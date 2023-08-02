@@ -1,31 +1,21 @@
 package vendingmachine;
 
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 
 /**
- * This shows the starting menu of the program. 
- * It contains the creation of the account, login of the user and the changing of password of the user.  
- * @author Andrea Dulin and Darryl Javier 
+ * This shows the starting menu of the program. It contains the creation of the
+ * account, login of the user and the changing of password of the user.
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class Start extends javax.swing.JFrame {
-
-    ArrayList<Owner> owners = new ArrayList<>();
+public class StartView extends javax.swing.JFrame {
 
     /**
      * Creates new form Start
      */
-    public Start() {
+    public StartView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the owners which will be used althroughout the program 
-     * @param ownersArray which is the array that stores the details of the user
-     */
-    public Start(ArrayList<Owner> ownersArray) {
-        this();
-        owners = ownersArray;
     }
 
     /**
@@ -41,9 +31,9 @@ public class Start extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        createAccBtn = new javax.swing.JButton();
+        changePassBtn = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,38 +64,23 @@ public class Start extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/StartVM.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(34, 124, 157));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Create an Account");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        createAccBtn.setBackground(new java.awt.Color(34, 124, 157));
+        createAccBtn.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        createAccBtn.setForeground(new java.awt.Color(255, 255, 255));
+        createAccBtn.setText("Create an Account");
+        createAccBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton2.setBackground(new java.awt.Color(34, 124, 157));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Change Password");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        changePassBtn.setBackground(new java.awt.Color(34, 124, 157));
+        changePassBtn.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        changePassBtn.setForeground(new java.awt.Color(255, 255, 255));
+        changePassBtn.setText("Change Password");
+        changePassBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton3.setBackground(new java.awt.Color(34, 124, 157));
-        jButton3.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Login");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        loginBtn.setBackground(new java.awt.Color(34, 124, 157));
+        loginBtn.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginBtn.setText("Login");
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,9 +96,9 @@ public class Start extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(changePassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createAccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
@@ -136,11 +111,11 @@ public class Start extends javax.swing.JFrame {
                 .addGap(93, 93, 93)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(createAccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(changePassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
         );
 
@@ -159,34 +134,31 @@ public class Start extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This is for the user login 
-     * @param evt which is an action event of an element 
+     * This is for the user login
+     *
+     * @param listenForLogin which is an action listener of an element
      */
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        UserLogin login = new UserLogin(owners);
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    public void addLoginListener(ActionListener listenForLogin) {
+        loginBtn.addActionListener(listenForLogin);
+    }
 
-     /**
-     * This is for creating the user account 
-     * @param evt which is an action event of an element 
+    /**
+     * This is for creating the user account
+     *
+     * @param listenForCreateAcc which is an action listener of an element
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CreateAccount createAccount = new CreateAccount(owners);
-        createAccount.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    public void addCreateAccountListener(ActionListener listenForCreateAcc) {
+        createAccBtn.addActionListener(listenForCreateAcc);
+    }
 
-     /**
-     * This is the changing of user password if they wish to do so 
-     * @param evt which is an action event of an element 
+    /**
+     * This is the changing of user password if they wish to do so
+     *
+     * @param listenForChangePass which is an action listener of an element
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ChangePassword changePass = new ChangePassword(owners);
-        changePass.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    public void addChangePassListener(ActionListener listenForChangePass) {
+        changePassBtn.addActionListener(listenForChangePass);
+    }
 
     /**
      * @param args the command line arguments
@@ -205,31 +177,32 @@ public class Start extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Start().setVisible(true);
+                new StartView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton changePassBtn;
+    private javax.swing.JButton createAccBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton loginBtn;
     // End of variables declaration//GEN-END:variables
 }

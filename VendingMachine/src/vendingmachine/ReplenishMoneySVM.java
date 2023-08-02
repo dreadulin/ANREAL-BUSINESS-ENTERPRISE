@@ -235,7 +235,7 @@ public class ReplenishMoneySVM extends javax.swing.JFrame {
         if (authorizedOwner.getBalance() - (selectedValue * amount) < 0) {
             // Informs the user that they do not have enough money to replenish the amount
             JOptionPane.showMessageDialog(null, "You do not have enough money to replenish this amount.", "Message", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
             return;

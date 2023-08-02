@@ -212,14 +212,14 @@ public class RestockRVM extends javax.swing.JFrame {
             // Informs the user that restock was successful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Restock successful. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
             // Informs the user that restock was unsuccessful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Restock Failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
             
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         }
@@ -229,7 +229,7 @@ public class RestockRVM extends javax.swing.JFrame {
      * This method is for getting the stock quantity of the selected item
      * @param evt which is an action event of an element 
      */
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformedD
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if (evt.getSource() == jComboBox1) {
             selectedItemName = jComboBox1.getSelectedItem().toString();
             for (Slot slot : authenticatedRegularMachine.getItemSlots()) {
@@ -241,7 +241,7 @@ public class RestockRVM extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }                                          
 
     /**
      * @param args the command line arguments

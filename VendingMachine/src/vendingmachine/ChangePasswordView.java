@@ -1,30 +1,21 @@
 package vendingmachine;
 
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+
 /**
  * This class represents the changing of user password if they wish to do so
+ *
  * @author Andrea Dulin and Darryl Javier
  */
-public class ChangePassword extends javax.swing.JFrame {
-
-    ArrayList<Owner> owners = new ArrayList<>();
+public class ChangePasswordView extends javax.swing.JFrame {
 
     /**
      * Creates new form ChangePassword
      */
-    public ChangePassword() {
+    public ChangePasswordView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the ownersArray 
-     * @param ownersArray which is the list of owners details 
-     */
-    public ChangePassword(ArrayList<Owner> ownersArray) {
-        this();
-        owners = ownersArray;
     }
 
     /**
@@ -43,7 +34,7 @@ public class ChangePassword extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         newPassword = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        changePassBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,15 +86,10 @@ public class ChangePassword extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 203, 119));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton1.setText("Confirm");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        changePassBtn.setBackground(new java.awt.Color(255, 203, 119));
+        changePassBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        changePassBtn.setText("Confirm");
+        changePassBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,7 +99,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(212, 212, 212)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(changePassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,7 +116,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(changePassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -148,38 +134,25 @@ public class ChangePassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * This sets the password to the updated one 
-     * @param evt which is an action event of an element 
-     */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Owner changePassOwner = null;
-        String userName = name.getText();
-        String newPass = newPassword.getText();
+    public void addChangePassListener(ActionListener listenForChangePass) {
+        changePassBtn.addActionListener(listenForChangePass);
+    }
 
-        // This is for getting the updated user password
-        for (Owner owner : owners) {
-            String currOwnerName = owner.getName();
-            if (currOwnerName.equals(userName)) {
-                changePassOwner = owner;
-            }
-        }
+    public String getInputUsername() {
+        return name.getText();
+    }
 
-        if (changePassOwner != null) {
-            changePassOwner.setPassword(newPass);
-           // Informs the user that their password change was successful  
-            JOptionPane.showMessageDialog(null, "Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Start StartMenu = new Start(owners);
-            StartMenu.setVisible(true);
-            this.dispose();
-        } else {
-            // Informs the user that account is not found. Therefore, no password change will occur. 
-            JOptionPane.showMessageDialog(null, "Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            Start StartMenu = new Start(owners);
-            StartMenu.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    public String getInputNewPassword() {
+        return newPassword.getText();
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Account not found. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Password changed successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -198,26 +171,27 @@ public class ChangePassword extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangePasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangePassword().setVisible(true);
+                new ChangePasswordView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton changePassBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -180,7 +180,7 @@ public class CollectMoneyRVM extends javax.swing.JFrame {
             and the balance after the money was collected 
         */
         JOptionPane.showMessageDialog(null, resultMessage, "Message", JOptionPane.INFORMATION_MESSAGE);
-        TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+        TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
         testMaintenance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed

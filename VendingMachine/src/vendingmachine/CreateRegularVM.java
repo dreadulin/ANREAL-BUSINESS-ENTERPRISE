@@ -244,7 +244,7 @@ public class CreateRegularVM extends javax.swing.JFrame {
 
         // Informs the user that creation of regular vending machine is successful
         JOptionPane.showMessageDialog(null, "Vending Machine successfully created! Going back to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-        Dashboard dashboard = new Dashboard(authorizedOwner);
+        DashboardView dashboard = new DashboardView(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

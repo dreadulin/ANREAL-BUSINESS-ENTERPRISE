@@ -321,7 +321,7 @@ public class TestSpecialMaintenance extends javax.swing.JFrame {
      * @param evt which is an action event of an element 
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        TestMaintenanceMenu maintenanceMenu = new TestMaintenanceMenu(authorizedOwner);
+        TestMaintenanceMenuView maintenanceMenu = new TestMaintenanceMenuView(authorizedOwner);
         maintenanceMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed

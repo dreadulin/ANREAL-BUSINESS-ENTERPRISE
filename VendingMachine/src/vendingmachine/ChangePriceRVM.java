@@ -215,13 +215,13 @@ public class ChangePriceRVM extends javax.swing.JFrame {
         if (authorizedOwner.setPrice(authenticatedRegularMachine, selectedItemName, newPrice)) {
             // Informs the user that price change was successful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Price changed successfully. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         } else {
             // Informs the user that price change was unsuccessful and will redirect them to the maintenance menu 
             JOptionPane.showMessageDialog(null, "Price changed failed. Going back to the maintenance menu...", "Messgae", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
+            TestRegularMaintenanceView testMaintenance = new TestRegularMaintenanceView(authorizedOwner);
             testMaintenance.setVisible(true);
             this.dispose();
         }

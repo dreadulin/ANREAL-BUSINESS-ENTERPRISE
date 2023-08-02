@@ -1,33 +1,21 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
  * This class represents the adding of stocks to the regular vending machine
+ *
  * @author Andrea Dulin and Darryl Javier
  */
-public class AddStockRVM extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
+public class AddStockRVMView extends javax.swing.JFrame {
 
     /**
      * Creates new form AddStock
      */
-    public AddStockRVM() {
+    public AddStockRVMView() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * This initializes the authorizedOwner and authenticatedRegularMachine to be used all throughout the program
-     * @param owner which is the name of the owner of the vending machine 
-     * @param regularMachine which is the type of vending machine to be used
-    */
-    public AddStockRVM(Owner owner, RegularVendingMachine regularMachine) {
-        this();
-        this.authorizedOwner = owner;
-        this.authenticatedRegularMachine = regularMachine;
     }
 
     /**
@@ -51,7 +39,7 @@ public class AddStockRVM extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
+        addStockBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,15 +137,10 @@ public class AddStockRVM extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
         );
 
-        jButton7.setBackground(new java.awt.Color(255, 203, 119));
-        jButton7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton7.setText("Add Item");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        addStockBtn.setBackground(new java.awt.Color(255, 203, 119));
+        addStockBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        addStockBtn.setText("Add Item");
+        addStockBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,7 +154,7 @@ public class AddStockRVM extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(300, 300, 300)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addStockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,7 +164,7 @@ public class AddStockRVM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addStockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
 
@@ -201,55 +184,29 @@ public class AddStockRVM extends javax.swing.JFrame {
 
     /**
      * This button is for adding stock to the regular vending machine
+     *
      * @param evt which is an action event for an element
      */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        boolean success; // determines if stocking is successful or not 
-        String stockName = itemName.getText(); // gets the item name from the text field 
-        int stockPrice = Integer.parseInt(jTextField1.getText());  // gets the item price from the text field 
-        double stockCalories = Integer.parseInt(jTextField2.getText()); // gets the item calories from the text field 
-        int stockItemAmount = Integer.parseInt(jTextField4.getText()); // gets the item quantity from the text field 
+    public void addStockListener(ActionListener listenForAddStock) {
+        addStockBtn.addActionListener(listenForAddStock);
+    }
 
-        Item existingItem;
-        existingItem = authenticatedRegularMachine.getItem(stockName);
+    public String getStockName() {
+        return itemName.getText();
+    }
 
-        // If there is already an existing item, instead of adding a stock, it will be restocked instead.
-        if (existingItem != null) {
-            JOptionPane.showMessageDialog(null, "Item already exists. Restocking instead...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            boolean successOp = authorizedOwner.restock(authenticatedRegularMachine, stockName, stockItemAmount);
-            if (successOp) {
-                // Informs the user that restocking is successful and will redirect them to the main menu 
-                JOptionPane.showMessageDialog(null, "Restocking successful. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                // Informs the user that slot is already full and will redirect them to the main menu 
-                JOptionPane.showMessageDialog(null, "Slot is full. Going back to the main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            }
+    public int getStockPrice() {
+        return Integer.parseInt(jTextField1.getText());
+    }
 
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-            return;
-        }
+    public double getStockCalories() {
+        return Integer.parseInt(jTextField2.getText());
+    }
 
-        Item newItem = new Item(stockName, stockPrice, stockCalories);
-        JOptionPane.showMessageDialog(null, "Stocking slot..", "Message", JOptionPane.INFORMATION_MESSAGE);
+    public int getStockItemAmount() {
+        return Integer.parseInt(jTextField4.getText());
+    }
 
-        success = authorizedOwner.stock(authenticatedRegularMachine, newItem, stockItemAmount);
-
-        if (success) {
-              // Informs the user that adding stock is successful and will redirect them to the maintenance menu
-            JOptionPane.showMessageDialog(null, "Stock successful. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        } else {
-            // Informs the user that adding stock is unsuccessful and will redirect them to the maintenance menu
-            JOptionPane.showMessageDialog(null, "Failed to stock. Going back to the maintenance menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            TestRegularMaintenance testMaintenance = new TestRegularMaintenance(authorizedOwner);
-            testMaintenance.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,28 +225,30 @@ public class AddStockRVM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddStockRVM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStockRVMView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddStockRVM().setVisible(true);
+                new AddStockRVMView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addStockBtn;
     private javax.swing.JTextField itemName;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,31 +1,21 @@
 package vendingmachine;
 
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
- * This class represents the creation of user account 
+ * This class represents the creation of user account
+ *
  * @author Andrea Dulin and Darryl Javier
  */
-public class CreateAccount extends javax.swing.JFrame {
-
-    ArrayList<Owner> owners = new ArrayList<>();
+public class CreateAccountView extends javax.swing.JFrame {
 
     /**
      * Creates new form CreateAcc
      */
-    public CreateAccount() {
+    public CreateAccountView() {
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
-    }
-
-    /**
-     * This initializes the ownersArray 
-     * @param ownersArray which is the list of owners details 
-     */
-    public CreateAccount(ArrayList<Owner> ownersArray) {
-        this();
-        owners = ownersArray;
     }
 
     /**
@@ -46,7 +36,7 @@ public class CreateAccount extends javax.swing.JFrame {
         balance = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         password = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        createAccBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,15 +100,10 @@ public class CreateAccount extends javax.swing.JFrame {
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 203, 119));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton1.setText("Create Account");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        createAccBtn.setBackground(new java.awt.Color(255, 203, 119));
+        createAccBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        createAccBtn.setText("Create Account");
+        createAccBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,7 +119,7 @@ public class CreateAccount extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(211, 211, 211)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(createAccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,7 +130,7 @@ public class CreateAccount extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(createAccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -163,60 +148,28 @@ public class CreateAccount extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     /**
-     * This button is for creating the account of the user after getting necessary details
-     * @param evt which is an action event of an element 
-     */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean accountExists = false;
-
-        String pass = password.getText(); // gets user password from the text field 
-        String userName = name.getText(); // gets the user's name from the text field 
-        int bal = Integer.parseInt(balance.getText());  // gets the initial balance of the user from the text field 
-
-        // This checks if the account already exists or not 
-        for (Owner owner : owners) {
-            String currOwnerName = owner.getName();
-            if (currOwnerName.equals(userName)) {
-                // Informs the user that account already exists 
-                JOptionPane.showMessageDialog(null, "Account already exists. Going back to the start menu.", "Message", JOptionPane.INFORMATION_MESSAGE);
-                Start StartMenu = new Start(owners);
-                StartMenu.setVisible(true);
-                this.dispose();
-                return;
-            }
-        }
-
-        /* 
-         *  This checks if the user has entered all necessary details in creating the account. 
-         *  If one of the text field is empty, it will inform the user that they have to fill out all the necessary details before 
-         *  they proceed. 
-         */
-        if (name.getText().isEmpty() || password.getText().isEmpty() || balance.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Make sure to fill out necessary details...", "Message", JOptionPane.INFORMATION_MESSAGE);
-            CreateAccount createAccount = new CreateAccount(owners);
-            createAccount.setVisible(true);
-            this.dispose();
-            return;
-        }
-
-        Owner newOwner = new Owner(userName, bal, pass);
-        owners.add(newOwner);
-
-        // Informs the user that the creation of account was successful
-        JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-
-        Start StartMenu = new Start(owners);
-        StartMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    public String getInputUsername() {
+        return name.getText();
     }
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    public String getInputPassword() {
+        return password.getText();
+    }
+
+    public int getInputBalance() {
+        return Integer.parseInt(balance.getText());
+    }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "There was an error in creating your account.", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Account created! Going back to start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void addCreateAccountListener(ActionListener listenForCreateAccount) {
+        createAccBtn.addActionListener(listenForCreateAccount);
     }
 
     /**
@@ -236,28 +189,30 @@ public class CreateAccount extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateAccount().setVisible(true);
+                new CreateAccountView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField balance;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton createAccBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

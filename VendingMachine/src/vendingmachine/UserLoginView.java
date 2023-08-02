@@ -1,31 +1,21 @@
 package vendingmachine;
 
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
- * This class represents the user login 
- * @author Andrea Dulin and Darryl Javier 
+ * This class represents the user login
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class UserLogin extends javax.swing.JFrame {
-
-    ArrayList<Owner> owners = new ArrayList<>();
+public class UserLoginView extends javax.swing.JFrame {
 
     /**
      * Creates new form UserLogin
      */
-    public UserLogin() {
+    public UserLoginView() {
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
-    }
-
-    /**
-     * This initializes the owners which will be used althroughout the program 
-     * @param ownersArray which is the array that stores the details of the owner
-     */
-    public UserLogin(ArrayList<Owner> ownersArray) {
-        this();
-        owners = ownersArray;
     }
 
     /**
@@ -44,8 +34,7 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,29 +54,8 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel4.setText("Enter password:");
 
         name.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
-            }
-        });
 
         password.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Don't have an account yet? Click here to sign up!");
-        jLabel3.setToolTipText("");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,10 +73,6 @@ public class UserLogin extends javax.swing.JFrame {
                         .addGap(46, 46, 46)
                         .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,20 +85,13 @@ public class UserLogin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(23, 23, 23))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 203, 119));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        loginBtn.setBackground(new java.awt.Color(255, 203, 119));
+        loginBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        loginBtn.setText("Login");
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,8 +106,8 @@ public class UserLogin extends javax.swing.JFrame {
                         .addGap(243, 243, 243)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(214, 214, 214)
+                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,9 +117,9 @@ public class UserLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(29, 29, 29)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(34, 34, 34)
+                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,55 +138,25 @@ public class UserLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * This is for allowing the user to proceed to the creation of account 
-     * frame if they dont have an account yet 
-     * @param evt is an action event of an element 
-     */
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        CreateAccount createAccount = new CreateAccount(owners);
-        createAccount.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabel3MouseClicked
+    public void addLoginListener(ActionListener listenForLogin) {
+        loginBtn.addActionListener(listenForLogin);
+    }
 
-    /**
-     * This is for the user login 
-     * @param evt is an action event of an element 
-     */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String pass = password.getText();
-        String userName = name.getText();
+    public String getInputUsername() {
+        return name.getText();
+    }
 
-        for (Owner owner : owners) {
-            String currOwnerName = owner.getName(); // gets the owner's name from the textfield 
-            String currOwnerPass = owner.getPassword(); // gets the owner's password from the textfield 
+    public String getInputPassword() {
+        return password.getText();
+    }
 
-            if (currOwnerName.equals(userName) && currOwnerPass.equals(pass)) {
-                // Informs the user that login was successful
-                JOptionPane.showMessageDialog(null, "Login Success! Going to dashboard...", "Message", JOptionPane.INFORMATION_MESSAGE);
-                Dashboard dashboard = new Dashboard(owner);
-                dashboard.setVisible(true);
-                this.dispose();
-            } else {
-                // Informs the user that they have entered the wrong credentials
-                JOptionPane.showMessageDialog(null, "Wrong credentials. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
-                Start StartMenu = new Start(owners);
-                StartMenu.setVisible(true);
-                this.dispose();
-            }
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(null, "No user with these credentials have been found.", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
-        }
-
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
-
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(null, "Login Success! Going to main menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -248,32 +175,32 @@ public class UserLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserLogin().setVisible(true);
+                new UserLoginView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton loginBtn;
     private javax.swing.JTextField name;
     private javax.swing.JTextField password;
     // End of variables declaration//GEN-END:variables

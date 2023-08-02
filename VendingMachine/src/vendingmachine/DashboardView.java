@@ -1,26 +1,18 @@
 package vendingmachine;
 
+import java.awt.event.ActionListener;
+
 /**
  * This class represents the dashboard of the application upon successful login
- * @author Andrea Dulin and Darryl Javier 
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-public class Dashboard extends javax.swing.JFrame {
+public class DashboardView extends javax.swing.JFrame {
 
-    Owner authorizedOwner;
-
-    public Dashboard() {
+    public DashboardView() {
         super("Anreal Business Enterprises");
         initComponents();
         setLocationRelativeTo(null); // sets the position of the frame to center of the screen upon display 
-    }
-
-    /**
-     * This initializes the authorizedOwner to be used althroughout the program 
-     * @param owner which is the name of the owner of the vending machine 
-     */
-    public Dashboard(Owner owner) {
-        this();
-        authorizedOwner = owner;
     }
 
     /**
@@ -33,12 +25,12 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        testVendingBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        purchaseMachineBtn = new javax.swing.JButton();
+        testMaintainBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(233, 237, 201));
@@ -46,16 +38,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(254, 249, 239));
         jPanel5.setName("DashboardBG"); // NOI18N
 
-        jButton2.setBackground(new java.awt.Color(34, 124, 157));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Test Vending Machine");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        testVendingBtn.setBackground(new java.awt.Color(34, 124, 157));
+        testVendingBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        testVendingBtn.setForeground(new java.awt.Color(255, 255, 255));
+        testVendingBtn.setText("Test Vending Machine");
+        testVendingBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jPanel2.setBackground(new java.awt.Color(254, 109, 115));
 
@@ -80,27 +67,17 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jButton3.setBackground(new java.awt.Color(34, 124, 157));
-        jButton3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Purchase Vending Machine");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        purchaseMachineBtn.setBackground(new java.awt.Color(34, 124, 157));
+        purchaseMachineBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        purchaseMachineBtn.setForeground(new java.awt.Color(255, 255, 255));
+        purchaseMachineBtn.setText("Purchase Vending Machine");
+        purchaseMachineBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton4.setBackground(new java.awt.Color(34, 124, 157));
-        jButton4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Test Maintenance Features");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        testMaintainBtn.setBackground(new java.awt.Color(34, 124, 157));
+        testMaintainBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        testMaintainBtn.setForeground(new java.awt.Color(255, 255, 255));
+        testMaintainBtn.setText("Test Maintenance Features");
+        testMaintainBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -114,13 +91,13 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(159, 159, 159)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(testMaintainBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(testVendingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(159, 159, 159)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(purchaseMachineBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(184, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
@@ -130,14 +107,14 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(101, 101, 101)
                 .addComponent(jLabel2)
                 .addGap(66, 66, 66)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(testVendingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(testMaintainBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(138, 138, 138)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(purchaseMachineBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(319, Short.MAX_VALUE)))
         );
 
@@ -156,35 +133,31 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This button is for testing the vending machines 
+     * This button is for testing the vending machines
+     *
      * @param evt which is an action event of an element
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TestVendingMenu vendingMenu = new TestVendingMenu(authorizedOwner);
-        vendingMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    public void addTestVendingListener(ActionListener listenForTestVending) {
+        testVendingBtn.addActionListener(listenForTestVending);
+    }
 
     /**
      * This button is for purchasing vending machines
+     *
      * @param evt which is an action event of an element
      */
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        VMShop shopVending = new VMShop(authorizedOwner);
-        shopVending.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    public void addPurchaseMachineListener(ActionListener listenForPurchaseMachine) {
+        purchaseMachineBtn.addActionListener(listenForPurchaseMachine);
+    }
     /**
-     * This button is for testing the maintenance features of the vending machine 
+     * This button is for testing the maintenance features of the vending
+     * machine
+     *
      * @param evt which is an action event of an element
      */
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        TestMaintenanceMenu testMenu = new TestMaintenanceMenu(authorizedOwner);
-        testMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+    public void addTestMaintainListener(ActionListener listenForTestMaintain) {
+        testMaintainBtn.addActionListener(listenForTestMaintain);
+    }
     /**
      * @param args the command line arguments
      */
@@ -202,31 +175,32 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new DashboardView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JButton purchaseMachineBtn;
+    private javax.swing.JButton testMaintainBtn;
+    private javax.swing.JButton testVendingBtn;
     // End of variables declaration//GEN-END:variables
 }

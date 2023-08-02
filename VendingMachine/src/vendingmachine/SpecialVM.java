@@ -693,7 +693,7 @@ public class SpecialVM extends javax.swing.JFrame {
      * @param evt which is an action event of an element
      */
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Dashboard dashboard = new Dashboard(authorizedOwner);
+        DashboardView dashboard = new DashboardView(authorizedOwner);
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked

@@ -1,44 +1,32 @@
 package vendingmachine;
 
-import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 
 /**
- * This class represents the testing of the maintenance menu of the regular vending machine 
+ * This class represents the testing of the maintenance menu of the regular
+ * vending machine
+ *
  * @author Andrea Dulin and Darryl Javier
  */
-public class TestRegularMaintenance extends javax.swing.JFrame {
-
-    Owner authorizedOwner;
-    RegularVendingMachine authenticatedRegularMachine;
+public class TestRegularMaintenanceView extends javax.swing.JFrame {
 
     /**
      * Creates new form TestMaintenance
      */
-    public TestRegularMaintenance() {
+    public TestRegularMaintenanceView() {
         initComponents();
         setLocationRelativeTo(null);
-        jButton1.setVisible(false);
-        jButton2.setVisible(false);
-        jButton3.setVisible(false);
-        jButton4.setVisible(false);
-        jButton5.setVisible(false);
-        jButton6.setVisible(false);
+        addStockBtn.setVisible(false);
+        transactionSummaryBtn.setVisible(false);
+        replenishBtn.setVisible(false);
+        collectMoneyBtn.setVisible(false);
+        restockBtn.setVisible(false);
+        changePriceBtn.setVisible(false);
     }
 
-    /**
-     * This initializes the authorizedOwner which will be used althroughout the program 
-     * @param owner which is the owner of the vending machine
-     */
-    public TestRegularMaintenance(Owner owner) {
-        this();
-        authorizedOwner = owner;
-
-        ArrayList<RegularVendingMachine> regularVendingMachines = authorizedOwner.getRegularMachines();
-        for (RegularVendingMachine vendingMachine : regularVendingMachines) {
-            jComboBox1.addItem(vendingMachine.getName());
-        }
+    public JComboBox<String> getRegularMachineComboBox() {
+        return regularMachineComboBox;
     }
 
     /**
@@ -53,15 +41,15 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        addStockBtn = new javax.swing.JButton();
+        transactionSummaryBtn = new javax.swing.JButton();
+        replenishBtn = new javax.swing.JButton();
+        collectMoneyBtn = new javax.swing.JButton();
+        restockBtn = new javax.swing.JButton();
+        changePriceBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton7 = new javax.swing.JButton();
+        regularMachineComboBox = new javax.swing.JComboBox<>();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,87 +78,46 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
-        jButton1.setBackground(new java.awt.Color(34, 124, 157));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Add Stock");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        addStockBtn.setBackground(new java.awt.Color(34, 124, 157));
+        addStockBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        addStockBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addStockBtn.setText("Add Stock");
+        addStockBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton2.setBackground(new java.awt.Color(34, 124, 157));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Transaction Summary");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        transactionSummaryBtn.setBackground(new java.awt.Color(34, 124, 157));
+        transactionSummaryBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        transactionSummaryBtn.setForeground(new java.awt.Color(255, 255, 255));
+        transactionSummaryBtn.setText("Transaction Summary");
+        transactionSummaryBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton3.setBackground(new java.awt.Color(34, 124, 157));
-        jButton3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Replenish Money");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        replenishBtn.setBackground(new java.awt.Color(34, 124, 157));
+        replenishBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        replenishBtn.setForeground(new java.awt.Color(255, 255, 255));
+        replenishBtn.setText("Replenish Money");
+        replenishBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton4.setBackground(new java.awt.Color(34, 124, 157));
-        jButton4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Collect Money");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        collectMoneyBtn.setBackground(new java.awt.Color(34, 124, 157));
+        collectMoneyBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        collectMoneyBtn.setForeground(new java.awt.Color(255, 255, 255));
+        collectMoneyBtn.setText("Collect Money");
+        collectMoneyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton5.setBackground(new java.awt.Color(34, 124, 157));
-        jButton5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Restock");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        restockBtn.setBackground(new java.awt.Color(34, 124, 157));
+        restockBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        restockBtn.setForeground(new java.awt.Color(255, 255, 255));
+        restockBtn.setText("Restock");
+        restockBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton6.setBackground(new java.awt.Color(34, 124, 157));
-        jButton6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Change Price");
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
+        changePriceBtn.setBackground(new java.awt.Color(34, 124, 157));
+        changePriceBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        changePriceBtn.setForeground(new java.awt.Color(255, 255, 255));
+        changePriceBtn.setText("Change Price");
+        changePriceBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setText("Select Regular Machine:");
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setText("Back");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        backBtn.setText("Back");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,20 +127,20 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addStockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(replenishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(collectMoneyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(restockBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changePriceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transactionSummaryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regularMachineComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,21 +150,21 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(regularMachineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(collectMoneyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(restockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(replenishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changePriceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addStockBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transactionSummaryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -236,93 +183,88 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This is changing the prices of the items 
-     * @param evt which is an action event of an element 
+     * This is changing the prices of the items
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        ChangePriceRVM changePrice = new ChangePriceRVM(authorizedOwner, authenticatedRegularMachine);
-        changePrice.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    public void addChangePriceListener(ActionListener listenForChangePrice) {
+        changePriceBtn.addActionListener(listenForChangePrice);
+    }
 
     /**
-     * This is adding stock of the items 
-     * @param evt which is an action event of an element 
+     * This is adding stock of the items
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddStockRVM addStock = new AddStockRVM(authorizedOwner, authenticatedRegularMachine);
-        addStock.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    public void addStockListener(ActionListener listenForAddStock) {
+        addStockBtn.addActionListener(listenForAddStock);
+    }
 
     /**
-     * This is restocking the items 
-     * @param evt which is an action event of an element 
+     * This is restocking the items
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        RestockRVM restock = new RestockRVM(authorizedOwner, authenticatedRegularMachine);
-        restock.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    public void addRestockListener(ActionListener listenForRestock) {
+        restockBtn.addActionListener(listenForRestock);
+    }
 
     /**
-     * This is collecting the money from the regular vending machine 
-     * @param evt which is an action event of an element 
+     * This is collecting the money from the regular vending machine
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        CollectMoneyRVM collectMoney = new CollectMoneyRVM(authorizedOwner, authenticatedRegularMachine);
-        collectMoney.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    public void addCollectMoneyListener(ActionListener listenForCollectMoney) {
+        collectMoneyBtn.addActionListener(listenForCollectMoney);
+    }
 
     /**
-     * This is for replenishing the money in the regular vending machine 
-     * @param evt which is an action event of an element 
+     * This is for replenishing the money in the regular vending machine
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ReplenishMoneyRVM replenishMoney = new ReplenishMoneyRVM(authorizedOwner, authenticatedRegularMachine);
-        replenishMoney.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    public void addReplenishListener(ActionListener listenForReplenish) {
+        replenishBtn.addActionListener(listenForReplenish);
+    }
 
     /**
-     * This is for displaying the transaction summary of the regular vending machine 
-     * @param evt which is an action event of an element 
+     * This is for displaying the transaction summary of the regular vending
+     * machine
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TransactionSummaryRVM displaySummary = new TransactionSummaryRVM(authorizedOwner, authenticatedRegularMachine);
-        displaySummary.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    public void addTransactionSummaryListener(ActionListener listenForTransactionSummary) {
+        transactionSummaryBtn.addActionListener(listenForTransactionSummary);
+    }
 
+    public void revealOptions() {
+        addStockBtn.setVisible(true);
+        transactionSummaryBtn.setVisible(true);
+        replenishBtn.setVisible(true);
+        collectMoneyBtn.setVisible(true);
+        restockBtn.setVisible(true);
+        changePriceBtn.setVisible(true);
+    }
 
-   /**
-     * This is for displaying the buttons that are the options of the user in maintenance 
-     *  menu when the user have chosen a machine to test maintenance on
-     * @param evt which is an action event of an element 
+    /**
+     * This is for displaying the buttons that are the options of the user in
+     * maintenance menu when the user have chosen a machine to test maintenance
+     * on
+     *
+     * @param evt which is an action event of an element
      */
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if (evt.getSource() == jComboBox1) {
-            String machineName = jComboBox1.getSelectedItem().toString();
-            authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
-            jButton1.setVisible(true);
-            jButton2.setVisible(true);
-            jButton3.setVisible(true);
-            jButton4.setVisible(true);
-            jButton5.setVisible(true);
-            jButton6.setVisible(true);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    public void addRegularMachineChangeListener(ActionListener listenForRegularMachineChange) {
+        regularMachineComboBox.addActionListener(listenForRegularMachineChange);
+    }
 
-     /**
-     * This is for redirecting the user back to the test maintenance menu 
-     * @param evt which is an action event of an element 
+    /**
+     * This is for redirecting the user back to the test maintenance menu
+     *
+     * @param evt which is an action event of an element
      */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        TestMaintenanceMenu maintenanceMenu = new TestMaintenanceMenu(authorizedOwner);
-        maintenanceMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    public void addBackButtonListener(ActionListener listenForBackButton) {
+        backBtn.addActionListener(listenForBackButton);
+    }
 
     /**
      * @param args the command line arguments
@@ -341,37 +283,39 @@ public class TestRegularMaintenance extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestRegularMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestRegularMaintenanceView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestRegularMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestRegularMaintenanceView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestRegularMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestRegularMaintenanceView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestRegularMaintenance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestRegularMaintenanceView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TestRegularMaintenance().setVisible(true);
+                new TestRegularMaintenanceView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton addStockBtn;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton changePriceBtn;
+    private javax.swing.JButton collectMoneyBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox<String> regularMachineComboBox;
+    private javax.swing.JButton replenishBtn;
+    private javax.swing.JButton restockBtn;
+    private javax.swing.JButton transactionSummaryBtn;
     // End of variables declaration//GEN-END:variables
 }

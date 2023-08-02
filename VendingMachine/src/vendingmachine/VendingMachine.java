@@ -1,19 +1,20 @@
 package vendingmachine;
 
+import java.util.ArrayList;
+
 /**
  * This class represents the whole vending machine program
- * @author Andrea Dulin and Darryl Javier 
+ *
+ * @author Andrea Dulin and Darryl Javier
  */
-
-public class VendingMachine extends Dashboard{
+public class VendingMachine extends DashboardView {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Start StartMenu = new Start(); 
-        StartMenu.setVisible(true);
-
+        ArrayList<Owner> owners = new ArrayList<>();
+        StartController startController = new StartController(owners);
     }
-    
+
 }
