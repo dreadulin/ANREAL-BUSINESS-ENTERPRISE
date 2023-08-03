@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * This class represents a controller for adding stock to a Regular Vending Machine.
+ * It manages interactions between the AddStockRVMView and the MaintenanceModel.
+ * 
  * @author Darryl
  */
 public class AddStockRVMController {
@@ -16,6 +18,13 @@ public class AddStockRVMController {
     final private AddStockRVMView addStockView;
     final private MaintenanceModel maintenanceModel;
 
+     /**
+     * Constructs a new AddStockRVMController with the provided parameters.
+     *
+     * @param owner The owner of the vending machine.
+     * @param regularMachine The RegularVendingMachine object.
+     * @param specialMachine The SpecialVendingMachine object.
+     */
     public AddStockRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         addStockView = new AddStockRVMView();
@@ -27,6 +36,12 @@ public class AddStockRVMController {
         addStockView.setVisible(true);
     }
 
+     /**
+     * ActionListener implementation for adding stock to the Regular Vending Machine.
+     * This method is triggered when the "Add Stock" button is clicked in the AddStockRVMView.
+     *
+     * @param arg0 The ActionEvent object representing the button click event.
+     */
     class StockListener implements ActionListener {
 
         @Override
@@ -52,6 +67,12 @@ public class AddStockRVMController {
         }
     }
 
+     /**
+     * ActionListener implementation for handling the "Back" button in the AddStockRVMView.
+     * This method is triggered when the "Back" button is clicked in the AddStockRVMView.
+     *
+     * @param arg0 The ActionEvent object representing the button click event.
+     */
     class BackListener implements ActionListener {
 
         @Override
