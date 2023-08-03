@@ -116,6 +116,8 @@ public class SVMModel {
             itemSlot.removeStock(selectedItemsQuantities.get(i));
         }
 
+        authenticatedSpecialMachine.receivePayment(payment);
+
         String summaryString;
         if (specialCombination != null) {
             summaryString = String.format("""
@@ -158,10 +160,9 @@ public class SVMModel {
             return response;
         }
 
-        authenticatedSpecialMachine.receivePayment(payment);
         this.payment = payment;
 
-        response = new Response(false, null, null);
+        response = new Response(true, null, null);
         return response;
     }
 

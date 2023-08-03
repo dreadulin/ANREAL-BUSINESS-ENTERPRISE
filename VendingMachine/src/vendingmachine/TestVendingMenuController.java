@@ -16,8 +16,7 @@ public class TestVendingMenuController {
     final private TestVendingMenuView testVendingMenuView;
     final private VendingModel vendingModel;
 
-    public TestVendingMenuController(Owner owner, RegularVendingMachine regularMachine,
-            SpecialVendingMachine specialMachine) {
+    public TestVendingMenuController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         vendingModel = new VendingModel(owner, regularMachine, specialMachine);
         testVendingMenuView = new TestVendingMenuView();
 
@@ -34,9 +33,6 @@ public class TestVendingMenuController {
             testVendingMenuView.getSpecialComboBox().addItem(machine.getName());
         }
 
-        // String machineName = specialComboBox.getSelectedItem().toString();
-        // authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
-        // testSpecialBtn.setEnabled(true);
         testVendingMenuView.setVisible(true);
     }
 

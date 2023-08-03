@@ -23,6 +23,12 @@ public class RestockRVMController {
         this.restockRVMView.addRestockListener(new RestockListener());
         this.restockRVMView.addItemChangeListener(new ItemChangeListener());
 
+        for (Slot slot : maintenanceModel.getAuthRegularMachine().getItemSlots()) {
+            if (slot.getSlotItemType() != null) {
+                restockRVMView.getItemComboBox().addItem(slot.getSlotItemType().getName());
+            }
+        }
+
         restockRVMView.setVisible(true);
     }
 
@@ -53,23 +59,17 @@ public class RestockRVMController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            Owner authOwner = maintenanceModel.getAuthOwner();
-            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
-            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-
             String selectedItemName = restockRVMView.getItemComboBox().getSelectedItem().toString();
 
             for (Slot slot : maintenanceModel.getAuthRegularMachine().getItemSlots()) {
+                System.out.println(slot.getItemQuantity());
                 if (slot.getSlotItemType() != null) {
                     if (slot.getSlotItemType().getName().equals(selectedItemName)) {
                         restockRVMView.setStockQuantity(slot.getItemQuantity());
-                        return;
+                        break;
                     }
                 }
             }
-
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
-            restockRVMView.dispose();
         }
     }
 }

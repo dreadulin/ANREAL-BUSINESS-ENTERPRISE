@@ -6,7 +6,6 @@ package vendingmachine;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,11 +36,11 @@ public class MaintenanceModel {
     }
 
     public void authenticateRegularMachine(String machineName) {
-        authorizedOwner.getRegularMachine(machineName);
+        authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
     }
 
     public void authenticateSpecialMachine(String machineName) {
-        authorizedOwner.getRegularMachine(machineName);
+        authenticatedSpecialMachine =  authorizedOwner.getSpecialMachine(machineName);
     }
 
     public Item getRegularVMItem(String machineName) {

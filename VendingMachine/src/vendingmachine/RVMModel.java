@@ -55,6 +55,7 @@ public class RVMModel {
             return response;
         }
 
+        authenticatedRegularMachine.receivePayment(payment);
         Transaction newTransaction = new Transaction(selectedItem, dispenseQuantity, totalCost);
         authenticatedRegularMachine.addTransaction(newTransaction);
 
@@ -90,10 +91,9 @@ public class RVMModel {
             return response;
         }
 
-        authenticatedRegularMachine.receivePayment(payment);
         this.payment = payment;
 
-        response = new Response(false, null, null);
+        response = new Response(true, null, null);
 
         return response;
     }

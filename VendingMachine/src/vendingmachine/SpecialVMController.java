@@ -46,36 +46,48 @@ public class SpecialVMController {
                 availableItemTableModel.addRow(row);
             }
         }
+
+        svmView.getSpecialComboBox().addItem("");
+        for (SpecialItem item : authenticatedSpecialMachine.getSpecialItems()){
+            svmView.getSpecialComboBox().addItem(item.getName());
+        }
+
+        svmView.setVisible(true);
     }
+
+    private void resetInfo() {
+
+        svmModel.resetInfo();
+        svmView.setInputItemName("");
+        svmView.setInputQuantity("");
+        svmView.setTotalCost("");
+        svmView.setTotalChange("");
+
+        svmView.toggleAddItem(true);
+        svmView.toggleDispense(false);
+        svmView.toggleCancelDispense(false);
+        svmView.togglePay(false);
+
+        cartItemTableModel.setRowCount(0);
+        availableItemTableModel.setRowCount(0);
+
+        ArrayList<Slot> machineSlots = svmModel.getAuthSpecialMachine().getItemSlots();
+
+        for (Slot slot : machineSlots) {
+            if (slot.getSlotItemType() != null) {
+                Item slotItem = slot.getSlotItemType();
+                Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
+                availableItemTableModel.addRow(row);
+            }
+        }
+    }
+
 
     class ResetListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            svmModel.resetInfo();
-
-            svmView.setInputItemName("");
-            svmView.setInputQuantity("");
-            svmView.setTotalCost("");
-            svmView.setTotalChange("");
-
-            svmView.toggleAddItem(true);
-            svmView.toggleDispense(false);
-            svmView.toggleCancelDispense(false);
-            svmView.togglePay(false);
-
-            cartItemTableModel.setRowCount(0);
-            availableItemTableModel.setRowCount(0);
-
-            ArrayList<Slot> machineSlots = svmModel.getAuthSpecialMachine().getItemSlots();
-
-            for (Slot slot : machineSlots) {
-                if (slot.getSlotItemType() != null) {
-                    Item slotItem = slot.getSlotItemType();
-                    Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
-                    availableItemTableModel.addRow(row);
-                }
-            }
+            resetInfo();
         }
     }
 
@@ -159,6 +171,7 @@ public class SpecialVMController {
                 svmView.toggleCancelDispense(true);
             } else {
                 svmView.setPayment("");
+                svmView.togglePay(true);
             }
 
             if (paymentResponse.getMessage() != null) {
@@ -181,11 +194,15 @@ public class SpecialVMController {
             if (!responseSuccess) {
                 svmView.toggleDispense(false);
                 svmView.toggleCancelDispense(true);
+                svmView.showMessage(responseMessage);
+                return;
             }
 
             if (dispenseResponse.getMessage() != null) {
                 svmView.showMessage(responseMessage);
             }
+
+            resetInfo();
         }
     }
 
@@ -197,9 +214,11 @@ public class SpecialVMController {
             boolean responseSuccess = dispenseResponse.getStatus();
             String responseMessage = dispenseResponse.getMessage();
 
-            if (responseSuccess) {
+            if (responseSuccess && responseMessage != null) {
                 svmView.showMessage(responseMessage);
+                resetInfo();
             }
+
         }
     }
 

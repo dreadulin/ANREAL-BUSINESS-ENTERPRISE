@@ -210,7 +210,7 @@ public class RestockSVMView extends javax.swing.JFrame {
      * @param evt which is an action event of an element
      */
     public void addItemChangeListener(ActionListener listenForItemChange) {
-        restockBtn.addActionListener(listenForItemChange);
+        itemComboBox.addActionListener(listenForItemChange);
     }
 
     /**

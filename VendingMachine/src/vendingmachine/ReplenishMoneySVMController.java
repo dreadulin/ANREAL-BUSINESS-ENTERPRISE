@@ -24,6 +24,10 @@ public class ReplenishMoneySVMController {
         this.replenishMoneySVMView.addReplenishListener(new ReplenishListener());
         this.replenishMoneySVMView.addMoneyChangeListener(new MoneyChangeListener());
 
+        for (Money money : maintenanceModel.getAuthSpecialMachine().getMoneyArray()) {
+            replenishMoneySVMView.getMoneyComboBox().addItem(Integer.toString(money.getValue()));
+        }
+
         replenishMoneySVMView.setVisible(true);
     }
 

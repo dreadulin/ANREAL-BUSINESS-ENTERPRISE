@@ -44,8 +44,7 @@ public class DashboardController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = dashboardModel.getAuthOwner();
-            // TestVendingMenuController VMShop = new TestVendingMenuController(authOwner);
-
+            TestVendingMenuController testVendingMenu = new TestVendingMenuController(authOwner, null, null);
             dashboardView.dispose();
         }
     }

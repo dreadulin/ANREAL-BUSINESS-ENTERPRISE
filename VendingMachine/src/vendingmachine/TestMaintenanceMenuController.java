@@ -33,8 +33,8 @@ public class TestMaintenanceMenuController {
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
-            RegularVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-            //TestSpecialController testSpecial = new TestSpecialController(authOwner, authRegular, authSpecial);
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestSpecialMaintenanceController testSpecial = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
             testMaintenanceMenuView.dispose();
         }
     }

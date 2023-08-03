@@ -33,11 +33,11 @@ public class VendingModel {
     }
 
     public void authenticateRegularMachine(String machineName) {
-        authorizedOwner.getRegularMachine(machineName);
+        authenticatedRegularMachine = authorizedOwner.getRegularMachine(machineName);
     }
 
     public void authenticateSpecialMachine(String machineName) {
-        authorizedOwner.getRegularMachine(machineName);
+        authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
     }
 
 }

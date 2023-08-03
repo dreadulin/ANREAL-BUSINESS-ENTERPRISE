@@ -23,6 +23,12 @@ public class RestockSVMController {
         this.restockSVMView.addRestockListener(new RestockListener());
         this.restockSVMView.addItemChangeListener(new ItemChangeListener());
 
+        for (Slot slot : maintenanceModel.getAuthSpecialMachine().getItemSlots()) {
+            if (slot.getSlotItemType() != null) {
+                restockSVMView.getItemComboBox().addItem(slot.getSlotItemType().getName());
+            }
+        }
+
         restockSVMView.setVisible(true);
     }
 
