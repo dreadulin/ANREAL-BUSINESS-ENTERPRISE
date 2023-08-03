@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Darryl
+ * Controller class for the SpecialVMView, responsible for handling user
+ * interactions and updating the view.
  */
 public class SpecialVMController {
 
@@ -19,11 +19,20 @@ public class SpecialVMController {
     final private SVMModel svmModel;
     private int currentTotalCost = 0;
 
-    String[] columnNames = {"Name", "Price", "Quantity", "Total"};
-    String[] columnNames2 = {"Name", "Price", "Calories", "Stock"};
+    String[] columnNames = { "Name", "Price", "Quantity", "Total" };
+    String[] columnNames2 = { "Name", "Price", "Calories", "Stock" };
     DefaultTableModel cartItemTableModel = new DefaultTableModel(columnNames, 0);
     DefaultTableModel availableItemTableModel = new DefaultTableModel(columnNames2, 0);
 
+    /**
+     * Constructor for the SpecialVMController class.
+     * Initializes the controller with the provided owner and authenticated special
+     * vending machine.
+     *
+     * @param owner                       The owner of the vending machine.
+     * @param authenticatedSpecialMachine The authenticated special vending machine
+     *                                    object.
+     */
     public SpecialVMController(Owner owner, SpecialVendingMachine authenticatedSpecialMachine) {
         svmModel = new SVMModel(owner, authenticatedSpecialMachine);
         svmView = new SpecialVMView();
@@ -44,7 +53,8 @@ public class SpecialVMController {
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
-                Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
+                Object[] row = { slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(),
+                        slot.getItemQuantity() };
                 availableItemTableModel.addRow(row);
             }
         }
@@ -58,6 +68,10 @@ public class SpecialVMController {
         svmView.setVisible(true);
     }
 
+    /**
+     * Resets the information in the view and updates the available items table.
+     * Called after completing a transaction or when the "Reset" button is clicked.
+     */
     private void resetInfo() {
 
         svmModel.resetInfo();
@@ -80,12 +94,20 @@ public class SpecialVMController {
         for (Slot slot : machineSlots) {
             if (slot.getSlotItemType() != null) {
                 Item slotItem = slot.getSlotItemType();
-                Object[] row = {slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(), slot.getItemQuantity()};
+                Object[] row = { slotItem.getName(), slotItem.getPrice(), slotItem.getCalories(),
+                        slot.getItemQuantity() };
                 availableItemTableModel.addRow(row);
             }
         }
     }
 
+    /**
+     * ActionListener implementation for handling the "Reset" button in the
+     * SpecialVMView.
+     * This method is triggered when the "Reset" button is clicked in the
+     * SpecialVMView.
+     * It resets the information in the view and updates the available items table.
+     */
     class ResetListener implements ActionListener {
 
         @Override
@@ -93,6 +115,18 @@ public class SpecialVMController {
             resetInfo();
         }
     }
+
+    /**
+     * ActionListener implementation for handling the "Add Item" button in the
+     * SpecialVMView.
+     * This method is triggered when the "Add Item" button is clicked in the
+     * SpecialVMView.
+     * It adds the selected item to the cart, updates the cart table, and calculates
+     * the total cost.
+     * If the item is already in the cart, it updates the quantity and total cost.
+     * Displays a message if the item cannot be added due to insufficient stock or
+     * other reasons.
+     */
 
     class AddItemListener implements ActionListener {
 
@@ -119,7 +153,8 @@ public class SpecialVMController {
                 for (int i = 0; i < selectedItems.size(); ++i) {
                     Item currItem = selectedItems.get(i);
                     int currItemQt = selectedItemsQuantities.get(i);
-                    Object[] row = {currItem.getName(), currItem.getPrice(), currItemQt, currItem.getPrice() * currItemQt};
+                    Object[] row = { currItem.getName(), currItem.getPrice(), currItemQt,
+                            currItem.getPrice() * currItemQt };
                     cartItemTableModel.addRow(row);
                 }
 
@@ -131,7 +166,7 @@ public class SpecialVMController {
                 selectedItem = svmModel.getSelectedItem(itemName);
                 int totalCost = selectedItem.getPrice() * dispenseQuantity;
 
-                Object[] row = {selectedItem.getName(), selectedItem.getPrice(), dispenseQuantity, totalCost};
+                Object[] row = { selectedItem.getName(), selectedItem.getPrice(), dispenseQuantity, totalCost };
                 cartItemTableModel.addRow(row);
 
                 currentTotalCost += totalCost;
@@ -150,6 +185,17 @@ public class SpecialVMController {
         }
     }
 
+    /**
+     * ActionListener implementation for handling the "Pay" button in the
+     * SpecialVMView.
+     * This method is triggered when the "Pay" button is clicked in the
+     * SpecialVMView.
+     * It processes the payment entered by the user and updates the total change.
+     * Calls the SVMModel's receivePayment method to handle the payment and
+     * calculate the change.
+     * Displays a message if the payment is insufficient or if there are other
+     * payment-related issues.
+     */
     class PaymentListener implements ActionListener {
 
         @Override
@@ -183,6 +229,16 @@ public class SpecialVMController {
         }
     }
 
+    /**
+     * ActionListener implementation for handling the "Dispense" button in the
+     * SpecialVMView.
+     * This method is triggered when the "Dispense" button is clicked in the
+     * SpecialVMView.
+     * It dispenses the items from the cart and updates the stock quantity in the
+     * special vending machine.
+     * Displays a message if the dispense operation fails or if there are any issues
+     * during the process.
+     */
     class DispenseListener implements ActionListener {
 
         @Override
@@ -209,6 +265,14 @@ public class SpecialVMController {
         }
     }
 
+    /**
+     * ActionListener implementation for handling the "Cancel Dispense" button in
+     * the SpecialVMView.
+     * This method is triggered when the "Cancel Dispense" button is clicked in the
+     * SpecialVMView.
+     * It cancels the ongoing dispense operation and returns the items to the stock
+     * in the vending machine.
+     */
     class CancelDispenseListener implements ActionListener {
 
         @Override
@@ -225,6 +289,15 @@ public class SpecialVMController {
         }
     }
 
+    /**
+     * ActionListener implementation for handling the change in the selected special
+     * combo in the SpecialVMView.
+     * This method is triggered when the selected special combo in the
+     * specialComboBox changes in the SpecialVMView.
+     * It updates the cart and total cost based on the selected special combo.
+     * Adds the ingredients of the selected special combo to the cart and updates
+     * the total cost accordingly.
+     */
     class SpecialComboChangeListener implements ActionListener {
 
         @Override
@@ -272,7 +345,7 @@ public class SpecialVMController {
             for (String ingredient : ingredients) {
                 Item item = svmModel.getAuthSpecialMachine().getItem(ingredient);
                 if (item != null) {
-                    Object[] row = {item.getName(), item.getPrice(), 1, item.getPrice()};
+                    Object[] row = { item.getName(), item.getPrice(), 1, item.getPrice() };
                     totalCost += item.getPrice();
                     cartItemTableModel.addRow(row);
                     svmModel.getSelectedItems().add(item);
@@ -286,6 +359,14 @@ public class SpecialVMController {
             svmView.togglePay(true);
         }
     }
+
+    /**
+     * ActionListener implementation for handling the "Back" button in the
+     * SpecialVMView.
+     * This method is triggered when the "Back" button is clicked in the
+     * SpecialVMView.
+     * Returns to the DashboardController and disposes of the SpecialVMView.
+     */
 
     class BackListener implements ActionListener {
 

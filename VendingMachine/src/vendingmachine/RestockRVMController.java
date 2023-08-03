@@ -8,15 +8,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Darryl
+ * Controller class for the RestockRVMView, responsible for handling user
+ * interactions and updating the view.
  */
 public class RestockRVMController {
 
     final private RestockRVMView restockRVMView;
     final private MaintenanceModel maintenanceModel;
 
-    public RestockRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    /**
+     * Constructor for the RestockRVMController class.
+     * Initializes the controller with the provided owner, regular vending machine,
+     * and special vending machine.
+     *
+     * @param owner          The owner of the vending machine.
+     * @param regularMachine The regular vending machine object.
+     * @param specialMachine The special vending machine object.
+     */
+    public RestockRVMController(Owner owner, RegularVendingMachine regularMachine,
+            SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         restockRVMView = new RestockRVMView();
 
@@ -34,6 +44,20 @@ public class RestockRVMController {
         restockRVMView.setVisible(true);
     }
 
+    /**
+     * ActionListener implementation for handling the "Restock" button in the
+     * RestockRVMView.
+     * This method is triggered when the "Restock" button is clicked in the
+     * RestockRVMView.
+     * It retrieves the selected item name and the restock amount from the view and
+     * calls the restockRegular() method
+     * from the MaintenanceModel to restock the selected item in the regular vending
+     * machine with the specified amount.
+     * The success of the restocking operation is displayed in the view through a
+     * message dialog.
+     * After restocking, it calls the TestRegularMaintenanceController to return to
+     * the maintenance menu.
+     */
     class RestockListener implements ActionListener {
 
         @Override
@@ -52,11 +76,22 @@ public class RestockRVMController {
                 restockRVMView.showErrorMessage();
             }
 
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner,
+                    authRegular, authSpecial);
             restockRVMView.dispose();
         }
     }
 
+    /**
+     * ActionListener implementation for handling the change in the selected item in
+     * the RestockRVMView.
+     * This method is triggered when the selected item in the itemComboBox is
+     * changed in the RestockRVMView.
+     * It retrieves the selected item name from the view and updates the displayed
+     * stock quantity of the selected item.
+     * The stock quantity is fetched from the MaintenanceModel based on the selected
+     * item name and displayed in the view.
+     */
     class ItemChangeListener implements ActionListener {
 
         @Override
@@ -75,6 +110,14 @@ public class RestockRVMController {
         }
     }
 
+    /**
+     * ActionListener implementation for handling the "Back" button in the
+     * RestockRVMView.
+     * This method is triggered when the "Back" button is clicked in the
+     * RestockRVMView.
+     * It returns to the TestRegularMaintenanceController and disposes of the
+     * RestockRVMView.
+     */
     class BackListener implements ActionListener {
 
         @Override
@@ -82,7 +125,8 @@ public class RestockRVMController {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner,
+                    authRegular, authSpecial);
             restockRVMView.dispose();
         }
     }
