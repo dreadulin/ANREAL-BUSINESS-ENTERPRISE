@@ -20,7 +20,8 @@ public class Slot {
         this.itemCapacity = itemCapacity;
     }
 
-    /**
+
+   /**
      * This method is for inserting items to a certain slot.
      * If the stock is full, the user won't be allowed to add more items. 
      * If the amount is greater than 0 and the slot is not yet full, then 
@@ -28,16 +29,17 @@ public class Slot {
      * 
      * @param amount which is the quantity to be restocked 
      */
-    public void restockSlot(int amount) {
+    public boolean restockSlot(int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
-            return;
+            return false;
         }
         Item slotItem = this.getSlotItemType();
         while (amount > 0 && !this.isFull()) {
             this.items.add(slotItem);
             amount--;
         }
+        return true;
     }
 
     /**
@@ -48,15 +50,16 @@ public class Slot {
      * @param amount which is the amount of items to put in the vending machine
      */
 
-    public void stockSlot(Item item, int amount) {
+    public boolean stockSlot(Item item, int amount) {
         if (this.isFull()) {
             System.out.println("Cannot insert any more items in this slot.");
-            return;
+            return false;
         }
         while (amount > 0 && !this.isFull()) {
             this.items.add(item);
             amount--;
         }
+        return true;
     }
 
     /**
