@@ -4,6 +4,9 @@
  */
 package vendingmachine;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Darryl
@@ -13,7 +16,8 @@ public class TestVendingMenuController {
     final private TestVendingMenuView testVendingMenuView;
     final private VendingModel vendingModel;
 
-    public TestVendingMenuController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public TestVendingMenuController(Owner owner, RegularVendingMachine regularMachine,
+            SpecialVendingMachine specialMachine) {
         vendingModel = new VendingModel(owner, regularMachine, specialMachine);
         testVendingMenuView = new TestVendingMenuView();
 
@@ -21,19 +25,17 @@ public class TestVendingMenuController {
         this.testVendingMenuView.addTestRegularListener(new TestRegularListener());
         this.testVendingMenuView.addRegularChangeListener(new RegularChangeListener());
         this.testVendingMenuView.addSpecialChangeListener(new SpecialChangeListener());
-        this.testVendingMenuView.addBackButtonListener(new BackButtonListener());
 
-        Owner owner = vendingModel.getAuthOwner();
-        for (RegularVendingMachine regularMachine : owner.getRegularMachines()) {
-            testVendingMenuView.getRegularComboBox().addItem(regularMachine.getName());
+        for (RegularVendingMachine machine : owner.getRegularMachines()) {
+            testVendingMenuView.getRegularComboBox().addItem(machine.getName());
         }
 
-        for (SpecialVendingMachine specialMachine : owner.getSpecialMachines()) {
-            testVendingMenuView.getSpecialComboBox().addItem(specialMachine.getName());
+        for (SpecialVendingMachine machine : owner.getSpecialMachines()) {
+            testVendingMenuView.getSpecialComboBox().addItem(machine.getName());
         }
 
         // String machineName = specialComboBox.getSelectedItem().toString();
-        //   authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
+        // authenticatedSpecialMachine = authorizedOwner.getSpecialMachine(machineName);
         // testSpecialBtn.setEnabled(true);
         testVendingMenuView.setVisible(true);
     }
@@ -43,9 +45,8 @@ public class TestVendingMenuController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = vendingModel.getAuthOwner();
-            RegularVendingMachine authRegular = vendingModel.getAuthRegularMachine();
-            RegularVendingMachine authSpecial = vendingModel.getAuthSpecialMachine();
-            //TestSpecialController testSpecial = new TestSpecialController(authOwner, authRegular, authSpecial);
+            SpecialVendingMachine authSpecial = vendingModel.getAuthSpecialMachine();
+            SpecialVMController testSpecial = new SpecialVMController(authOwner, authSpecial);
             testVendingMenuView.dispose();
         }
     }
@@ -56,8 +57,7 @@ public class TestVendingMenuController {
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = vendingModel.getAuthOwner();
             RegularVendingMachine authRegular = vendingModel.getAuthRegularMachine();
-            SpecialVendingMachine authSpecial = vendingModel.getAuthSpecialMachine();
-            TestRegularVendingController testRegular = new TestRegularVendingController(authOwner, authRegular, authSpecial);
+            RegularVMController testRegular = new RegularVMController(authOwner, authRegular);
             testVendingMenuView.dispose();
         }
     }
@@ -76,9 +76,8 @@ public class TestVendingMenuController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            String selectedItemName = testVendingMenuView.getRegularComboBox().getSelectedItem().toString();
-            RegularVendingMachine authenticatedRegularMachine = vendingModel.getAuthOwner().getRegularMachine(machineName);
-            vendingModel.authenticateRegularMachine(authenticatedRegularMachine);
+            String selectedMachine = testVendingMenuView.getRegularComboBox().getSelectedItem().toString();
+            vendingModel.authenticateRegularMachine(selectedMachine);
             testVendingMenuView.enableRegularButton();
         }
     }
@@ -87,9 +86,8 @@ public class TestVendingMenuController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            String selectedItemName = testVendingMenuView.getSpecialComboBox().getSelectedItem().toString();
-            SpecialVendingMachine authenticatedSpecialMachine = vendingModel.getAuthOwner().getSpecialMachine(machineName);
-            vendingModel.authenticateSpecialMachine(authenticatedSpecialMachine);
+            String selectedMachine = testVendingMenuView.getSpecialComboBox().getSelectedItem().toString();
+            vendingModel.authenticateSpecialMachine(selectedMachine);
             testVendingMenuView.enableSpecialButton();
         }
     }

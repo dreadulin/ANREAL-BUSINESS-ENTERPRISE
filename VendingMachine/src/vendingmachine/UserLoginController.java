@@ -6,6 +6,7 @@ package vendingmachine;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 /**
  *

@@ -32,17 +32,17 @@ public class VMShopController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authenticatedOwner = dashboardModel.getAuthOwner();
-            CreateRegularVMController regularVM = new CreateRegularVMController();
+            CreateRegularVMController regularVM = new CreateRegularVMController(authenticatedOwner);
             vmShopView.dispose();
         }
     }
 
-    class CreateRegularListener implements ActionListener {
+    class CreateSpecialListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authenticatedOwner = dashboardModel.getAuthOwner();
-            CreateSpecialVMController specialVM = new CreateSpecialVMController();
+            CreateSpecialVMController specialVM = new CreateSpecialVMController(authenticatedOwner);
             vmShopView.dispose();
         }
     }

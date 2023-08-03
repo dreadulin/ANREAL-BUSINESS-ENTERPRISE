@@ -4,6 +4,9 @@
  */
 package vendingmachine;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Darryl
@@ -13,7 +16,8 @@ public class TestSpecialMaintenanceController {
     final private TestSpecialMaintenanceView testSpecialMaintenanceView;
     final private MaintenanceModel maintenanceModel;
 
-    public TestSpecialMaintenanceController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public TestSpecialMaintenanceController(Owner owner, RegularVendingMachine regularMachine,
+            SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         testSpecialMaintenanceView = new TestSpecialMaintenanceView();
 
@@ -41,7 +45,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -54,7 +58,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -67,7 +71,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -80,7 +84,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -93,7 +97,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -106,7 +110,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -115,9 +119,10 @@ public class TestSpecialMaintenanceController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            String selectedMachine = testSpecialMaintenanceView.getSpecialMachineComboBox().getSelectedItem().toString();
+            String selectedMachine = testSpecialMaintenanceView.getSpecialMachineComboBox().getSelectedItem()
+                    .toString();
             maintenanceModel.authenticateSpecialMachine(selectedMachine);
-            //CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -127,7 +132,8 @@ public class TestSpecialMaintenanceController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authOwner = maintenanceModel.getAuthOwner();
-            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, null, null);
+            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, null,
+                    null);
             testSpecialMaintenanceView.dispose();
         }
     }
