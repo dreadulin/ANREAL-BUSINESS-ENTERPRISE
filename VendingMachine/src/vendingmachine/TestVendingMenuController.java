@@ -20,6 +20,7 @@ public class TestVendingMenuController {
         vendingModel = new VendingModel(owner, regularMachine, specialMachine);
         testVendingMenuView = new TestVendingMenuView();
 
+        this.testVendingMenuView.addBackListener(new BackListener());
         this.testVendingMenuView.addTestSpecialListener(new TestSpecialListener());
         this.testVendingMenuView.addTestRegularListener(new TestRegularListener());
         this.testVendingMenuView.addRegularChangeListener(new RegularChangeListener());
@@ -33,6 +34,7 @@ public class TestVendingMenuController {
             testVendingMenuView.getSpecialComboBox().addItem(machine.getName());
         }
 
+        testVendingMenuView.setLocationRelativeTo(null);
         testVendingMenuView.setVisible(true);
     }
 
@@ -58,7 +60,7 @@ public class TestVendingMenuController {
         }
     }
 
-    class BackButtonListener implements ActionListener {
+    class BackListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {

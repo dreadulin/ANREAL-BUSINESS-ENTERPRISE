@@ -22,8 +22,11 @@ public class VMShopController {
 
         vmShopView = new VMShopView();
 
+        this.vmShopView.addBackListener(new BackListener());
         this.vmShopView.addCreateRegularListener(new CreateRegularListener());
         this.vmShopView.addCreateSpecialListener(new CreateSpecialListener());
+        
+        vmShopView.setLocationRelativeTo(null);
         vmShopView.setVisible(true);
     }
 
@@ -43,6 +46,16 @@ public class VMShopController {
         public void actionPerformed(ActionEvent arg0) {
             Owner authenticatedOwner = dashboardModel.getAuthOwner();
             CreateSpecialVMController specialVM = new CreateSpecialVMController(authenticatedOwner);
+            vmShopView.dispose();
+        }
+    }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authenticatedOwner = dashboardModel.getAuthOwner();
+            DashboardController dashboard = new DashboardController(authenticatedOwner);
             vmShopView.dispose();
         }
     }

@@ -20,7 +20,9 @@ public class CreateRegularVMController {
         dashboardModel = new DashboardModel(authorizedOwner);
         createRegularVMView = new CreateRegularVMView();
 
+        this.createRegularVMView.addBackListener(new BackListener());
         this.createRegularVMView.addCreateRegularListener(new CreateRegularListener());
+        createRegularVMView.setLocationRelativeTo(null);
         createRegularVMView.setVisible(true);
     }
 
@@ -45,4 +47,15 @@ public class CreateRegularVMController {
             createRegularVMView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authenticatedOwner = dashboardModel.getAuthOwner();
+            DashboardController dashboardController = new DashboardController(authenticatedOwner);
+            createRegularVMView.dispose();
+        }
+    }
+
 }

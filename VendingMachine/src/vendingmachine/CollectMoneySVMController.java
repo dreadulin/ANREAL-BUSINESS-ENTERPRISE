@@ -34,8 +34,10 @@ public class CollectMoneySVMController {
             moneyTableModel.addRow(moneyRow);
         }
 
+        this.collectMoneySVMView.addBackListener(new BackListener());
         this.collectMoneySVMView.addCollectMoneyListener(new CollectMoneyListener());
 
+        collectMoneySVMView.setLocationRelativeTo(null);
         collectMoneySVMView.setVisible(true);
     }
 
@@ -62,4 +64,17 @@ public class CollectMoneySVMController {
             collectMoneySVMView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            collectMoneySVMView.dispose();
+        }
+    }
+
 }

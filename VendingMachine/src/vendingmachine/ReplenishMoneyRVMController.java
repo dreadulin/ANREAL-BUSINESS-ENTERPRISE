@@ -21,6 +21,7 @@ public class ReplenishMoneyRVMController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         replenishMoneyRVMView = new ReplenishMoneyRVMView();
 
+        this.replenishMoneyRVMView.addBackListener(new BackListener());
         this.replenishMoneyRVMView.addReplenishListener(new ReplenishListener());
         this.replenishMoneyRVMView.addMoneyChangeListener(new MoneyChangeListener());
 
@@ -28,6 +29,7 @@ public class ReplenishMoneyRVMController {
             replenishMoneyRVMView.getMoneyComboBox().addItem(Integer.toString(money.getValue()));
         }
 
+        replenishMoneyRVMView.setLocationRelativeTo(null);
         replenishMoneyRVMView.setVisible(true);
     }
 
@@ -57,6 +59,18 @@ public class ReplenishMoneyRVMController {
             int selectedValue = Integer.parseInt(replenishMoneyRVMView.getMoneyComboBox().getSelectedItem().toString());
             Money money = maintenanceModel.getAuthRegularMachine().getMoney(selectedValue);
             replenishMoneyRVMView.setMoneyAmountLabel(money.getAmount());
+        }
+    }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            replenishMoneyRVMView.dispose();
         }
     }
 

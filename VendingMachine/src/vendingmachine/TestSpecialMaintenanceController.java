@@ -32,8 +32,9 @@ public class TestSpecialMaintenanceController {
         this.testSpecialMaintenanceView.addRestockListener(new RestockListener());
         this.testSpecialMaintenanceView.addTransactionSummaryListener(new TransactionSummaryListener());
         this.testSpecialMaintenanceView.addSpecialMachineChangeListener(new SpecialMachineChangeListener());
-        this.testSpecialMaintenanceView.addBackButtonListener(new BackButtonListener());
+        this.testSpecialMaintenanceView.addBackListener(new BackListener());
 
+        testSpecialMaintenanceView.setLocationRelativeTo(null);
         testSpecialMaintenanceView.setVisible(true);
     }
 
@@ -126,7 +127,7 @@ public class TestSpecialMaintenanceController {
         }
     }
 
-    class BackButtonListener implements ActionListener {
+    class BackListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {

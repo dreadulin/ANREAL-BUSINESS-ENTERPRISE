@@ -49,7 +49,7 @@ public class SVMModel {
         this.selectedItemsQuantities = selectedItemsQuantities;
     }
 
-    public RegularVendingMachine getAuthSpecialMachine() {
+    public SpecialVendingMachine getAuthSpecialMachine() {
         return authenticatedSpecialMachine;
     }
 

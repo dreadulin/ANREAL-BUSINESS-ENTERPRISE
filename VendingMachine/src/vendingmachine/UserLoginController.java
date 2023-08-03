@@ -21,7 +21,10 @@ public class UserLoginController {
         startModel = new StartModel(owners);
         loginView = new UserLoginView();
 
+        this.loginView.addBackListener(new BackListener());
         this.loginView.addLoginListener(new LoginListener());
+        
+        loginView.setLocationRelativeTo(null);
         loginView.setVisible(true);
     }
 
@@ -44,6 +47,15 @@ public class UserLoginController {
                 StartController startController = new StartController(owners);
                 loginView.dispose();
             }
+        }
+    }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            ArrayList<Owner> owners = startModel.getOwnersList();
+            StartController startController = new StartController(owners);
         }
     }
 }

@@ -26,8 +26,10 @@ public class ChangePriceSVMController {
             }
         }
 
+        this.changePriceSVMView.addBackListener(new BackListener());
         this.changePriceSVMView.addChangePriceListener(new ChangePriceListener());
         this.changePriceSVMView.addItemChangeListener(new ItemChangeListener());
+        changePriceSVMView.setLocationRelativeTo(null);
         changePriceSVMView.setVisible(true);
     }
 
@@ -64,4 +66,15 @@ public class ChangePriceSVMController {
         }
     }
 
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            changePriceSVMView.dispose();
+        }
+    }
 }

@@ -21,7 +21,9 @@ public class ChangePasswordController {
         startModel = new StartModel(owners);
         changePasswordView = new ChangePasswordView();
 
+        this.changePasswordView.addBackListener(new BackListener());
         this.changePasswordView.addChangePassListener(new ChangePassListener());
+        changePasswordView.setLocationRelativeTo(null);
         changePasswordView.setVisible(true);
 
     }
@@ -46,4 +48,15 @@ public class ChangePasswordController {
             changePasswordView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            ArrayList<Owner> owners = startModel.getOwnersList();
+            StartController startController = new StartController(owners);
+            changePasswordView.dispose();
+        }
+    }
+
 }

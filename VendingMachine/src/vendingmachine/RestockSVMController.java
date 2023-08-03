@@ -20,6 +20,7 @@ public class RestockSVMController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         restockSVMView = new RestockSVMView();
 
+        this.restockSVMView.addBackListener(new BackListener());
         this.restockSVMView.addRestockListener(new RestockListener());
         this.restockSVMView.addItemChangeListener(new ItemChangeListener());
 
@@ -29,6 +30,7 @@ public class RestockSVMController {
             }
         }
 
+        restockSVMView.setLocationRelativeTo(null);
         restockSVMView.setVisible(true);
     }
 
@@ -78,4 +80,18 @@ public class RestockSVMController {
             restockSVMView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            restockSVMView.dispose();
+        }
+    }
+
 }

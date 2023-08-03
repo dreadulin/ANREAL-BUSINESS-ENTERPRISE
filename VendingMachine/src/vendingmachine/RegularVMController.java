@@ -31,6 +31,7 @@ public class RegularVMController {
         rvmView.getChosenItemsTable().setModel(chosenItemTableModel);
         ArrayList<Slot> machineSlots = rvmModel.getAuthRegularMachine().getItemSlots();
 
+        this.rvmView.addBackListener(new BackListener());
         this.rvmView.addResetListener(new ResetListener());
         this.rvmView.addItemListener(new AddItemListener());
         this.rvmView.addPaymentListener(new PaymentListener());
@@ -46,6 +47,7 @@ public class RegularVMController {
             }
         }
 
+        rvmView.setLocationRelativeTo(null);
         rvmView.setVisible(true);
     }
 
@@ -195,4 +197,15 @@ public class RegularVMController {
             }
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authenticatedOwner = rvmModel.getAuthOwner();
+            DashboardController dashboard = new DashboardController(authenticatedOwner);
+            rvmView.dispose();
+        }
+    }
+
 }

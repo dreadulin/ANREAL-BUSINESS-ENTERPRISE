@@ -20,8 +20,10 @@ public class AddStockRVMController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         addStockView = new AddStockRVMView();
 
+        this.addStockView.addBackListener(new BackListener());
         this.addStockView.addStockListener(new StockListener());
 
+        addStockView.setLocationRelativeTo(null);
         addStockView.setVisible(true);
     }
 
@@ -39,7 +41,25 @@ public class AddStockRVMController {
 
             boolean success = maintenanceModel.addRegularStock(itemName, itemPrice, itemCalories, itemAmount);
 
+            if (success) {
+                addStockView.showSuccessMessage();
+            } else {
+                addStockView.showErrorMessage();
+            }
+
             TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            addStockView.dispose();
+        }
+    }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestRegularMaintenanceController regularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             addStockView.dispose();
         }
     }

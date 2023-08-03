@@ -3,24 +3,44 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceSVMView.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RegularVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateAccountController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateRegularVMView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockRVMView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestMaintenanceMenuController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestSpecialMaintenanceView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceSVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceRVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePasswordController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CollectMoneyRVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestMaintenanceMenuView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateRegularVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/VMShopView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateAccountView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceRVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestVendingMenuController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockRVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/AddStockRVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CollectMoneySVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummarySVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateSpecialVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestRegularMaintenanceView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestVendingMenuView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/VMShopController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceSVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummarySVMView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CollectMoneySVMController.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockSVMController.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CollectMoneyRVMController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateRegularVMController.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ReplenishMoneyRVMController.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummaryRVMController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ChangePriceRVMView.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/SpecialVMController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestVendingMenuController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockRVMController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/SpecialVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/UserLoginController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ReplenishMoneyRVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/CreateSpecialVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/RestockSVMView.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/UserLoginView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummaryRVMView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestRegularMaintenanceController.java</file>
-            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TransactionSummarySVMController.java</file>
+            <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ReplenishMoneySVMView.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/ReplenishMoneySVMController.java</file>
             <file>file:/C:/Users/Darryl/Desktop/ANREAL-BUSINESS-ENTERPRISE/VendingMachine/src/vendingmachine/TestSpecialMaintenanceController.java</file>
         </group>

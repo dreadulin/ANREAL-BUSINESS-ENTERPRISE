@@ -25,6 +25,7 @@ public class DashboardController {
         this.dashboardView.addTestVendingListener(new TestVendingListener());
         this.dashboardView.addTestMaintainListener(new TestMaintainListener());
 
+        dashboardView.setLocationRelativeTo(null);
         dashboardView.setVisible(true);
     }
 

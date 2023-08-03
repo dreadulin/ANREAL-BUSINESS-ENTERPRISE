@@ -21,7 +21,9 @@ public class CreateSpecialVMController {
         dashboardModel = new DashboardModel(authorizedOwner);
         createSpecialVMView = new CreateSpecialVMView();
 
+        this.createSpecialVMView.addBackListener(new BackListener());
         this.createSpecialVMView.addCreateSpecialListener(new CreateSpecialListener());
+        createSpecialVMView.setLocationRelativeTo(null);
         createSpecialVMView.setVisible(true);
     }
 
@@ -46,4 +48,15 @@ public class CreateSpecialVMController {
             createSpecialVMView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authenticatedOwner = dashboardModel.getAuthOwner();
+            DashboardController dashboardController = new DashboardController(authenticatedOwner);
+            createSpecialVMView.dispose();
+        }
+    }
+
 }

@@ -21,6 +21,7 @@ public class ReplenishMoneySVMController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         replenishMoneySVMView = new ReplenishMoneySVMView();
 
+        this.replenishMoneySVMView.addBackListener(new BackListener());
         this.replenishMoneySVMView.addReplenishListener(new ReplenishListener());
         this.replenishMoneySVMView.addMoneyChangeListener(new MoneyChangeListener());
 
@@ -28,6 +29,7 @@ public class ReplenishMoneySVMController {
             replenishMoneySVMView.getMoneyComboBox().addItem(Integer.toString(money.getValue()));
         }
 
+        replenishMoneySVMView.setLocationRelativeTo(null);
         replenishMoneySVMView.setVisible(true);
     }
 
@@ -57,6 +59,18 @@ public class ReplenishMoneySVMController {
             int selectedValue = Integer.parseInt(replenishMoneySVMView.getMoneyComboBox().getSelectedItem().toString());
             Money money = maintenanceModel.getAuthSpecialMachine().getMoney(selectedValue);
             replenishMoneySVMView.setMoneyAmountLabel(money.getAmount());
+        }
+    }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            replenishMoneySVMView.dispose();
         }
     }
 

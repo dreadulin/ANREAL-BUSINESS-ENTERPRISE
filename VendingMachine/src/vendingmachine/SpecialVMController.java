@@ -32,6 +32,7 @@ public class SpecialVMController {
         svmView.getAvailableItemsTable().setModel(availableItemTableModel);
         ArrayList<Slot> machineSlots = svmModel.getAuthSpecialMachine().getItemSlots();
 
+        this.svmView.addBackListener(new BackListener());
         this.svmView.addResetListener(new ResetListener());
         this.svmView.addItemListener(new AddItemListener());
         this.svmView.addPaymentListener(new PaymentListener());
@@ -49,10 +50,11 @@ public class SpecialVMController {
         }
 
         svmView.getSpecialComboBox().addItem("Select Combo Item");
-        for (SpecialItem item : authenticatedSpecialMachine.getSpecialItems()){
+        for (SpecialItem item : authenticatedSpecialMachine.getSpecialItems()) {
             svmView.getSpecialComboBox().addItem(item.getName());
         }
 
+        svmView.setLocationRelativeTo(null);
         svmView.setVisible(true);
     }
 
@@ -84,7 +86,6 @@ public class SpecialVMController {
         }
     }
 
-
     class ResetListener implements ActionListener {
 
         @Override
@@ -105,7 +106,6 @@ public class SpecialVMController {
             boolean responseSuccess = addItemResponse.getStatus();
             String responseMessage = addItemResponse.getMessage();
             Item selectedItem = (Item) addItemResponse.getResponse();
-
 
             if (responseSuccess && selectedItem != null) {
                 ArrayList<Item> selectedItems = svmModel.getSelectedItems();
@@ -286,4 +286,15 @@ public class SpecialVMController {
             svmView.togglePay(true);
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authenticatedOwner = svmModel.getAuthOwner();
+            DashboardController dashboard = new DashboardController(authenticatedOwner);
+            svmView.dispose();
+        }
+    }
+
 }

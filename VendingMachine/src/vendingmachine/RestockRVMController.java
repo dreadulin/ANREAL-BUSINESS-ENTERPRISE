@@ -20,6 +20,7 @@ public class RestockRVMController {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
         restockRVMView = new RestockRVMView();
 
+        this.restockRVMView.addBackListener(new BackListener());
         this.restockRVMView.addRestockListener(new RestockListener());
         this.restockRVMView.addItemChangeListener(new ItemChangeListener());
 
@@ -29,6 +30,7 @@ public class RestockRVMController {
             }
         }
 
+        restockRVMView.setLocationRelativeTo(null);
         restockRVMView.setVisible(true);
     }
 
@@ -72,4 +74,17 @@ public class RestockRVMController {
             }
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            restockRVMView.dispose();
+        }
+    }
+
 }

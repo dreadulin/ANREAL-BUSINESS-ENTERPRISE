@@ -26,8 +26,10 @@ public class ChangePriceRVMController {
             }
         }
 
+        this.changePriceRVMView.addBackListener(new BackListener());
         this.changePriceRVMView.addChangePriceListener(new ChangePriceListener());
         this.changePriceRVMView.addItemChangeListener(new ItemChangeListener());
+        changePriceRVMView.setLocationRelativeTo(null);
         changePriceRVMView.setVisible(true);
     }
 
@@ -64,4 +66,15 @@ public class ChangePriceRVMController {
         }
     }
 
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            Owner authOwner = maintenanceModel.getAuthOwner();
+            RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
+            SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            changePriceRVMView.dispose();
+        }
+    }
 }

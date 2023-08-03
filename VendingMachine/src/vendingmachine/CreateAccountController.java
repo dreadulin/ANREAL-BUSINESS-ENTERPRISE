@@ -21,7 +21,9 @@ public class CreateAccountController {
         startModel = new StartModel(owners);
         createAccountView = new CreateAccountView();
 
+        this.createAccountView.addBackListener(new BackListener());
         this.createAccountView.addCreateAccountListener(new CreateAccountListener());
+        createAccountView.setLocationRelativeTo(null);
         createAccountView.setVisible(true);
     }
 
@@ -46,4 +48,14 @@ public class CreateAccountController {
             createAccountView.dispose();
         }
     }
+
+    class BackListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            ArrayList<Owner> owners = startModel.getOwnersList();
+            StartController startController = new StartController(owners);
+        }
+    }
+
 }

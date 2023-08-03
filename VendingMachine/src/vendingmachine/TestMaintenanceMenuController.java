@@ -22,8 +22,9 @@ public class TestMaintenanceMenuController {
 
         this.testMaintenanceMenuView.addTestSpecialListener(new TestSpecialListener());
         this.testMaintenanceMenuView.addTestRegularListener(new TestRegularListener());
-        this.testMaintenanceMenuView.addBackButtonListener(new BackButtonListener());
+        this.testMaintenanceMenuView.addBackListener(new BackListener());
 
+        testMaintenanceMenuView.setLocationRelativeTo(null);
         testMaintenanceMenuView.setVisible(true);
     }
 
@@ -51,7 +52,7 @@ public class TestMaintenanceMenuController {
         }
     }
 
-    class BackButtonListener implements ActionListener {
+    class BackListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {

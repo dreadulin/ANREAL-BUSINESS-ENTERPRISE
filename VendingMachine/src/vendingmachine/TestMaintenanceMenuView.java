@@ -27,13 +27,20 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         testSpecialBtn = new javax.swing.JButton();
         testRegularBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        backBtn = new javax.swing.JButton();
+        backBtn1 = new javax.swing.JButton();
+
+        backBtn.setBackground(new java.awt.Color(23, 195, 178));
+        backBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
+        backBtn.setText("Back");
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +79,11 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendingmachine/VendingMachineIcon.png"))); // NOI18N
 
-        backBtn.setText("Back");
+        backBtn1.setBackground(new java.awt.Color(23, 195, 178));
+        backBtn1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        backBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        backBtn1.setText("Back");
+        backBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,8 +102,8 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
                         .addContainerGap(93, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
+                        .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,9 +119,9 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
                         .addComponent(testRegularBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95)
                         .addComponent(testSpecialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,14 +165,16 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
     public void addTestRegularListener(ActionListener listenForTestRegular) {
         testRegularBtn.addActionListener(listenForTestRegular);
     }
+
     /**
      * This is for redirecting the user back to the dashboard
      *
      * @param evt which is an action event of an element
      */
-    public void addBackButtonListener(ActionListener listenForBackButton) {
-        backBtn.addActionListener(listenForBackButton);
+    public void addBackListener(ActionListener listenForBackButton) {
+        backBtn1.addActionListener(listenForBackButton);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -202,6 +215,7 @@ public class TestMaintenanceMenuView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JButton backBtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
