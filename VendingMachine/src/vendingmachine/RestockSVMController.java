@@ -11,19 +11,19 @@ import java.awt.event.ActionListener;
  *
  * @author Darryl
  */
-public class RestockRVMController {
+public class RestockSVMController {
 
-    final private RestockRVMView restockRVMView;
+    final private RestockSVMView restockSVMView;
     final private MaintenanceModel maintenanceModel;
 
-    public RestockRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public RestockSVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
-        restockRVMView = new RestockRVMView();
+        restockSVMView = new RestockSVMView();
 
-        this.restockRVMView.addRestockListener(new RestockListener());
-        this.restockRVMView.addItemChangeListener(new ItemChangeListener());
+        this.restockSVMView.addRestockListener(new RestockListener());
+        this.restockSVMView.addItemChangeListener(new ItemChangeListener());
 
-        restockRVMView.setVisible(true);
+        restockSVMView.setVisible(true);
     }
 
     class RestockListener implements ActionListener {
@@ -33,19 +33,19 @@ public class RestockRVMController {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-            int amount = restockRVMView.getInputAmount();
-            String selectedItemName = restockRVMView.getItemComboBox().getSelectedItem().toString();
+            int amount = restockSVMView.getInputAmount();
+            String selectedItemName = restockSVMView.getItemComboBox().getSelectedItem().toString();
 
-            boolean success = maintenanceModel.restock(amount, selectedItemName);
+            boolean success = maintenanceModel.restockSpecial(amount, selectedItemName);
 
             if (success) {
-                restockRVMView.showSuccessMessage();
+                restockSVMView.showSuccessMessage();
             } else {
-                restockRVMView.showErrorMessage();
+                restockSVMView.showErrorMessage();
             }
 
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
-            restockRVMView.dispose();
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            restockSVMView.dispose();
         }
     }
 
@@ -57,19 +57,19 @@ public class RestockRVMController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            String selectedItemName = restockRVMView.getItemComboBox().getSelectedItem().toString();
+            String selectedItemName = restockSVMView.getItemComboBox().getSelectedItem().toString();
 
-            for (Slot slot : maintenanceModel.getAuthRegularMachine().getItemSlots()) {
+            for (Slot slot : maintenanceModel.getAuthSpecialMachine().getItemSlots()) {
                 if (slot.getSlotItemType() != null) {
                     if (slot.getSlotItemType().getName().equals(selectedItemName)) {
-                        restockRVMView.setStockQuantity(slot.getItemQuantity());
+                        restockSVMView.setStockQuantity(slot.getItemQuantity());
                         return;
                     }
                 }
             }
 
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
-            restockRVMView.dispose();
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
+            restockSVMView.dispose();
         }
     }
 }

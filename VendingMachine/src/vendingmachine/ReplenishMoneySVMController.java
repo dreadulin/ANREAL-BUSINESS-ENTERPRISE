@@ -12,19 +12,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Darryl
  */
-public class ReplenishMoneyRVMController {
+public class ReplenishMoneySVMController {
 
-    final private ReplenishMoneyRVMView replenishMoneyRVMView;
+    final private ReplenishMoneySVMView replenishMoneySVMView;
     final private MaintenanceModel maintenanceModel;
 
-    public ReplenishMoneyRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public ReplenishMoneySVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
-        replenishMoneyRVMView = new ReplenishMoneyRVMView();
+        replenishMoneySVMView = new ReplenishMoneySVMView();
 
-        this.replenishMoneyRVMView.addReplenishListener(new ReplenishListener());
-        this.replenishMoneyRVMView.addMoneyChangeListener(new MoneyChangeListener());
+        this.replenishMoneySVMView.addReplenishListener(new ReplenishListener());
+        this.replenishMoneySVMView.addMoneyChangeListener(new MoneyChangeListener());
 
-        replenishMoneyRVMView.setVisible(true);
+        replenishMoneySVMView.setVisible(true);
     }
 
     class ReplenishListener implements ActionListener {
@@ -34,15 +34,15 @@ public class ReplenishMoneyRVMController {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-            String selectedValue = replenishMoneyRVMView.getMoneyComboBox().getSelectedItem().toString();
-            int amount = replenishMoneyRVMView.getInputAmount();
+            String selectedValue = replenishMoneySVMView.getMoneyComboBox().getSelectedItem().toString();
+            int amount = replenishMoneySVMView.getInputAmount();
 
-            String result = maintenanceModel.replenishMoney(amount, Integer.parseInt(selectedValue));
+            String result = maintenanceModel.replenishSpecialMoney(amount, Integer.parseInt(selectedValue));
 
-            replenishMoneyRVMView.showMessage(result);
+            replenishMoneySVMView.showMessage(result);
 
             TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
-            replenishMoneyRVMView.dispose();
+            replenishMoneySVMView.dispose();
         }
     }
 
@@ -50,9 +50,9 @@ public class ReplenishMoneyRVMController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            int selectedValue = Integer.parseInt(replenishMoneyRVMView.getMoneyComboBox().getSelectedItem().toString());
-            Money money = maintenanceModel.getAuthRegularMachine().getMoney(selectedValue);
-            replenishMoneyRVMView.setMoneyAmountLabel(money.getAmount());
+            int selectedValue = Integer.parseInt(replenishMoneySVMView.getMoneyComboBox().getSelectedItem().toString());
+            Money money = maintenanceModel.getAuthSpecialMachine().getMoney(selectedValue);
+            replenishMoneySVMView.setMoneyAmountLabel(money.getAmount());
         }
     }
 

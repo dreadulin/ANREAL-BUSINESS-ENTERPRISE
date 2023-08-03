@@ -55,7 +55,7 @@ public class CollectMoneyRVMController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            String resultString = maintenanceModel.collectMoney();
+            String resultString = maintenanceModel.collectRegularMoney();
             collectMoneyRVMView.showMessage(resultString);
 
             TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);

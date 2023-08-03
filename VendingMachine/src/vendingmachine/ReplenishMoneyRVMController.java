@@ -37,7 +37,7 @@ public class ReplenishMoneyRVMController {
             String selectedValue = replenishMoneyRVMView.getMoneyComboBox().getSelectedItem().toString();
             int amount = replenishMoneyRVMView.getInputAmount();
 
-            String result = maintenanceModel.replenishMoney(amount, Integer.parseInt(selectedValue));
+            String result = maintenanceModel.replenishRegularMoney(amount, Integer.parseInt(selectedValue));
 
             replenishMoneyRVMView.showMessage(result);
 

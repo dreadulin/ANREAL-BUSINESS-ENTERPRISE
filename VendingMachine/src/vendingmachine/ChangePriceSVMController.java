@@ -11,24 +11,24 @@ import java.awt.event.ActionListener;
  *
  * @author Darryl
  */
-public class ChangePriceRVMController {
+public class ChangePriceSVMController {
 
-    final private ChangePriceRVMView changePriceRVMView;
+    final private ChangePriceSVMView changePriceSVMView;
     final private MaintenanceModel maintenanceModel;
 
-    public ChangePriceRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public ChangePriceSVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
-        changePriceRVMView = new ChangePriceRVMView();
+        changePriceSVMView = new ChangePriceSVMView();
 
-        for (Slot slot : maintenanceModel.getAuthRegularMachine().getItemSlots()) {
+        for (Slot slot : maintenanceModel.getAuthSpecialMachine().getItemSlots()) {
             if (slot.getSlotItemType() != null) {
-                changePriceRVMView.getItemComboBox().addItem(slot.getSlotItemType().getName());
+                changePriceSVMView.getItemComboBox().addItem(slot.getSlotItemType().getName());
             }
         }
 
-        this.changePriceRVMView.addChangePriceListener(new ChangePriceListener());
-        this.changePriceRVMView.addItemChangeListener(new ItemChangeListener());
-        changePriceRVMView.setVisible(true);
+        this.changePriceSVMView.addChangePriceListener(new ChangePriceListener());
+        this.changePriceSVMView.addItemChangeListener(new ItemChangeListener());
+        changePriceSVMView.setVisible(true);
     }
 
     class ChangePriceListener implements ActionListener {
@@ -38,19 +38,19 @@ public class ChangePriceRVMController {
             Owner authOwner = maintenanceModel.getAuthOwner();
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
-            String selected = changePriceRVMView.getItemComboBox().getSelectedItem().toString();
-            int newPrice = changePriceRVMView.getInputPrice();
+            String selected = changePriceSVMView.getItemComboBox().getSelectedItem().toString();
+            int newPrice = changePriceSVMView.getInputPrice();
 
-            boolean success = maintenanceModel.setPrice(selected, newPrice);
+            boolean success = maintenanceModel.setSpecialPrice(selected, newPrice);
 
             if (success) {
-                changePriceRVMView.showSuccessMessage();
+                changePriceSVMView.showSuccessMessage();
             } else {
-                changePriceRVMView.showErrorMessage();
+                changePriceSVMView.showErrorMessage();
             }
 
             TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
-            changePriceRVMView.dispose();
+            changePriceSVMView.dispose();
         }
     }
 
@@ -58,9 +58,9 @@ public class ChangePriceRVMController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            String selectedItemName = changePriceRVMView.getItemComboBox().getSelectedItem().toString();
-            Item selectedItem = maintenanceModel.getRegularVMItem(selectedItemName);
-            changePriceRVMView.setCurrentPrice(selectedItem.getPrice());
+            String selectedItemName = changePriceSVMView.getItemComboBox().getSelectedItem().toString();
+            Item selectedItem = maintenanceModel.getSpecialVMItem(selectedItemName);
+            changePriceSVMView.setCurrentPrice(selectedItem.getPrice());
         }
     }
 

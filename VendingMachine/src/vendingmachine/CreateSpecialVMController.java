@@ -12,38 +12,38 @@ import javax.swing.JOptionPane;
  *
  * @author Darryl
  */
-public class CreateRegularVMController {
+public class CreateSpecialVMController {
 
-    private final CreateRegularVMView createRegularVMView;
+    private final CreateSpecialVMView createSpecialVMView;
     private final DashboardModel dashboardModel;
 
-    public CreateRegularVMController(Owner authorizedOwner) {
+    public CreateSpecialVMController(Owner authorizedOwner) {
         dashboardModel = new DashboardModel(authorizedOwner);
-        createRegularVMView = new CreateRegularVMView();
+        createSpecialVMView = new CreateSpecialVMView();
 
-        this.createRegularVMView.addCreateRegularListener(new CreateRegularListener());
-        createRegularVMView.setVisible(true);
+        this.createSpecialVMView.addCreateSpecialListener(new CreateSpecialListener());
+        createSpecialVMView.setVisible(true);
     }
 
-    class CreateRegularListener implements ActionListener {
+    class CreateSpecialListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
             Owner authenticatedOwner = dashboardModel.getAuthOwner();
-            String inputName = createRegularVMView.getInputMachineName();
-            int itemSlots = createRegularVMView.getInputSlotsQt();
-            int itemSlotsQt = createRegularVMView.getInputItemSlotsQt();
+            String inputName = createSpecialVMView.getInputMachineName();
+            int itemSlots = createSpecialVMView.getInputSlotsQt();
+            int itemSlotsQt = createSpecialVMView.getInputItemSlotsQt();
 
-            boolean success = dashboardModel.createRegularVM(inputName, itemSlots, itemSlotsQt);
+            boolean success = dashboardModel.createSpecialVM(inputName, itemSlots, itemSlotsQt);
 
             if (success) {
-                JOptionPane.showMessageDialog(null, "Created Regular Machine Successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                createSpecialVMView.showSuccessMessage();
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to added machine. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                createSpecialVMView.showErrorMessage();
             }
 
             DashboardController dashboardController = new DashboardController(authenticatedOwner);
-            createRegularVMView.dispose();
+            createSpecialVMView.dispose();
         }
     }
 }

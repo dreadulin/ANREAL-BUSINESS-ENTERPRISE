@@ -37,8 +37,7 @@ public class AddStockRVMController {
             double itemCalories = addStockView.getStockCalories();
             int itemAmount = addStockView.getStockItemAmount();
 
-            boolean success = maintenanceModel.addStock(itemName, itemPrice, itemCalories, itemAmount);
-            
+            boolean success = maintenanceModel.addRegularStock(itemName, itemPrice, itemCalories, itemAmount);
 
             TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             addStockView.dispose();

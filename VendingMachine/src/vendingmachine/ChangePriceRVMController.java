@@ -41,7 +41,7 @@ public class ChangePriceRVMController {
             String selected = changePriceRVMView.getItemComboBox().getSelectedItem().toString();
             int newPrice = changePriceRVMView.getInputPrice();
 
-            boolean success = maintenanceModel.setPrice(selected, newPrice);
+            boolean success = maintenanceModel.setRegularPrice(selected, newPrice);
 
             if (success) {
                 changePriceRVMView.showSuccessMessage();

@@ -5,6 +5,7 @@
 package vendingmachine;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +52,7 @@ public class MaintenanceModel {
         return authenticatedSpecialMachine.getItem(machineName);
     }
 
-    public boolean addStock(String stockName, int stockPrice, double stockCalories, int stockItemAmount) {
+    public boolean addRegularStock(String stockName, int stockPrice, double stockCalories, int stockItemAmount) {
         Item existingItem;
         existingItem = authenticatedRegularMachine.getItem(stockName);
 
@@ -67,11 +68,31 @@ public class MaintenanceModel {
         return success;
     }
 
-    public boolean setPrice(String selectedItem, int newPrice) {
+    public boolean addSpecialStock(String stockName, int stockPrice, double stockCalories, int stockItemAmount) {
+        Item existingItem;
+        existingItem = authenticatedSpecialMachine.getItem(stockName);
+
+        // If there is already an existing item, instead of adding a stock, it will be restocked instead.
+        if (existingItem != null) {
+            boolean successOp = authorizedOwner.restock(authenticatedSpecialMachine, stockName, stockItemAmount);
+            return successOp;
+        }
+
+        Item newItem = new Item(stockName, stockPrice, stockCalories);
+
+        boolean success = authorizedOwner.stock(authenticatedSpecialMachine, newItem, stockItemAmount);
+        return success;
+    }
+
+    public boolean setRegularPrice(String selectedItem, int newPrice) {
         return authorizedOwner.setPrice(authenticatedRegularMachine, selectedItem, newPrice);
     }
 
-    public String collectMoney() {
+    public boolean setSpecialPrice(String selectedItem, int newPrice) {
+        return authorizedOwner.setPrice(authenticatedSpecialMachine, selectedItem, newPrice);
+    }
+
+    public String collectRegularMoney() {
         int balanceBefore = authorizedOwner.getBalance();
         int collectedMoney = authenticatedRegularMachine.getStockMoney();
         int balanceAfter = balanceBefore + collectedMoney;
@@ -87,13 +108,27 @@ public class MaintenanceModel {
         return resultMessage;
     }
 
-    public String replenishMoney(int amount, int selectedValue) {
+    public String collectSpecialMoney() {
+        int balanceBefore = authorizedOwner.getBalance();
+        int collectedMoney = authenticatedSpecialMachine.getStockMoney();
+        int balanceAfter = balanceBefore + collectedMoney;
+        authorizedOwner.collectMoney(authenticatedSpecialMachine);
+        String resultMessage = "Balance before collecting money: " + balanceBefore + "\n"
+                + "Collected money: " + collectedMoney + "\n"
+                + "Balance after collecting money: " + balanceAfter + "\n";
+
+        /*
+            Informs the user of their balance before money was collected, the amount of collected money 
+            and the balance after the money was collected 
+         */
+        return resultMessage;
+    }
+
+    public String replenishRegularMoney(int amount, int selectedValue) {
         Money money = authenticatedRegularMachine.getMoney(selectedValue);
         int beforeAmount = money.getAmount();
 
         if (authorizedOwner.getBalance() - (selectedValue * amount) < 0) {
-            // Informs the user that they do not have enough money to replenish the amount
-            JOptionPane.showMessageDialog(null, "You do not have enough money to replenish this amount.", "Message", JOptionPane.INFORMATION_MESSAGE);
             return "You do not have enough money to replenish this amount.";
         }
 
@@ -107,10 +142,47 @@ public class MaintenanceModel {
         return message;
     }
 
-    public boolean restock(int itemAmount, String selectedItem) {
+    public String replenishSpecialMoney(int amount, int selectedValue) {
+        Money money = authenticatedSpecialMachine.getMoney(selectedValue);
+        int beforeAmount = money.getAmount();
+
+        if (authorizedOwner.getBalance() - (selectedValue * amount) < 0) {
+            return "You do not have enough money to replenish this amount.";
+        }
+
+        authorizedOwner.replenishMoney(authenticatedSpecialMachine, amount, selectedValue);
+
+        /**
+         * Informs the user the before replenish amount and after replenish
+         * amount of a denomination
+         */
+        String message = "Before Replenish Amount: " + beforeAmount + "\n" + "After Replenish Amount: " + money.getAmount();
+        return message;
+    }
+
+    public boolean restockRegular(int itemAmount, String selectedItem) {
         boolean operationSuccessful;
         operationSuccessful = authorizedOwner.restock(authenticatedRegularMachine, selectedItem, itemAmount);
 
         return operationSuccessful;
+    }
+
+    public boolean restockSpecial(int itemAmount, String selectedItem) {
+        boolean operationSuccessful;
+        operationSuccessful = authorizedOwner.restock(authenticatedSpecialMachine, selectedItem, itemAmount);
+
+        return operationSuccessful;
+    }
+
+    public List<Transaction> getRegularTransactions() {
+        ArrayList<Transaction> transactions = authenticatedRegularMachine.getTransactions();
+        List<Transaction> transactionsToSummarize = transactions.stream().filter(t -> t.getTransactionDate() > authenticatedRegularMachine.lastRestockDate).toList();
+        return transactionsToSummarize;
+    }
+
+    public List<Transaction> getSpecialTransactions() {
+        ArrayList<Transaction> transactions = authenticatedSpecialMachine.getTransactions();
+        List<Transaction> transactionsToSummarize = transactions.stream().filter(t -> t.getTransactionDate() > authenticatedSpecialMachine.lastRestockDate).toList();
+        return transactionsToSummarize;
     }
 }

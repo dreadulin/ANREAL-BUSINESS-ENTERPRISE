@@ -12,21 +12,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Darryl
  */
-public class CollectMoneyRVMController {
+public class CollectMoneySVMController {
 
-    final private CollectMoneyRVMView collectMoneyRVMView;
+    final private CollectMoneySVMView collectMoneySVMView;
     final private MaintenanceModel maintenanceModel;
 
-    public CollectMoneyRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public CollectMoneySVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
-        collectMoneyRVMView = new CollectMoneyRVMView();
+        collectMoneySVMView = new CollectMoneySVMView();
 
         // Sets the column titles of the table
         String[] columnNames = {"Value", "Amount"};
         DefaultTableModel moneyTableModel = new DefaultTableModel(columnNames, 0);
 
-        collectMoneyRVMView.getMoneyTable().setModel(moneyTableModel);
-        Money[] bills = maintenanceModel.getAuthRegularMachine().getMoneyArray();
+        collectMoneySVMView.getMoneyTable().setModel(moneyTableModel);
+        Money[] bills = maintenanceModel.getAuthSpecialMachine().getMoneyArray();
 
         // Gets the denomination of the bill and the quantity of each bill and will be displayed to the table row 
         for (Money bill : bills) {
@@ -34,16 +34,16 @@ public class CollectMoneyRVMController {
             moneyTableModel.addRow(moneyRow);
         }
 
-        this.collectMoneyRVMView.addCollectMoneyListener(new CollectMoneyListener());
+        this.collectMoneySVMView.addCollectMoneyListener(new CollectMoneyListener());
 
-        collectMoneyRVMView.setVisible(true);
+        collectMoneySVMView.setVisible(true);
     }
 
     class CollectMoneyListener implements ActionListener {
 
         @Override
         /**
-         * This initializes the authorizedOwner and authenticatedRegularMachine
+         * This initializes the authorizedOwner and authenticatedSpecialMachine
          * to be used all throughout the program
          *
          * @param owner which is the name of the owner of the vending machine
@@ -55,11 +55,11 @@ public class CollectMoneyRVMController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            String resultString = maintenanceModel.collectMoney();
-            collectMoneyRVMView.showMessage(resultString);
+            String resultString = maintenanceModel.collectSpecialMoney();
+            collectMoneySVMView.showMessage(resultString);
 
             TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
-            collectMoneyRVMView.dispose();
+            collectMoneySVMView.dispose();
         }
     }
 }

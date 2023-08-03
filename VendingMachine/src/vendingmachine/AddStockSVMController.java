@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
  *
  * @author Darryl
  */
-public class AddStockRVMController {
+public class AddStockSVMController {
 
-    final private AddStockRVMView addStockView;
+    final private AddStockSVMView addStockView;
     final private MaintenanceModel maintenanceModel;
 
-    public AddStockRVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
+    public AddStockSVMController(Owner owner, RegularVendingMachine regularMachine, SpecialVendingMachine specialMachine) {
         maintenanceModel = new MaintenanceModel(owner, regularMachine, specialMachine);
-        addStockView = new AddStockRVMView();
+        addStockView = new AddStockSVMView();
 
         this.addStockView.addStockListener(new StockListener());
 
@@ -37,10 +37,9 @@ public class AddStockRVMController {
             double itemCalories = addStockView.getStockCalories();
             int itemAmount = addStockView.getStockItemAmount();
 
-            boolean success = maintenanceModel.addStock(itemName, itemPrice, itemCalories, itemAmount);
-            
+            boolean success = maintenanceModel.addSpecialStock(itemName, itemPrice, itemCalories, itemAmount);
 
-            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
             addStockView.dispose();
         }
     }

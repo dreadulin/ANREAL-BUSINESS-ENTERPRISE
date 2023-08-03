@@ -36,7 +36,7 @@ public class RestockRVMController {
             int amount = restockRVMView.getInputAmount();
             String selectedItemName = restockRVMView.getItemComboBox().getSelectedItem().toString();
 
-            boolean success = maintenanceModel.restock(amount, selectedItemName);
+            boolean success = maintenanceModel.restockRegular(amount, selectedItemName);
 
             if (success) {
                 restockRVMView.showSuccessMessage();

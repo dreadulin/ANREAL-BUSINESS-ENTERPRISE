@@ -37,9 +37,9 @@ public class CreateRegularVMController {
             boolean success = dashboardModel.createRegularVM(inputName, itemSlots, itemSlotsQt);
 
             if (success) {
-                JOptionPane.showMessageDialog(null, "Created Regular Machine Successfully. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                createRegularVMView.showSuccessMessage();
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to added machine. Going back to the start menu...", "Message", JOptionPane.INFORMATION_MESSAGE);
+                createRegularVMView.showErrorMessage();
             }
 
             DashboardController dashboardController = new DashboardController(authenticatedOwner);
