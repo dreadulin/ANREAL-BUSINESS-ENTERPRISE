@@ -17,6 +17,7 @@ public class SpecialVMController {
 
     final private SpecialVMView svmView;
     final private SVMModel svmModel;
+    private int currentTotalCost = 0;
 
     String[] columnNames = {"Name", "Price", "Quantity", "Total"};
     String[] columnNames2 = {"Name", "Price", "Calories", "Stock"};
@@ -47,7 +48,7 @@ public class SpecialVMController {
             }
         }
 
-        svmView.getSpecialComboBox().addItem("");
+        svmView.getSpecialComboBox().addItem("Select Combo Item");
         for (SpecialItem item : authenticatedSpecialMachine.getSpecialItems()){
             svmView.getSpecialComboBox().addItem(item.getName());
         }
@@ -58,6 +59,7 @@ public class SpecialVMController {
     private void resetInfo() {
 
         svmModel.resetInfo();
+
         svmView.setInputItemName("");
         svmView.setInputQuantity("");
         svmView.setTotalCost("");
@@ -98,12 +100,12 @@ public class SpecialVMController {
 
             String itemName = svmView.getInputItemName();
             int dispenseQuantity = svmView.getInputQuantity();
-            int currentTotalCost = svmView.getTotalCost();
 
-            Response addItemResponse = svmModel.addItem(itemName, dispenseQuantity, currentTotalCost);
+            Response addItemResponse = svmModel.addItem(itemName, dispenseQuantity);
             boolean responseSuccess = addItemResponse.getStatus();
             String responseMessage = addItemResponse.getMessage();
             Item selectedItem = (Item) addItemResponse.getResponse();
+
 
             if (responseSuccess && selectedItem != null) {
                 ArrayList<Item> selectedItems = svmModel.getSelectedItems();
@@ -125,7 +127,7 @@ public class SpecialVMController {
                 svmView.setInputItemName("");
                 svmView.setInputQuantity("");
                 svmView.togglePay(true);
-            } else if (responseSuccess && selectedItem == null) {
+            } else if (responseSuccess) {
                 selectedItem = svmModel.getSelectedItem(itemName);
                 int totalCost = selectedItem.getPrice() * dispenseQuantity;
 
@@ -169,6 +171,7 @@ public class SpecialVMController {
                 svmView.setPayment("");
                 svmView.toggleDispense(true);
                 svmView.toggleCancelDispense(true);
+                svmView.toggleAddItem(false);
             } else {
                 svmView.setPayment("");
                 svmView.togglePay(true);
@@ -248,14 +251,17 @@ public class SpecialVMController {
                 case "Ultimate Halo Halo" -> {
                     UltimateHaloHalo ultimateHaloHalo = new UltimateHaloHalo();
                     ingredients = ultimateHaloHalo.getIngredients();
+                    cartItemTableModel.setRowCount(0);
                 }
                 case "Crema De Leche" -> {
                     CremaDeLeche cremaDeLeche = new CremaDeLeche();
                     ingredients = cremaDeLeche.getIngredients();
+                    cartItemTableModel.setRowCount(0);
                 }
                 case "Halo Halo" -> {
                     CustomHaloHalo customHaloHalo = new CustomHaloHalo();
                     ingredients = customHaloHalo.getIngredients();
+                    cartItemTableModel.setRowCount(0);
                 }
                 default -> {
                     return;
@@ -266,7 +272,7 @@ public class SpecialVMController {
             for (String ingredient : ingredients) {
                 Item item = svmModel.getAuthSpecialMachine().getItem(ingredient);
                 if (item != null) {
-                    Object[] row = {item.getName(), item.getPrice(), item.getCalories(), 1};
+                    Object[] row = {item.getName(), item.getPrice(), 1, item.getPrice()};
                     totalCost += item.getPrice();
                     cartItemTableModel.addRow(row);
                     svmModel.getSelectedItems().add(item);

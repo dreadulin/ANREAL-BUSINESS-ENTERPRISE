@@ -539,6 +539,7 @@ public class RegularVMView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        availableItemsTable.setColumnSelectionAllowed(true);
         availableItemsTable.setEnabled(false);
         availableItemsTable.setFocusable(false);
         availableItemsTable.getTableHeader().setReorderingAllowed(false);

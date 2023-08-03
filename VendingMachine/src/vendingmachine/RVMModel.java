@@ -43,6 +43,8 @@ public class RVMModel {
     public void resetInfo() {
         selectedItem = null;
         selectedItemSlot = null;
+        dispenseQuantity = 0;
+        payment = 0;
     }
 
     public Response dispenseItem(int totalCost, int totalChange) {

@@ -60,6 +60,7 @@ public class SVMModel {
     public void resetInfo() {
         selectedItems = new ArrayList<>();
         selectedItemsQuantities = new ArrayList<>();
+        payment = 0;
     }
 
     public Response dispenseItem(int totalCost, int totalChange) {
@@ -184,7 +185,7 @@ public class SVMModel {
         return response;
     }
 
-    public Response addItem(String itemName, int dispenseQuantity, int currentTotalCost) {
+    public Response addItem(String itemName, int dispenseQuantity) {
         Response response;
 
         Item selectedItem = null;

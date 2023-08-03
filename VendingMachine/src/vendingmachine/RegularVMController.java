@@ -55,8 +55,8 @@ public class RegularVMController {
 
         rvmView.setInputItemName("");
         rvmView.setInputQuantity("");
-        rvmView.setTotalCost("");
-        rvmView.setTotalChange("");
+        rvmView.setTotalCost("0");
+        rvmView.setTotalChange("0");
 
         rvmView.toggleAddItem(true);
         rvmView.toggleDispense(false);
