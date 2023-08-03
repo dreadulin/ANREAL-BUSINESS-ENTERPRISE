@@ -41,7 +41,7 @@ public class ReplenishMoneyRVMController {
 
             replenishMoneyRVMView.showMessage(result);
 
-            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             replenishMoneyRVMView.dispose();
         }
     }

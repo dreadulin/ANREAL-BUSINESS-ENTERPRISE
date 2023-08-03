@@ -58,7 +58,7 @@ public class CollectMoneyRVMController {
             String resultString = maintenanceModel.collectRegularMoney();
             collectMoneyRVMView.showMessage(resultString);
 
-            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             collectMoneyRVMView.dispose();
         }
     }

@@ -45,7 +45,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            CollectMoneySVMController collectMoney = new CollectMoneySVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -58,7 +58,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            ReplenishMoneySVMController replenishMoney = new ReplenishMoneySVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -71,7 +71,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            ChangePriceSVMController changePrice = new ChangePriceSVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -84,7 +84,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            AddStockSVMController addStock = new AddStockSVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -97,7 +97,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            RestockSVMController restock = new RestockSVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -110,7 +110,7 @@ public class TestSpecialMaintenanceController {
             RegularVendingMachine authRegular = maintenanceModel.getAuthRegularMachine();
             SpecialVendingMachine authSpecial = maintenanceModel.getAuthSpecialMachine();
 
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
+            TransactionSummarySVMController transactionSummary = new TransactionSummarySVMController(authOwner, authRegular, authSpecial);
             testSpecialMaintenanceView.dispose();
         }
     }
@@ -122,8 +122,7 @@ public class TestSpecialMaintenanceController {
             String selectedMachine = testSpecialMaintenanceView.getSpecialMachineComboBox().getSelectedItem()
                     .toString();
             maintenanceModel.authenticateSpecialMachine(selectedMachine);
-            // CollectMoneyRVMController collectMoney = new CollectMoneyRVMController();
-            testSpecialMaintenanceView.dispose();
+            testSpecialMaintenanceView.revealOptions();
         }
     }
 

@@ -180,9 +180,25 @@ public class MaintenanceModel {
         return transactionsToSummarize;
     }
 
+    public ArrayList<Slot> getRegularLastRestockSlots() {
+        return authenticatedRegularMachine.getLastRestockSlots();
+    }
+
+    public ArrayList<Slot> getRegularSlots() {
+        return authenticatedRegularMachine.getItemSlots();
+    }
+
     public List<Transaction> getSpecialTransactions() {
         ArrayList<Transaction> transactions = authenticatedSpecialMachine.getTransactions();
         List<Transaction> transactionsToSummarize = transactions.stream().filter(t -> t.getTransactionDate() > authenticatedSpecialMachine.lastRestockDate).toList();
         return transactionsToSummarize;
+    }
+
+    public ArrayList<Slot> getSpecialLastRestockSlots() {
+        return authenticatedSpecialMachine.getLastRestockSlots();
+    }
+
+    public ArrayList<Slot> getSpecialSlots() {
+        return authenticatedSpecialMachine.getItemSlots();
     }
 }

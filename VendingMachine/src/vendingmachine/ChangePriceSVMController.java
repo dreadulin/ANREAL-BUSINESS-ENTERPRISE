@@ -49,7 +49,7 @@ public class ChangePriceSVMController {
                 changePriceSVMView.showErrorMessage();
             }
 
-            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
+            TestSpecialMaintenanceController testSpecialMaintenance = new TestSpecialMaintenanceController(authOwner, authRegular, authSpecial);
             changePriceSVMView.dispose();
         }
     }

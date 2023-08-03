@@ -49,7 +49,7 @@ public class ChangePriceRVMController {
                 changePriceRVMView.showErrorMessage();
             }
 
-            TestMaintenanceMenuController testMaintenanceMenu = new TestMaintenanceMenuController(authOwner, authRegular, authSpecial);
+            TestRegularMaintenanceController testRegularMaintenance = new TestRegularMaintenanceController(authOwner, authRegular, authSpecial);
             changePriceRVMView.dispose();
         }
     }

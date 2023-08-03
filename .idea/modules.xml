@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ANREAL-BUSINESS-ENTERPRISE.iml" filepath="$PROJECT_DIR$/ANREAL-BUSINESS-ENTERPRISE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VendingMachine/VendingMachine.iml" filepath="$PROJECT_DIR$/VendingMachine/VendingMachine.iml" />
+    </modules>
+  </component>
+</project>
